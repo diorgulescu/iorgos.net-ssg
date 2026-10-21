@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Program Pregătire BJJ &amp; Reabilitare // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Dark Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+  <!-- Zero-FOUC Theme Initializer -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../../programe/" class="text-emerald-400 font-semibold">Programs</a>
+        <a href="../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
+        <a href="../../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
+        <a href="../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+  <!-- BREADCRUMB / HUD -->
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
+    <a href="../../programe/" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-purple-400 transition-colors">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>← Programs</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="badge-purple">BJJ PREP & REHABILITATION</span>
+      <span class="status-pill">
+        <span class="status-dot-sky"></span>
+        ACTIVE RECOVERY HUD
+      </span>
+    </div>
+  </div>
+
+  <!-- HERO CARD -->
+  <div class="tactical-card mb-8">
+    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-400 mb-3">
+      <span class="text-purple-400 font-semibold">FRAMEWORK // 03</span>
+      <span class="text-slate-700">•</span>
+      <span class="text-slate-400">FOCUS // ELBOW REHAB (TENDINITIS) & ZONE 2 BASE</span>
+      <span class="text-slate-700">•</span>
+      <span class="text-sky-400">DISCIPLINE // BRAZILIAN JIU-JITSU & KETTLEBELL</span>
+    </div>
+
+    <h1 class="font-display font-bold text-3xl sm:text-5xl text-slate-100 leading-tight mb-4">
+      Program Pregătire BJJ & Reabilitare
+    </h1>
+
+    <p class="text-slate-400 text-sm max-w-3xl leading-relaxed mb-4">
+      Protocol special structurat pentru vindecarea tendinitei de cot, construirea unei baze aerobe solide în Zona 2 (bicicletă staționară, rucking sau alergare lentă), mobilitate specifică pentru sol (BJJ) și forță structurală prin kettlebells.
+    </p>
+
+    <div class="recessed-box text-xs font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span>PERIOD // IULIE – SEPTEMBRIE</span>
+      <span>MICRO-ROUTINE // DAILY 5–7 MIN ELBOW REHAB</span>
+      <span>CARDIO // ZONE 2 CONSTANT (NO CORTISOL SPIKES)</span>
+    </div>
+  </div>
+
+  <!-- DAILY MICRO ROUTINE -->
+  <div class="tactical-card mb-8 border-purple-500/30">
+    <div class="flex items-center gap-2 font-mono text-xs text-purple-400 font-semibold uppercase tracking-wider mb-3">
+      <i class="ph-bold ph-wrench text-base"></i>
+      Micro-Rutina Zilnică: Cot & Antebraț (5–7 minute)
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
+      <div class="recessed-box border-slate-800">
+        <strong class="text-slate-200 block mb-1">1. Izometrie încheietură (90°):</strong>
+        <span class="text-slate-400">3 serii &times; 30–45 sec. menținere</span>
+      </div>
+      <div class="recessed-box border-slate-800">
+        <strong class="text-slate-200 block mb-1">2. Coborâri excentrice lente:</strong>
+        <span class="text-slate-400">3 serii &times; 10–12 rep. (coborâre 4–5 sec.)</span>
+      </div>
+      <div class="recessed-box border-slate-800">
+        <strong class="text-slate-200 block mb-1">3. Extensii degete cu elastic:</strong>
+        <span class="text-slate-400">2–3 serii &times; 15–20 rep.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEKLY SCHEDULE TABLE -->
+  <div class="tactical-panel p-6 sm:p-8 mb-8 overflow-x-auto">
+    <div class="font-display font-bold text-xl text-slate-100 mb-4 flex items-center justify-between">
+      <span>Plan Săptămânal de Lucru</span>
+      <span class="font-mono text-xs text-slate-400">7-DAY PROTOCOL</span>
+    </div>
+
+    <table class="w-full text-left font-sans text-xs sm:text-sm border-collapse">
+      <thead>
+        <tr class="border-b border-slate-800 font-mono text-xs text-slate-400 uppercase bg-[#0B0F17]">
+          <th class="p-3 w-24">Ziua</th>
+          <th class="p-3 w-40">Focus Principal</th>
+          <th class="p-3">Blocul 1: Forță / Core / Mobilitate</th>
+          <th class="p-3 w-64">Blocul 2: Bază Aerobă (Zona 2)</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-800/60 font-sans text-xs sm:text-sm">
+        <tr class="hover:bg-slate-900/30">
+          <td class="p-3 font-mono font-bold text-emerald-400">LUNI</td>
+          <td class="p-3 font-semibold text-slate-300">KB & Bază Aerobă</td>
+          <td class="p-3">
+            <ul class="list-disc list-inside space-y-1 text-slate-300">
+              <li><strong>Goblet Squat (16 kg):</strong> 3 x 5 (pauză 3s jos)</li>
+              <li><strong>Double KB Deadlift (2x20 kg):</strong> 4 x 8 (Dead-stop)</li>
+              <li><strong>Turkish Get-Up (12–14 kg):</strong> 3 / parte</li>
+            </ul>
+          </td>
+          <td class="p-3 font-mono text-sky-400">
+            <span class="block text-slate-200 font-semibold">30 min (Zona 2 constant)</span>
+            <span class="text-slate-400 text-xs font-sans">Opțiuni: Bicicletă staționară, rucking sau alergare lentă Zona 2</span>
+          </td>
+        </tr>
+        <tr class="hover:bg-slate-900/30">
+          <td class="p-3 font-mono font-bold text-purple-400">MARȚI</td>
+          <td class="p-3 font-semibold text-slate-300">Mobilitate BJJ & Core</td>
+          <td class="p-3">
+            <ul class="list-disc list-inside space-y-1 text-slate-300">
+              <li><strong>Bridge & Reach:</strong> 2 x 8 / parte | <strong>Shrimpings:</strong> 3 x 10 / parte</li>
+              <li><strong>Flotări Hardstyle/RKC:</strong> 3–4 x 3–5 rep pe pumni</li>
+              <li><strong>Tuck Hollow Hold:</strong> 4 x 15–20 sec. (spatele lipit)</li>
+            </ul>
+          </td>
+          <td class="p-3 font-mono text-purple-400">Mobilitate pasivă: Couch Stretch & 90/90 (60s/parte)</td>
+        </tr>
+        <tr class="hover:bg-slate-900/30">
+          <td class="p-3 font-mono font-bold text-sky-400">MIERCURI</td>
+          <td class="p-3 font-semibold text-slate-300">Cardio & Reîncărcare</td>
+          <td class="p-3 text-slate-400 italic">Pauză completă pentru brațe și picioare.</td>
+          <td class="p-3 font-mono text-sky-400">
+            <span class="block text-slate-200 font-semibold">35–40 min (Ritm lejer)</span>
+            <span class="text-slate-400 text-xs font-sans">Opțiuni: Bicicletă staționară, rucking sau alergare lentă Zona 2</span>
+          </td>
+        </tr>
+        <tr class="hover:bg-slate-900/30">
+          <td class="p-3 font-mono font-bold text-emerald-400">JOI</td>
+          <td class="p-3 font-semibold text-slate-300">KB & Structură Upper</td>
+          <td class="p-3">
+            <ul class="list-disc list-inside space-y-1 text-slate-300">
+              <li><strong>Goblet Squat (16 kg):</strong> 3 x 5 | <strong>Single KB Deadlift (32 kg):</strong> 4 x 6–8</li>
+              <li><strong>Turkish Get-Up (12–14 kg):</strong> 3–4 / parte</li>
+              <li><strong>Flotări Hardstyle:</strong> 3–4 x 3–5 rep.</li>
+              <li><strong>Ramat izometric la inele/chingi:</strong> 3 x 20–30 sec.</li>
+            </ul>
+          </td>
+          <td class="p-3 font-mono text-slate-400">
+            <span class="block text-slate-300">Opțional: 15–20 min refacere</span>
+            <span class="text-slate-400 text-xs font-sans">Pedalat lejer, rucking sau alergare ușoară Zona 2</span>
+          </td>
+        </tr>
+        <tr class="hover:bg-slate-900/30">
+          <td class="p-3 font-mono font-bold text-purple-400">VINERI</td>
+          <td class="p-3 font-semibold text-slate-300">Mobilitate & Core BJJ</td>
+          <td class="p-3">
+            <ul class="list-disc list-inside space-y-1 text-slate-300">
+              <li><strong>Bridge & Reach + Shrimpings:</strong> Rulaj 15 min</li>
+              <li><strong>Tuck Hollow Hold:</strong> 4 x 15–20 sec.</li>
+              <li><strong>Întinderi coloană toracică:</strong> 5 min</li>
+            </ul>
+          </td>
+          <td class="p-3 font-mono text-sky-400">
+            <span class="block text-slate-200 font-semibold">20–30 min (Rulaj foarte lejer)</span>
+            <span class="text-slate-400 text-xs font-sans">Opțiuni: Bicicletă staționară, rucking sau alergare lentă Zona 2</span>
+          </td>
+        </tr>
+        <tr class="hover:bg-slate-900/30">
+          <td class="p-3 font-mono font-bold text-amber-400">SÂMBĂTĂ</td>
+          <td class="p-3 font-semibold text-slate-300">Soare & Parc</td>
+          <td class="p-3">
+            <ul class="list-disc list-inside space-y-1 text-slate-300">
+              <li><strong>Mers alert pe bucla din parc (1.6 km)</strong></li>
+              <li><strong>Scări:</strong> 3–5 urcări cadențate (călcat cu toată talpa, împins din călcâi/fesieri)</li>
+            </ul>
+          </td>
+          <td class="p-3 font-mono text-amber-400">
+            <span class="block text-amber-300 font-semibold">Aerob în aer liber: 45–60 min</span>
+            <span class="text-slate-400 text-xs font-sans">Rucking (cu vestă/rucsac), mers alert sau alergare lentă Zona 2</span>
+          </td>
+        </tr>
+        <tr class="hover:bg-slate-900/30">
+          <td class="p-3 font-mono font-bold text-slate-400">DUMINICĂ</td>
+          <td class="p-3 font-semibold text-slate-300">Odihnă Activă</td>
+          <td class="p-3 text-slate-400 italic">Plimbare lejeră cu familia. Fără cronometru sau structură.</td>
+          <td class="p-3 font-mono text-emerald-400 font-semibold">Refacere completă & Somn</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GOLDEN RULES -->
+  <div class="tactical-panel p-6 sm:p-8 border-amber-500/30 bg-amber-500/5 mb-8">
+    <div class="font-mono text-xs uppercase tracking-wider text-amber-400 font-bold mb-4 flex items-center gap-2">
+      <i class="ph-bold ph-shield-check text-base"></i>
+      Reguli de Aur pentru Menținerea Sănătății Structurale
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+      <div class="recessed-box">
+        <strong class="text-amber-300 block mb-1">FLOTĂRI HARDSTYLE:</strong>
+        <p class="text-slate-300">Tensiune 100%, corp rigid ca o scândură, expir presurizat (Power Breath). Calitate maximă pe 3–5 repetări.</p>
+      </div>
+      <div class="recessed-box">
+        <strong class="text-amber-300 block mb-1">HOLLOW HOLD:</strong>
+        <p class="text-slate-300">Dacă zona lombară se desprinde 1 mm de sol, oprește seria imediat. Respiră scurt „sub scut”.</p>
+      </div>
+      <div class="recessed-box">
+        <strong class="text-amber-300 block mb-1">MONITORIZARE COT:</strong>
+        <p class="text-slate-300">Dacă simți rigiditate crescută a doua zi dimineață, scade volumul la kettlebell cu 20% și crește excentricele.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-slate-800 bg-[#111827]/60">
+    <a href="../../programe/" class="tactical-btn">
+      <i class="ph-bold ph-arrow-left"></i>
+      BACK TO TRAINING DIRECTORY
+    </a>
+    <button onclick="window.print()" class="tactical-btn-emerald">
+      <i class="ph-bold ph-printer"></i>
+      PRINT BJJ PROTOCOL
+    </button>
+  </div>
+</main>
+
+
+  <!-- TACTICAL FOOTER HUD -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>

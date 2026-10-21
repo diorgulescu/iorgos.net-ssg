@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deploying Microsoft Hyper-V Server 2019 without a Domain Controller // Howto // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+
+  <!-- TOP HUD BAR -->
+  <div class="border-b border-slate-800/80 bg-[#0B0F17]/95 text-[11px] font-mono text-slate-400 py-1.5 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          SYS // ONLINE
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-400">NODE // BUCHAREST</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span class="hidden sm:inline text-slate-400">ARCH // STANDALONE-HTML5</span>
+      </div>
+      <div class="flex items-center gap-3 text-slate-400">
+        <span id="hud-clock">--:--:-- // LOCAL</span>
+        <span class="text-slate-700">|</span>
+        <span class="text-sky-400 font-medium">ENGINE // ZERO DEPENDENCY</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span id="theme-status-hud" class="hidden sm:inline font-mono text-[10px] uppercase text-emerald-400">MODE // DARK</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN TACTICAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#111827]/85 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-emerald-400 group-hover:border-emerald-500/50 group-hover:shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)] transition-all">
+          <i class="ph-duotone ph-terminal-window text-xl"></i>
+        </div>
+        <div>
+          <div class="font-display font-bold text-slate-100 text-base tracking-wider group-hover:text-emerald-400 transition-colors">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <div class="text-[10px] font-mono uppercase tracking-widest text-slate-400">
+            TEST ENGINEER // STRENGTH PRACTITIONER // ASPIRING VIDEOGRAPHER
+          </div>
+        </div>
+      </a>
+
+      <!-- DESKTOP NAV -->
+      <nav class="hidden md:flex items-center gap-1 font-mono text-xs uppercase tracking-wider">
+        <a href="../../blog/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">01 //</span>BLOG
+        </a>
+        <a href="../../programe/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">02 //</span>PROGRAMS
+        </a>
+        <a href="../../sounds/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">03 //</span>SOUNDS
+        </a>
+        <a href="../../howto/" class="px-3 py-1.5 rounded-lg border transition-all bg-slate-800 text-white border-slate-700 font-bold">
+          <span class="text-slate-500 mr-1">04 //</span>HOW-TO
+        </a>
+        <a href="../../now.html" class="ml-2 px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-all flex items-center gap-1.5 text-[11px] ">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+          NOW
+        </a>
+
+        <!-- THEME TOGGLE BUTTON (DESKTOP) -->
+        <button type="button" class="theme-toggle-btn ml-3 w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- MOBILE ACTIONS (THEME TOGGLE + HAMBURGER) -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" class="theme-toggle-btn w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:border-slate-700" aria-label="Toggle Menu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU DROPDOWN -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 backdrop-blur-xl px-4 py-4 space-y-2 font-mono text-xs uppercase tracking-wider">
+      <a href="../../" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">00 // HOME</a>
+      <a href="../../blog/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">01 // BLOG</a>
+      <a href="../../programe/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">02 // TRAINING PROGRAMS</a>
+      <a href="../../sounds/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">03 // SOUNDS</a>
+      <a href="../../howto/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">04 // HOW-TO</a>
+      <a href="../../now.html" class="block px-3 py-2.5 rounded-lg text-emerald-400 bg-emerald-500/10 border border-emerald-500/30">05 // NOW PAGE</a>
+      <div class="pt-2 border-t border-slate-800 flex items-center justify-between px-3 py-2 text-slate-400">
+        <span>SCHEMA VIZUALĂ</span>
+        <button type="button" class="theme-toggle-btn px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
+          <i class="theme-toggle-icon ph-bold ph-sun text-amber-400"></i>
+          <span>SCHIMBĂ TEMA</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
+    <a href="../../howto/" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// RETURN TO HOWTO DIRECTORY</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="badge-sky">SYSADMIN // TECH</span>
+      <span class="status-pill">
+        <span class="status-dot-emerald"></span>
+        DISPATCH #DEPLOY-HYPER
+      </span>
+    </div>
+  </div>
+
+  <div class="tactical-card mb-8">
+    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-400 mb-3">
+      <span class="inline-flex items-center gap-1 text-emerald-400 font-semibold">
+        <i class="ph-bold ph-calendar-blank"></i>
+        <time datetime="2021-05-20">20 May 2021</time>
+      </span>
+      <span class="text-slate-700">•</span>
+      <span class="inline-flex items-center gap-1 text-sky-400">
+        <i class="ph-bold ph-clock"></i>
+        3 MIN READ
+      </span>
+      <span class="text-slate-700">•</span>
+      <span class="text-slate-400">LOG // deploy-hyperv2019</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight mb-4">
+      Deploying Microsoft Hyper-V Server 2019 without a Domain Controller
+    </h1>
+
+    <div class="recessed-box text-xs font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span>AUTHOR // DRAGOȘ IORGULESCU</span>
+      <span>STREAM // HOWTO</span>
+      <span>STATUS // PUBLISHED</span>
+    </div>
+  </div>
+
+  <article class="tactical-panel p-6 sm:p-10 prose-tactical">
+    <h3 id="prerequisites">Prerequisites</h3>
+
+<ul>
+<li>For fully managing the Hyper-V server remotely, you need to install Remote Server Administration Tools</li><li>Download the Hyper-V 2019 ISO from Microsoft</li><li>Rufus USB flashing tool</li><li>A decent PC LOL</li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<p>Well, not much to say here. Pretty straightforward, just like a normal Windows installation.</p>
+
+<p>Once the ISO is downloaded, stick an USB stick into your PC and launch Rufus. Select the ISO file you’ve just downloaded, make sure the USB stick is selected and check that GPT is used. Reboot your server-to-be and select the USB drive as a boot option. Then, carry on as usual.</p>
+
+<p>Easy-peasy lemon-squeezy!</p>
+
+<h3 id="enable-remote-hyper-v-management">Enable Remote Hyper-V Management</h3>
+
+<p>This is strictly in regards to Hyper-V and it’s settings. For “full” remote server management, please see the section about using Remote Administration Tools/Server Manager. All commands are for Powershell, unless otherwise specified so. Make sure you run these in a Powershell session with administrative rights!</p>
+
+<p>On The Server:</p>
+
+<pre><code>Enable-PSRemoting Enable-WSManCredSSP -Role server</code></pre>
+
+<p>On the client (my laptop in this case):</p>
+
+<pre><code>Set-Item WSMan:\localhost\Client\TrustedHosts -Value &quot;HYPERV-SERVER&quot; Enable-WSManCredSSP -Role &quot;Client&quot; -DelegateComputer &quot;HYPERV-SERVER&quot;</code></pre>
+
+<p>Now, for me this did not seem to work at all, so I reissued the commands above, but with the IP address replacing the FQDN of the Hyper-V server:</p>
+
+<pre><code>Set-Item WSMan:\localhost\Client\TrustedHosts -Value &quot;192.168.1.6&quot; Enable-WSManCredSSP -Role &quot;Client&quot; -DelegateComputer &quot;192.168.1.6&quot;</code></pre>
+
+<p>After that, it was required for me edit the Group Policies.</p>
+
+<h3 id="edit-group-policies">Edit Group Policies</h3>
+
+<p>Again, following the official instructions from Microsoft proved to be insufficient, so I once again need to praise Taylord Tech, because he did encounter all these issues and pointed to a valuable tip.</p>
+
+<p>Open <strong>gpedit.msc</strong> and go to <strong>“Computer Configuration > Administrative Templates > System > Credentials Delegation”</strong>. Double click <strong>“Allow delegating fresh credentials with NTLM-only server authentication”</strong> and select <strong>“Enable”</strong>. Then, Click <strong>“Show”</strong>, next to <strong>“Add servers to the list”</strong> and add *<em>“WSMAN</em>“<strong>. The official docs say one should add the FQDN of the server (</strong>“WSMAN\HYPERV-SERVER” in my case**), but that didn’t work at all for me.</p>
+
+<h3 id="enable-remote-disk-management">Enable Remote Disk Management</h3>
+
+<p>I did not succeed in setting up remote disk management, even though I did follow some how-to’s/tutorials/links in the MS Docs. I issued the following PowerShell commands on both the server & the client, but with no luck:</p>
+
+<pre><code>Set-NetFirewallRule –Name “RVM-VDS-In-TCP” –Enabled True -Profile Any
+Set-NetFirewallRule –Name “RVM-VDSLDR-In-TCP” –Enabled True -Profile Any
+Set-NetFirewallRule –Name “RVM-RPCSS-In-TCP” –Enabled True -Profile Any</code></pre>
+
+<p>After installing Remote Server Administration Tools on my Windows 10 laptop, I couldn’t get the Server Manager to properly connect to the Hyper-V host. I have some things to learn, that’s true. The errors were in regards to HTTPS access, since my laptop & server are not part of a domain (I guess that has something to do with it).</p>
+
+<p>But, for my needs, a simple Remote Desktop Connection was enough.</p>
+
+<h3 id="adding-a-new-disk">Adding a new disk</h3>
+
+<p>I ran the ‘diskpart.exe’ tool from a simple command prompt (“cmd.exe”) and formatted the second SSD drive on my server (~500GB) and assigned it a drive letter:</p>
+
+<pre><code>c:\diskpart
+DISKPART&gt; list disk
+Disk ###  Status         Size     Free     Dyn  Gpt
+--------  -------------  -------  -------  ---  ---
+Disk 0    Online          120 GB     0 B
+Disk 1    Online          500 GB   200 GB
+DISKPART&gt; select disk 1
+Disk 1 is now the selected disk.
+DISKPART&gt; create partition primary
+DISKPART&gt; list partition
+DISKPART&gt; select partition 1
+DISKPART&gt; format fs=NTFS quick
+DISKPART&gt; assign letter=D</code></pre>
+
+<h3 id="copying-files-to-the-hyper-v-host">Copying files to the Hyper-V host</h3>
+
+<p>Now, I just needed a way to actually copy some ISO’s over to the server so that I could install various operating systems. Being in the context of a homelab, I resorted to file sharing (I even mapped the drive on which I keep my “ISO store”). For that, I issued the following from a Powershell instance on the Server:</p>
+
+<pre><code>netsh advfirewall firewall set rule group=&quot;File and Printer Sharing&quot; new enable=Yes</code></pre>
+
+<p>Then, I mapped the C: drive on my server to Z: on my laptop. This way, I was able to copy all ISO files I would ever need (and not only that).</p>
+
+<p>Right after that, I began installing my first VMs on my first homelab Hyper-V Server.</p>
+
+<p>Yay me!</p>
+
+<h3 id="references-resources">References & Resources</h3>
+
+<ul>
+<li>https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/remotely-manage-hyper-v-hosts</li><li>https://www.youtube.com/watch?v=57Ijn7re8X8</li><li>https://social.technet.microsoft.com/Forums/office/en-US/cbdbcf92-d697-41d1-aa7a-bacf34bd48a5/remote-disk-management-rpc-server-unavailable</li><li>https://serverfault.com/questions/449192/server-2012-core-no-gui-how-to-manage-disks</li><li>http://technet.microsoft.com/en-us/library/cc770877.aspx</li><li>https://www.nakivo.com/blog/copy-iso-file-hyper-v-host/</li>
+</ul>
+  </article>
+
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-slate-800 bg-[#111827]/60">
+    <a href="../../howto/" class="tactical-btn">
+      <i class="ph-bold ph-arrow-left"></i>
+      BACK TO ALL HOWTO
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="tactical-btn-emerald">
+      <i class="ph-bold ph-arrow-up"></i>
+      BACK TO TOP
+    </a>
+  </div>
+</main>
+
+
+  <!-- TACTICAL FOOTER HUD -->
+  <footer class="mt-20 border-t border-slate-800/80 bg-[#0B0F17] py-12 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+        <div class="md:col-span-5 space-y-3">
+          <div class="font-display font-bold text-slate-100 text-lg tracking-wider">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <p class="text-sm text-slate-400 font-sans leading-relaxed max-w-md">
+            Software Test Engineer, kettlebell lifter, open-source enthusiast, and audio explorer. Dedicated to high-leverage simplicity, robust physical conditioning, and pragmatic engineering across open and proprietary platforms.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
+            <span class="inline-flex items-center gap-1.5 text-emerald-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              STANDALONE ARCHITECTURE
+            </span>
+            <span class="text-slate-700">//</span>
+            <span>100% PURE HTML5</span>
+          </div>
+        </div>
+
+        <div class="md:col-span-3 space-y-3 font-mono text-xs">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-bold">DIRECTORY //</div>
+          <ul class="space-y-2">
+            <li><a href="../../blog/" class="text-slate-400 hover:text-emerald-400 transition-colors">01 // Journal (Blog)</a></li>
+            <li><a href="../../programe/" class="text-slate-400 hover:text-emerald-400 transition-colors">02 // Training Frameworks</a></li>
+            <li><a href="../../sounds/" class="text-slate-400 hover:text-emerald-400 transition-colors">03 // Sound Archives</a></li>
+            <li><a href="../../howto/" class="text-slate-400 hover:text-emerald-400 transition-colors">04 // Technical How-Tos</a></li>
+            <li><a href="../../now.html" class="text-slate-400 hover:text-emerald-400 transition-colors">05 // Current Focus (Now)</a></li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-4 space-y-3">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">COMMS CHANNELS //</div>
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <a href="mailto:dragos@iorgos.net" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/40 transition-all">
+              <i class="ph-bold ph-envelope text-base text-emerald-400"></i>
+              <span>Email</span>
+            </a>
+            <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-purple-400 hover:border-purple-500/40 transition-all">
+              <i class="ph-bold ph-chats text-base text-purple-400"></i>
+              <span>Mastodon</span>
+            </a>
+            <a href="https://github.com/diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/40 transition-all">
+              <i class="ph-bold ph-github-logo text-base text-sky-400"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="#" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-amber-400 hover:border-amber-500/40 transition-all">
+              <i class="ph-bold ph-terminal text-base text-amber-400"></i>
+              <span>twtxt</span>
+            </a>
+          </div>
+          <p class="text-[11px] font-mono text-slate-500 pt-1">
+            LIFT HEAVY. BE KIND. BUILD ROBUST SOFTWARE.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> DRAGOȘ IORGULESCU. 
+          <span class="text-slate-600">//</span> ALL RIGHTS RESERVED.
+        </div>
+        <div class="flex items-center gap-4">
+          <span>HOST // <a href="https://my.namebox.ro/aff.php?aff=505" class="text-slate-400 hover:underline">NAMEBOX.RO</a></span>
+          <span class="text-slate-600">|</span>
+          <span class="text-emerald-400/90 font-semibold">ZERO ENGINE DEPENDENCY</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>

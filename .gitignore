@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+
+# Legacy Hugo build caches
+_legacy_hugo/public/
+_legacy_hugo/.hugo_build.lock
+_legacy_hugo/resources/

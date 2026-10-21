@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    
+    <!-- Generare CSS cu cache-busting automat -->
+    {{ $style := resources.Get "s.css" | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav>
+            <a href="/" class="logo">dragoș iorgulescu</a>
+            <div class="nav-links">
+                <a href="/blog/">blog</a>
+                <a href="/programe/">training programs</a>
+                <a href="/sounds/">sounds</a>
+                <a href="/howto/">how-to</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="content">
+        <!-- Aici va fi injectat continutul fiecarei pagini -->
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer class="site-footer">
+        <div class="social-links">
+            <a href="mailto:dragos@iorgos.net">E-Mail</a> | 
+            <a rel="me" href="https://mastodon.social/@diorgulescu">Mastodon</a> | 
+            <a href="https://github.com/diorgulescu">GitHub</a> | 
+            <a href="#">twtxt</a>
+        </div>
+        <p class="credits">
+            Built with <a href="https://gohugo.io/">Hugo</a>. Hosted on <a href="https://my.namebox.ro/aff.php?aff=505">namebox.ro</a>.
+        </p>
+    </footer>
+</body>
+</html>

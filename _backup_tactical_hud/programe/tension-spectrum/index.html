@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tension Spectrum // Training Framework // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Dark Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+  <!-- Zero-FOUC Theme Initializer -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+
+  <!-- TOP HUD BAR -->
+  <div class="border-b border-slate-800/80 bg-[#0B0F17]/95 text-[11px] font-mono text-slate-400 py-1.5 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          SYS // ONLINE
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-400">NODE // BUCHAREST</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span class="hidden sm:inline text-slate-400">ARCH // STANDALONE-HTML5</span>
+      </div>
+      <div class="flex items-center gap-3 text-slate-400">
+        <span id="hud-clock">--:--:-- // LOCAL</span>
+        <span class="text-slate-700">|</span>
+        <span class="text-sky-400 font-medium">ENGINE // ZERO DEPENDENCY</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span id="theme-status-hud" class="hidden sm:inline font-mono text-[10px] uppercase text-emerald-400">MODE // DARK</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN TACTICAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#111827]/85 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-emerald-400 group-hover:border-emerald-500/50 group-hover:shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)] transition-all">
+          <i class="ph-duotone ph-terminal-window text-xl"></i>
+        </div>
+        <div>
+          <div class="font-display font-bold text-slate-100 text-base tracking-wider group-hover:text-emerald-400 transition-colors">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <div class="text-[10px] font-mono uppercase tracking-widest text-slate-400">
+            TEST ENGINEER // STRENGTH PRACTITIONER // ASPIRING VIDEOGRAPHER
+          </div>
+        </div>
+      </a>
+
+      <!-- DESKTOP NAV -->
+      <nav class="hidden md:flex items-center gap-1 font-mono text-xs uppercase tracking-wider">
+        <a href="../../blog/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">01 //</span>BLOG
+        </a>
+        <a href="../../programe/" class="px-3 py-1.5 rounded-lg border transition-all bg-slate-800 text-white border-slate-700 font-bold">
+          <span class="text-slate-500 mr-1">02 //</span>PROGRAMS
+        </a>
+        <a href="../../sounds/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">03 //</span>SOUNDS
+        </a>
+        <a href="../../howto/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">04 //</span>HOW-TO
+        </a>
+        <a href="../../now.html" class="ml-2 px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-all flex items-center gap-1.5 text-[11px] ">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+          NOW
+        </a>
+              <!-- THEME TOGGLE BUTTON (DESKTOP) -->
+        <button type="button" class="theme-toggle-btn ml-3 w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+            <!-- MOBILE ACTIONS (THEME TOGGLE + HAMBURGER) -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" class="theme-toggle-btn w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:border-slate-700" aria-label="Toggle Menu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU DROPDOWN -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 backdrop-blur-xl px-4 py-4 space-y-2 font-mono text-xs uppercase tracking-wider">
+      <a href="../../" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">00 // HOME</a>
+      <a href="../../blog/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">01 // BLOG</a>
+      <a href="../../programe/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">02 // TRAINING PROGRAMS</a>
+      <a href="../../sounds/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">03 // SOUNDS</a>
+      <a href="../../howto/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">04 // HOW-TO</a>
+      <a href="../../now.html" class="block px-3 py-2.5 rounded-lg text-emerald-400 bg-emerald-500/10 border border-emerald-500/30">05 // NOW PAGE</a>
+    </div>
+  </header>
+
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+  <!-- BREADCRUMB / HUD -->
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
+    <a href="../../programe/" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// RETURN TO TRAINING DIRECTORY</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="badge-emerald">STRONGFIRST GIRYA // PROTOCOL</span>
+      <span class="status-pill">
+        <span class="status-dot-emerald"></span>
+        ACTIVE METHODOLOGY
+      </span>
+    </div>
+  </div>
+
+  <!-- HERO CARD -->
+  <div class="tactical-card mb-8">
+    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-400 mb-3">
+      <span class="text-emerald-400 font-semibold">FRAMEWORK // 01</span>
+      <span class="text-slate-700">•</span>
+      <span class="text-slate-400">FOCUS // FUNCTIONAL HYPERTROPHY & TENSION CONTROL</span>
+      <span class="text-slate-700">•</span>
+      <span class="text-amber-400">SYSTEM // STRONGFIRST PRINCIPLES</span>
+    </div>
+
+    <h1 class="font-display font-bold text-3xl sm:text-5xl text-slate-100 leading-tight mb-4">
+      Tension Spectrum
+    </h1>
+
+    <div class="recessed-box text-xs font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span>FREQUENCY // 5-DAY HYBRID SPLIT</span>
+      <span>GOAL // HYPERTROPHY WITHOUT CNS EXHAUSTION</span>
+      <span>RECOVERY // HIGH COMPLIANCE</span>
+    </div>
+  </div>
+
+  <!-- ARTICLE BODY -->
+  <article class="tactical-panel p-6 sm:p-10 prose-tactical">
+    <section class="program-intro">
+    <!-- Secțiunea pentru logo-ul SVG -->
+    <div class="program-logo">
+        <img src="../../images/svg/tension-spectrum.svg" alt="Tension Spectrum Blueprint">
+    </div>
+    <p class="lead"><strong>Tension Spectrum</strong> este un framework de antrenament axat pe manipularea tensiunii musculare. Construit pe principii solide de forță funcțională din școala <em>StrongFirst</em>, folosește complexe de mișcări pentru a dezvolta simultan rezistența, mobilitatea extremă și hipertrofia, fără a compromite sistemul nervos central.</p>
+    <a href="javascript:window.print()" class="tactical-btn-emerald"><i class="ph-bold ph-printer"></i> TIPĂREȘTE / DESCARCĂ PROTOCOLUL (PDF)</a>
+</section>
+<hr class="separator" />
+<h2 id="planul-săptămânal">Planul Săptămânal</h2>
+<br/>
+<h3 id="luni-forță--balistică">LUNI: FORȚĂ &amp; BALISTICĂ</h3>
+<p><strong>Focus: Sinergie Push-Pull &amp; Putere</strong></p>
+<ul>
+<li><strong>Bloc Forță (Tensiune Maximă):</strong> Tracțiuni (Tactical Pull-ups / Inele) sau Ramat Greu + Flotări Hardstyle / SFB.
+<ul>
+<li><em>Format:</em> 3-5 serii x 3-5 repetiții (focus pe tensiune, pauze generoase).</li>
+</ul>
+</li>
+<li><strong>Bloc Balistic (Alactic pur):</strong> Swings Grele sau Snatches.
+<ul>
+<li><em>Format:</em> Serii scurte, explozie maximă, pauze lungi.</li>
+</ul>
+</li>
+<li><strong>Finalizare:</strong> Loaded Carries (Farmer&rsquo;s Walk sau Suitcase Carry).</li>
+</ul>
+<hr class="separator" />
+<h3 id="marți-loaded-stretching--zone-2">MARȚI: LOADED STRETCHING &amp; ZONE 2</h3>
+<p><strong>Focus: Mobilitate sub Tensiune &amp; Bază Aerobică</strong></p>
+<div class="movement-block">
+    <div class="movement-visual">
+        <img src="../../images/svg/complex-1.svg" alt="Schiță Complex 1" onerror="this.style.display='none'">
+    </div>
+    <div class="movement-text">
+        <h4>Complexul 1: Mobilitate Structurală</h4>
+        <p><em>3-5 runde / mână, greutate mică/medie. Un test suprem de mobilitate toracală și stabilitate pe centura scapulară.</em></p>
+        <ol>
+            <li><strong>Intrare în Deep Squat</strong> (rămâi jos în poziție controlată)</li>
+            <li><strong>Curl Clean</strong> (adus la umăr direct din poziția de Squat)</li>
+            <li><strong>Sots Press</strong> (presă din Squat &rarr; ajungi în lockout overhead)</li>
+            <li><strong>Ridicare în picioare</strong> (menținând bila perfect deasupra capului)</li>
+            <li><strong>Windmill</strong> (control pe alinierea brațului și deschiderea șoldului)</li>
+            <li><strong>Coborâre în Rack Position</strong></li>
+            <li><strong>Bent Press</strong> (lockout secundar deasupra capului din poziție asimetrică)</li>
+            <li><strong>TGU Down</strong> (coborâre controlată pe spate, brațul rămâne complet blocat)</li>
+            <li><strong>TGU Up</strong> (urcare completă în picioare, brațul blocat; închizi cercul în picioare)</li>
+        </ol>
+    </div>
+</div>
+<ul>
+<li><strong>Condiționare Aerobică:</strong> Alergare în Zone 2 / Cardio pur pentru protecție mitocondrială.</li>
+</ul>
+<hr class="separator" />
+<h3 id="miercuri-pauză-activă">MIERCURI: PAUZĂ ACTIVĂ</h3>
+<p><strong>Focus: Regenerare</strong></p>
+<ul>
+<li>Mișcare ușoară.</li>
+<li>Tehnici „Fast &amp; Loose” (scuturarea membrelor pentru eliminarea tensiunii).</li>
+<li>Stretching de decompresie.</li>
+</ul>
+<hr class="separator" />
+<h3 id="joi-strength-endurance">JOI: STRENGTH-ENDURANCE</h3>
+<p><strong>Focus: Capacitate Lactică (Supapa Lactică)</strong></p>
+<div class="movement-block">
+    <div class="movement-visual">
+        <img src="../../images/svg/complex-2.svg" alt="Schiță Complex 2" onerror="this.style.display='none'">
+    </div>
+    <div class="movement-text">
+        <h4>Complexul 2: Protocol Scară Descendentă (10 - 8 - 5 - 3 - 2 - 1)</h4>
+        <p><em>Greutate recomandată: ~80% RM (o greutate cu care poți face maxim 12 repetări „all-out”).</em></p>
+        <ul>
+            <li><strong>Execuție pe treaptă (Stânga / Dreapta):</strong> [X] Clean & Press + [X] KB Front Squats (în poziție de rack).</li>
+            <li><strong>Regulă absolută:</strong> Bila NU atinge solul pe parcursul întregii trepte! Trecerea de la Press la Squat și schimbul de mâini (Swing switch) se fac fără pauză pe sol. Ultima treaptă (1) se execută în format clasic Iron Cardio (1 Clean + 1 Press + 1 Squat / pe fiecare mână).</li>
+            <li><strong>Pauză (între trepte):</strong> Recuperare activă 2 - 3+ minute în stil <em>Fast & Loose</em>. Nu se începe următoarea treaptă până când ritmul cardiac nu a revenit complet la normal.</li>
+        </ul>
+    </div>
+</div>
+<hr class="separator" />
+<h3 id="vineri-neuro-recovery">VINERI: NEURO-RECOVERY</h3>
+<p><strong>Focus: Descărcare Structurală</strong></p>
+<ul>
+<li>Antrenament minimalist (stil <em>Simple &amp; Sinister</em>) la intensitate medie (70%).</li>
+<li>Focus exclusiv pe calitatea mișcării și eliminarea tensiunii reziduale acumulate joi.</li>
+<li>Pregătire pentru weekend.</li>
+</ul>
+<hr class="separator" />
+<h3 id="sâmbătă--duminică-recovery-total">SÂMBĂTĂ &amp; DUMINICĂ: RECOVERY TOTAL</h3>
+<p><strong>Focus: Supracompensare</strong></p>
+<ul>
+<li>Odihnă, refacere și asimilarea adaptărilor structurale.</li>
+</ul>
+  </article>
+
+  <!-- POST FOOTER ACTIONS -->
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-slate-800 bg-[#111827]/60">
+    <a href="../../programe/" class="tactical-btn">
+      <i class="ph-bold ph-arrow-left"></i>
+      BACK TO TRAINING PROGRAMS
+    </a>
+    <button onclick="window.print()" class="tactical-btn-emerald">
+      <i class="ph-bold ph-printer"></i>
+      PRINT / EXPORT PROTOCOL
+    </button>
+  </div>
+</main>
+
+
+  <!-- TACTICAL FOOTER HUD -->
+  <footer class="mt-20 border-t border-slate-800/80 bg-[#0B0F17] py-12 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+        <!-- Col 1: Identity & Motto -->
+        <div class="md:col-span-5 space-y-3">
+          <div class="font-display font-bold text-slate-100 text-lg tracking-wider">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <p class="text-sm text-slate-400 font-sans leading-relaxed max-w-md">
+            Software Test Engineer, kettlebell lifter, open-source enthusiast, and audio explorer. Dedicated to high-leverage simplicity, robust physical conditioning, and pragmatic engineering across open and proprietary platforms.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
+            <span class="inline-flex items-center gap-1.5 text-emerald-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              STANDALONE ARCHITECTURE
+            </span>
+            <span class="text-slate-700">//</span>
+            <span>100% PURE HTML5</span>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation Directory -->
+        <div class="md:col-span-3 space-y-3 font-mono text-xs">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-bold">DIRECTORY //</div>
+          <ul class="space-y-2">
+            <li><a href="../../blog/" class="text-slate-400 hover:text-emerald-400 transition-colors">01 // Journal (Blog)</a></li>
+            <li><a href="../../programe/" class="text-slate-400 hover:text-emerald-400 transition-colors">02 // Training Frameworks</a></li>
+            <li><a href="../../sounds/" class="text-slate-400 hover:text-emerald-400 transition-colors">03 // Sound Archives</a></li>
+            <li><a href="../../howto/" class="text-slate-400 hover:text-emerald-400 transition-colors">04 // Technical How-Tos</a></li>
+            <li><a href="../../now.html" class="text-slate-400 hover:text-emerald-400 transition-colors">05 // Current Focus (Now)</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Direct Comms -->
+        <div class="md:col-span-4 space-y-3">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">COMMS CHANNELS //</div>
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <a href="mailto:dragos@iorgos.net" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/40 transition-all">
+              <i class="ph-bold ph-envelope text-base text-emerald-400"></i>
+              <span>Email</span>
+            </a>
+            <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-purple-400 hover:border-purple-500/40 transition-all">
+              <i class="ph-bold ph-chats text-base text-purple-400"></i>
+              <span>Mastodon</span>
+            </a>
+            <a href="https://github.com/diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/40 transition-all">
+              <i class="ph-bold ph-github-logo text-base text-sky-400"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="#" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-amber-400 hover:border-amber-500/40 transition-all">
+              <i class="ph-bold ph-terminal text-base text-amber-400"></i>
+              <span>twtxt</span>
+            </a>
+          </div>
+          <p class="text-[11px] font-mono text-slate-500 pt-1">
+            LIFT HEAVY. BE KIND. BUILD ROBUST SOFTWARE.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> DRAGOȘ IORGULESCU. 
+          <span class="text-slate-600">//</span> ALL RIGHTS RESERVED.
+        </div>
+        <div class="flex items-center gap-4">
+          <span>HOST // <a href="https://my.namebox.ro/aff.php?aff=505" class="text-slate-400 hover:underline">NAMEBOX.RO</a></span>
+          <span class="text-slate-600">|</span>
+          <span class="text-emerald-400/90 font-semibold">ZERO ENGINE DEPENDENCY</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>

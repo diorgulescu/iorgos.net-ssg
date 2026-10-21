@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When a tool becomes an addictive drug // Blog // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+
+  <!-- TOP HUD BAR -->
+  <div class="border-b border-slate-800/80 bg-[#0B0F17]/95 text-[11px] font-mono text-slate-400 py-1.5 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          SYS // ONLINE
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-400">NODE // BUCHAREST</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span class="hidden sm:inline text-slate-400">ARCH // STANDALONE-HTML5</span>
+      </div>
+      <div class="flex items-center gap-3 text-slate-400">
+        <span id="hud-clock">--:--:-- // LOCAL</span>
+        <span class="text-slate-700">|</span>
+        <span class="text-sky-400 font-medium">ENGINE // ZERO DEPENDENCY</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span id="theme-status-hud" class="hidden sm:inline font-mono text-[10px] uppercase text-emerald-400">MODE // DARK</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN TACTICAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#111827]/85 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-emerald-400 group-hover:border-emerald-500/50 group-hover:shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)] transition-all">
+          <i class="ph-duotone ph-terminal-window text-xl"></i>
+        </div>
+        <div>
+          <div class="font-display font-bold text-slate-100 text-base tracking-wider group-hover:text-emerald-400 transition-colors">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <div class="text-[10px] font-mono uppercase tracking-widest text-slate-400">
+            TEST ENGINEER // STRENGTH PRACTITIONER // ASPIRING VIDEOGRAPHER
+          </div>
+        </div>
+      </a>
+
+      <!-- DESKTOP NAV -->
+      <nav class="hidden md:flex items-center gap-1 font-mono text-xs uppercase tracking-wider">
+        <a href="../../blog/" class="px-3 py-1.5 rounded-lg border transition-all bg-slate-800 text-white border-slate-700 font-bold">
+          <span class="text-slate-500 mr-1">01 //</span>BLOG
+        </a>
+        <a href="../../programe/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">02 //</span>PROGRAMS
+        </a>
+        <a href="../../sounds/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">03 //</span>SOUNDS
+        </a>
+        <a href="../../howto/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">04 //</span>HOW-TO
+        </a>
+        <a href="../../now.html" class="ml-2 px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-all flex items-center gap-1.5 text-[11px] ">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+          NOW
+        </a>
+
+        <!-- THEME TOGGLE BUTTON (DESKTOP) -->
+        <button type="button" class="theme-toggle-btn ml-3 w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- MOBILE ACTIONS (THEME TOGGLE + HAMBURGER) -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" class="theme-toggle-btn w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:border-slate-700" aria-label="Toggle Menu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU DROPDOWN -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 backdrop-blur-xl px-4 py-4 space-y-2 font-mono text-xs uppercase tracking-wider">
+      <a href="../../" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">00 // HOME</a>
+      <a href="../../blog/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">01 // BLOG</a>
+      <a href="../../programe/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">02 // TRAINING PROGRAMS</a>
+      <a href="../../sounds/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">03 // SOUNDS</a>
+      <a href="../../howto/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">04 // HOW-TO</a>
+      <a href="../../now.html" class="block px-3 py-2.5 rounded-lg text-emerald-400 bg-emerald-500/10 border border-emerald-500/30">05 // NOW PAGE</a>
+      <div class="pt-2 border-t border-slate-800 flex items-center justify-between px-3 py-2 text-slate-400">
+        <span>SCHEMA VIZUALĂ</span>
+        <button type="button" class="theme-toggle-btn px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
+          <i class="theme-toggle-icon ph-bold ph-sun text-amber-400"></i>
+          <span>SCHIMBĂ TEMA</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
+    <a href="../../blog/" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// RETURN TO BLOG DIRECTORY</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="badge-emerald">JOURNAL // ESSAY</span>
+      <span class="status-pill">
+        <span class="status-dot-emerald"></span>
+        DISPATCH #TOOL-BECOMES
+      </span>
+    </div>
+  </div>
+
+  <div class="tactical-card mb-8">
+    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-400 mb-3">
+      <span class="inline-flex items-center gap-1 text-emerald-400 font-semibold">
+        <i class="ph-bold ph-calendar-blank"></i>
+        <time datetime="2019-10-06">06 Oct 2019</time>
+      </span>
+      <span class="text-slate-700">•</span>
+      <span class="inline-flex items-center gap-1 text-sky-400">
+        <i class="ph-bold ph-clock"></i>
+        9 MIN READ
+      </span>
+      <span class="text-slate-700">•</span>
+      <span class="text-slate-400">LOG // tool-becomes-drug</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight mb-4">
+      When a tool becomes an addictive drug
+    </h1>
+
+    <div class="recessed-box text-xs font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span>AUTHOR // DRAGOȘ IORGULESCU</span>
+      <span>STREAM // BLOG</span>
+      <span>STATUS // PUBLISHED</span>
+    </div>
+  </div>
+
+  <article class="tactical-panel p-6 sm:p-10 prose-tactical">
+    <p>Let’s take a second and imagine that you’ve just called in a plumber to fix a broken pipe in your bathroom. The guy arrives and starts unpacking all the things he will need in order to deal with your issue. But when he reaches for the wrench, instead of actually using it, he starts grining and looking at it as if he is experiencing true awe. Maybe he silently moans as he contemplates the handles and ruggedness of cold forged steel. He is so distracted and enamoured with that wrench that he forgets why he came there for in the first place, and when he finally starts working, he rushes everything and does a job not much better than what you would have done, with duct tape and a cloth. And if you dare say anything about that, prepare for a whirlwind.</p>
+
+<p>Now, let’s picture one of your work mates or a neighbor that starts following you around as you go about your day and even tries to peek at you and your family as you go to the beach or have a barbecue in the privacy of your lawn. Does that make you feel uncomfortable? Would you call the Police?</p>
+
+<p>By analogy, the plumber is every avid smartphone user and the creepy, sweaty stalker is the guy that keeps glancing at the photos you constantly post on Facebook and/or Instagram. We seem to be fine with people virtually stalking us (even if they do it in the most disgusting and unthinkable way we could ever imagine), just as much as we accept this ongoing obsession about gadgets and mobile devices (the looks, accessories, interfaces, notification sounds and so on) as part of normal human behavior.</p>
+
+<h3 id="a-tool-not-a-purpose">A tool, not a purpose</h3>
+
+<p>Smartphones (as we know them today) have been around since the first iPhone was released, back in 2007. Few would remember what they were doing in 2007, and I bet that there are quite a lot of kids that are now 12 years of age and have a smartphone as a constant companion and source of distraction & anxiety. The main goal Steve Jobs had in mind while developing the first iPhone1) was to provide a phone with smart functions that would make it easier to call people. The second one, which was almost equally important as the first, was the integration with iTunes, thus merging the iPod with a phone device that also had a web browser. In the official presentation, text messaging & email are brought into discussion almost 30 minutes-in. Also, there was no app store. Cal Newport is one of the voices that recalls this presentation well and mentions it quite often, because there are a lot of people that either don’t know this or never paid attention to the fact.</p>
+
+<p>The context is wildly different in 2019. Apple and Google are two respectable tech giants designing appealing mobile devices that come with software and an embedded app sore (Google Play Store on Android). 3rd parties develop a myriad of applications each week and big Internet companies fight to the death for each second of user attention. As a society, it became “normal” for us to always carry mobile terminals that track each detail of our daily activity and constantly disrupt our attention with notifications about low quality (or even meaningless) things that we’ve been convinced we need.</p>
+
+<p>Of course, a smartphone definitely brings some advantages to the table, part of which are merely linked to some sort of confort and modern moral decadence. Having mobile access to maps & driving instructions, a browser to quickly search emergency numbers in a foreign country or make a bank transfer using an online service ARE, nonetheless, and advantage. However, these are not vital! In an emergency situation, you would only use your phone to place a call. If you’re in a foreign country and need to drive somewhere, you may either buy a map, use in-built sattelite navigation (available on more recent car models) or ask people around and use road signs. And if you truly need a browser while on the road, you always have the option of a slim & sleek laptop that would get things done (nowadays, these are largely available in every price range).</p>
+
+<p>So, a smartphone is a tool. But one that comes with gimmicks that force you, the user, to provide information that you’re not aware you’re giving away and to constantly use media platforms and apps that feed your brain with subtle commercials. When you first start a new Android device, for example, you are forced to accept an End User Agreement. Not doing so prevents you from using the Google Play Store and limits the phone to a few basic utilities and a web browser (luckily, there is F-Droid, which I will talk about pretty soon, in detail). Since Android is an open source operating system at its core, this doesn’t seem to be fair, is it? Is it the tech giants’ fault or our own?</p>
+
+<p>Social media and tech companies like Google, Facebook and Twitter figured out they could make users more “addicted” to their platforms by using attention engineering, much like the techniques used by the ones designing slot machines. Why? Because people are easily distracted, especially when you provide them with the illusion that their speech and everyday life are exceptional and utterly important to the rest of the world. Once people get the type of amplifier that social media platforms provide, they end up taking themselves way too seriously and gradually becoming narcissistic. Every moment is viewed and lived through the phone’s screen while taking bad photos of the thing in front of you. It doesn’t matter if it’s a landmark, an exotic trip, an ultramarathon or a noble cause.</p>
+
+<p>To put it more bluntly, if something you do as an individual is highly valuable and hard to reproduce, it will be noticed. Signaling your own facts & virtues is nothing but bragging. And it’s easy to get lost in this behavior, for I’ve been there myself. But the eerie thing is that while you’re “hooked”, you don’t realize it. If other people around you manifest the same patterns, you’re encouraged to keep at it. One may even see themselves as motivational for their peers, which is a cunning way of hiding a good, primal and honest brag.</p>
+
+<p>It’s our fault. We’ve become extremely comfortable and lazy, no longer wishing to experience the hardships, responsabilities and blandness of our lives. Constantly fed with wild ideas about absolute freedom, subjective morality & infinite possibilities, we abandon ourselves in the arms of a perpetual childhood-like state, in which we believe we can be anything and anyone at any given time, forever away from the shackles of life (like family, children, careers, deceptions, etc.) that ground “common people”. Children are indeed very easily distracted and erratic. All they have is potential, but a lot of work and “shackles” are needed in order to turn that potential into a well-developed adult, capable of taking the right moral choices when and if needed. Instead, we indulge in hobbies and activities that will hopefully socially redefine us, thus reassuring our fragile inner self of its meaning and place. If we were to look at ourselves in the mirror with our eyes wide open, we’d probably run off screaming. Therefore, back to refining our masks and numbing each emotional discomfort with more mindless and passive consumption: more media, more fast food, more TV, more gadgets, more designer clothes.</p>
+
+<h3 id="anti-social-media">(Anti)Social media</h3>
+
+<p>Looking around in public transport and on the streets, I see people (and children!) with their eyes glued to their screens, totally isolated from their surroundings. Since life is mostly boring through its routines, the virtual dopamine dealer gets the vote. It just seems to me that heavy social media users exhibit severe antisocial behaviours: avoiding eye contact, pretending not to hear discussions, not aknowledgeing familiar faces in public, feeling uncomfortable getting in an elevator with a neighbor and having a short, bland & mundane chat about the weather, etc. I don’t want me looking and acting like that, even though I did for a couple of years in the past (it didn’t feel normal or comforting, at all).</p>
+
+<p>I understand there are people that work a lot with social media, mainly for marketing purposes. People have to make a living and Facebook is a great tool for promoting a product to precise target audiences. However, the more we prolong this mindless “swipe life”, the worse we will get as our societies continue to dissolve in an ocean of extreme individuality.</p>
+
+<h3 id="getting-a-hold-of-ourselves">Getting a hold of ourselves</h3>
+
+<p>The hardest part in changing something is admitting that a change is needed. It’s only then that the long process of finding a way to implement it may start, as an unpleasant trip will unfold. In the end, you will be braver, more thoughtful and a little more experienced.</p>
+
+<ul>
+<li>Unplug your TV</li><li>Don’t buy more food than needed (a tough one, I must admit!)</li><li>Remove social media and other time-wasting apps from your phone, turn on the “Battery saver”, use Location Services only when needed, switch to F-Droid instead of Google Play and enjoy a plethora of fully compliant & tested open source apps that do not treat you as a farm animal (from a data mining point of view)</li><li>Embrace frugality</li><li>Pay attention to your spouse, kids, partner, parents and the world around you.</li><li>When you go out, be in the world, not in an app displayed on a screen that hunches you back for hours!</li>
+</ul>
+  </article>
+
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-slate-800 bg-[#111827]/60">
+    <a href="../../blog/" class="tactical-btn">
+      <i class="ph-bold ph-arrow-left"></i>
+      BACK TO ALL BLOG
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="tactical-btn-emerald">
+      <i class="ph-bold ph-arrow-up"></i>
+      BACK TO TOP
+    </a>
+  </div>
+</main>
+
+
+  <!-- TACTICAL FOOTER HUD -->
+  <footer class="mt-20 border-t border-slate-800/80 bg-[#0B0F17] py-12 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+        <div class="md:col-span-5 space-y-3">
+          <div class="font-display font-bold text-slate-100 text-lg tracking-wider">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <p class="text-sm text-slate-400 font-sans leading-relaxed max-w-md">
+            Software Test Engineer, kettlebell lifter, open-source enthusiast, and audio explorer. Dedicated to high-leverage simplicity, robust physical conditioning, and pragmatic engineering across open and proprietary platforms.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
+            <span class="inline-flex items-center gap-1.5 text-emerald-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              STANDALONE ARCHITECTURE
+            </span>
+            <span class="text-slate-700">//</span>
+            <span>100% PURE HTML5</span>
+          </div>
+        </div>
+
+        <div class="md:col-span-3 space-y-3 font-mono text-xs">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-bold">DIRECTORY //</div>
+          <ul class="space-y-2">
+            <li><a href="../../blog/" class="text-slate-400 hover:text-emerald-400 transition-colors">01 // Journal (Blog)</a></li>
+            <li><a href="../../programe/" class="text-slate-400 hover:text-emerald-400 transition-colors">02 // Training Frameworks</a></li>
+            <li><a href="../../sounds/" class="text-slate-400 hover:text-emerald-400 transition-colors">03 // Sound Archives</a></li>
+            <li><a href="../../howto/" class="text-slate-400 hover:text-emerald-400 transition-colors">04 // Technical How-Tos</a></li>
+            <li><a href="../../now.html" class="text-slate-400 hover:text-emerald-400 transition-colors">05 // Current Focus (Now)</a></li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-4 space-y-3">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">COMMS CHANNELS //</div>
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <a href="mailto:dragos@iorgos.net" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/40 transition-all">
+              <i class="ph-bold ph-envelope text-base text-emerald-400"></i>
+              <span>Email</span>
+            </a>
+            <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-purple-400 hover:border-purple-500/40 transition-all">
+              <i class="ph-bold ph-chats text-base text-purple-400"></i>
+              <span>Mastodon</span>
+            </a>
+            <a href="https://github.com/diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/40 transition-all">
+              <i class="ph-bold ph-github-logo text-base text-sky-400"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="#" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-amber-400 hover:border-amber-500/40 transition-all">
+              <i class="ph-bold ph-terminal text-base text-amber-400"></i>
+              <span>twtxt</span>
+            </a>
+          </div>
+          <p class="text-[11px] font-mono text-slate-500 pt-1">
+            LIFT HEAVY. BE KIND. BUILD ROBUST SOFTWARE.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> DRAGOȘ IORGULESCU. 
+          <span class="text-slate-600">//</span> ALL RIGHTS RESERVED.
+        </div>
+        <div class="flex items-center gap-4">
+          <span>HOST // <a href="https://my.namebox.ro/aff.php?aff=505" class="text-slate-400 hover:underline">NAMEBOX.RO</a></span>
+          <span class="text-slate-600">|</span>
+          <span class="text-emerald-400/90 font-semibold">ZERO ENGINE DEPENDENCY</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>

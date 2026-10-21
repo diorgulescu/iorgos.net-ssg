@@ -1,0 +1,129 @@
+/* --- Variabile Globale --- */
+:root {
+    --bg-color: #FAFAFA;
+    --text-color: #2D3748;
+    --accent-color: #D9381E; /* Acel touch industrial */
+    --border-color: #E2E8F0;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* --- Reset și Bază --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    max-width: 760px; /* Textul rămâne la o lățime confortabilă pentru citit */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 { font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: #1A202C; }
+p {
+    margin-bottom: 1.2rem;
+    text-align: justify;
+}
+
+/* Resetează alinierea pentru componente specifice unde 'justify' nu este ideal */
+.hero p, .card p, .section-desc {
+    text-align: left;
+}
+
+a { color: var(--accent-color); text-decoration: none; }
+a:hover { text-decoration: underline; }
+hr.separator { border: 0; height: 1px; background: var(--border-color); margin: 3rem 0; }
+
+/* --- Stiluri Globale pentru Imagini --- */
+img {
+    max-width: 100%;      /* Asigură redimensionarea automată în container */
+    height: auto;         /* Păstrează proporțiile */
+    display: block;       /* Necesar pentru a putea centra cu 'margin: auto' */
+    margin-left: auto;    /* Centrează imaginea pe orizontală */
+    margin-right: auto;   /* Centrează imaginea pe orizontală */
+    border-radius: 10px;   /* Adaugă colțuri ușor rotunjite */
+}
+
+/* --- Navigație (Meniul Tău) --- */
+.site-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem 0;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo { font-weight: 800; font-size: 1.2rem; color: var(--text-color); }
+.logo:hover { text-decoration: none; color: var(--accent-color); }
+
+.nav-links { display: flex; gap: 1.5rem; }
+.nav-links a { font-weight: 600; color: var(--text-color); font-size: 0.95rem; }
+.nav-links a:hover { color: var(--accent-color); text-decoration: none; }
+
+/* --- Hero Section --- */
+.hero { margin-bottom: 4rem; }
+.hero h1 { font-size: 2.2rem; letter-spacing: -0.03em; }
+.hero p { font-size: 1.15rem; color: #4A5568; max-width: 600px; }
+
+/* --- Grila Programe --- */
+.programs-section { margin-bottom: 3rem; }
+.section-desc { color: #718096; margin-bottom: 2rem; }
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    background: #FFFFFF;
+    border-radius: 4px; /* Un radius foarte subtil */
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+.card p { font-size: 0.9rem; color: #4A5568; flex-grow: 1; }
+
+.btn {
+    display: inline-block;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 3px;
+    margin-top: 1.5rem;
+    transition: background-color 0.2s;
+}
+.btn:hover { background-color: var(--accent-color); color: #FFF; text-decoration: none; }
+
+/* --- Footer --- */
+.site-footer {
+    text-align: center;
+    padding: 3rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+}
+.social-links { margin-bottom: 0.5rem; }
+.social-links a { color: #4A5568; font-weight: 500; }
+.credits { color: #A0AEC0; }
+.credits a { color: #718096; text-decoration: underline; }
+
+/* --- Responsivitate pe Mobile --- */
+@media (max-width: 600px) {
+    .site-header nav { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .nav-links { flex-wrap: wrap; gap: 1rem; }
+}
+
+.movement-block { display: flex; gap: 2rem; align-items: center; margin-bottom: 2.5rem; }
+.movement-visual { flex: 0 0 45%; } /* Lățime fixă pentru iconița SVG */
+.movement-visual img { width: 100%; height: auto; }
+@media (max-width: 600px) { .movement-block { flex-direction: column; gap: 1rem; } }

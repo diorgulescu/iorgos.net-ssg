@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSH key-based authentication in Windows 10 (using no password) // How-To // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../../programe/" class="text-slate-400 hover:text-slate-100 transition-colors">Programs</a>
+        <a href="../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
+        <a href="../../howto/" class="text-emerald-400 font-semibold">How-To</a>
+        <a href="../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <div class="mb-8">
+    <a href="../../howto/" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// HOW-TO</span>
+    </a>
+  </div>
+
+  <header class="mb-10 pb-6 border-b border-slate-800/60">
+    <div class="flex items-center gap-2 font-mono text-xs text-slate-400 mb-3">
+      <time datetime="2020-11-01">01 Nov 2020</time>
+      <span class="text-slate-600">&middot;</span>
+      <span>1 MIN READ</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight">
+      SSH key-based authentication in Windows 10 (using no password)
+    </h1>
+  </header>
+
+  <article class="prose-tactical text-slate-300">
+    <p>I found this solution somewhere online. Thanks a lot for that! Just adding this to my own “docs base” for personal future reference.</p>
+
+<p>Working with Linux/UNIX machines, I rely a lot on SSH. Thus, not having to type passwords each time I open a new session is a great plus. Achieving this on Linux systems is trivial, since you have the ssh-copy-id command at hand. But, on Windows, that’s missing. Luckily, there is a (logical) way around that, instead of adding keys by hand in the remote server’s authorized_keys file (like I used to do). Below you can see how a new RSA key is generated and then copied to the remote host using a one-liner:</p>
+
+<pre><code>PS C:\Users\drago&gt; ssh-keygen.exe -t rsa
+Enter file in which to save the key (C:\Users\drago/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in C:\Users\drago/.ssh/id_rsa.
+Your public key has been saved in C:\Users\drago/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:9IHYvsX6pbpS9Fwuq3j648ceNN7pH5MFEt8n0y9O6Jk drago@DESKTOP-KDTKFHA
+The key&#x27;s randomart image is:
++---[RSA 2048]----+
+|            .    |
+|       o .   o o |
+|      . + . . = +|
+|       o.o ..o +o|
+|       .So*o. o o|
+|        .*++.* + |
+|       .o.ooE =  |
+|      ..o.+=   o |
+|      o**B+ ...  |
++----[SHA256]-----+</code></pre>
+
+<p>Once the key has been generated, copy it to the remote server. Use your current credentials (``<code>user@server</code>``). You will be asked to type the password once.</p>
+
+<pre><code>PS C:\Users\drago&gt; type $env:USERPROFILE\.ssh\id_rsa.pub | ssh user@myserver &quot;cat &gt;&gt; .ssh/authorized_keys&quot;
+user@myserver&#x27;s password:</code></pre>
+
+<p>And that’s it. Now, each time you ssh to that server (using the specified account), you will be directly logged in, without any other password prompts.</p>
+  </article>
+
+  <div class="mt-12 pt-6 border-t border-slate-800/60 flex items-center justify-between font-mono text-xs text-slate-400">
+    <a href="../../howto/" class="hover:text-emerald-400 transition-colors">
+      ← Back to How-To
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="hover:text-emerald-400 transition-colors">
+      Back to top ↑
+    </a>
+  </div>
+</main>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>

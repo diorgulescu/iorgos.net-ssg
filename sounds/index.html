@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sounds // Audio Archive // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+  
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Dark Design System -->
+  <link rel="stylesheet" href="../css/tactical.css">
+  <!-- Zero-FOUC Theme Initializer -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../programe/" class="text-slate-400 hover:text-slate-100 transition-colors">Programs</a>
+        <a href="../sounds/" class="text-emerald-400 font-semibold">Sounds</a>
+        <a href="../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
+        <a href="../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+  <!-- BREADCRUMB / HUD -->
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
+    <a href="../" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-purple-400 transition-colors">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>← Home</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="badge-purple">AUDIO ARCHIVES // SYNTHESIZERS</span>
+      <span class="status-pill">
+        <span class="status-dot-sky"></span>
+        STREAM 03
+      </span>
+    </div>
+  </div>
+
+  <!-- HERO CARD -->
+  <div class="tactical-card mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-7">
+        <div class="flex items-center gap-2 font-mono text-xs text-purple-400 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+          AUDIO ARCHIVE // 2008 – PRESENT
+        </div>
+        <h1 class="font-display font-bold text-3xl sm:text-5xl text-slate-100 mb-4">
+          Sounds & Audio
+        </h1>
+        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+          Ever since I was a child, I loved sounds. Over the years, I've explored computers, drums, bass guitars, and modular / hardware synthesizers in order to chase soundscapes, drone metal, ambient textures, and experimental electronica. Self-taught, minimal, and unfiltered.
+        </p>
+        <div class="recessed-box font-mono text-xs text-slate-400 flex flex-wrap items-center gap-3">
+          <span>MONIKERS: <strong>5 PROJECTS</strong></span>
+          <span>•</span>
+          <span>SOFTWARE: <strong>VOIDWAVE LAB (3 TOOLS)</strong></span>
+          <span>•</span>
+          <span>MEDIA: <strong>YOUTUBE &bull; BANDCAMP &bull; GITHUB</strong></span>
+        </div>
+      </div>
+      <div class="md:col-span-5">
+        <img src="../images/sounds.png" alt="Synthesizer setup" class="w-full rounded-2xl border border-slate-800 shadow-2xl">
+      </div>
+    </div>
+  </div>
+
+  <!-- VOIDWAVE-LAB // OPEN SOURCE AUDIO GENERATORS -->
+  <section class="mb-12">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 mb-6 border-b border-slate-800/80">
+      <div>
+        <div class="font-mono text-xs text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+          OPEN SOURCE AUDIO GENERATORS // VOIDWAVE-LAB
+        </div>
+        <h2 class="font-display font-bold text-2xl text-slate-100 tracking-tight">
+          voidwave-lab Tools
+        </h2>
+      </div>
+      <a href="https://github.com/voidwave-lab" target="_blank" class="tactical-btn font-mono text-xs inline-flex items-center gap-2 self-start sm:self-auto">
+        <i class="ph-bold ph-github-logo text-base text-purple-400"></i>
+        <span>github.com/voidwave-lab ↗</span>
+      </a>
+    </div>
+
+    <p class="text-sm text-slate-300 font-sans leading-relaxed mb-6 max-w-3xl">
+      O serie de unelte software și generatoare audio open source axate pe muzică experimentală, glitch și texturi ambient. Proiectate cu arhitectură minimalistă, control nemijlocit al parametrilor și estetica brută de laborator electronic.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Tool 1: Modular Synthesizer -->
+      <div class="tactical-card flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="badge-purple">MODULAR SYNTH</span>
+            <span class="font-mono text-[10px] text-slate-500">TOOL 01</span>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-3">
+            <i class="ph-bold ph-sliders text-xl"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-slate-100 mb-2">Modular Synthesizer</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">
+            Sintetizator software modular cu rutare flexibilă de semnale CV și audio. Conceput pentru sound design experimental, patch-uri generative, modulație încrucișată și drone soundscapes complexe.
+          </p>
+        </div>
+        <div class="pt-3 border-t border-slate-800/60 font-mono text-[11px] text-slate-500 flex items-center justify-between">
+          <span>Patch-Based DSP</span>
+          <a href="https://github.com/voidwave-lab" target="_blank" class="text-purple-400 hover:underline">GitHub →</a>
+        </div>
+      </div>
+
+      <!-- Tool 2: MS-20 Mini Clone -->
+      <div class="tactical-card flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="badge-amber">ANALOG EMULATION</span>
+            <span class="font-mono text-[10px] text-slate-500">TOOL 02</span>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-3">
+            <i class="ph-bold ph-wave-sine text-xl"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-slate-100 mb-2">Korg MS-20 Mini Clone</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">
+            Clonă și emulare software a sintetizatorului semi-modular clasic. Reproduce comportamentul agresiv și neliniar al filtrelor duale rezonante (High-Pass & Low-Pass), matricea de patch externă și caracterul analogic brut.
+          </p>
+        </div>
+        <div class="pt-3 border-t border-slate-800/60 font-mono text-[11px] text-slate-500 flex items-center justify-between">
+          <span>Dual Resonant Filters</span>
+          <a href="https://github.com/voidwave-lab" target="_blank" class="text-amber-400 hover:underline">GitHub →</a>
+        </div>
+      </div>
+
+      <!-- Tool 3: Early Electronic Workbench -->
+      <div class="tactical-card flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="badge-sky">LAB TEST BENCH</span>
+            <span class="font-mono text-[10px] text-slate-500">TOOL 03</span>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-3">
+            <i class="ph-bold ph-broadcast text-xl"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-slate-100 mb-2">Test Equipment Workbench</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">
+            Studio virtual de muzică electronică timpurie, inspirat de laboratoarele anilor '50-'60 (WDR Köln, BBC Radiophonic). Bazat pe generatoare de semnal de laborator, filtre pasive, atenuatoare și tehnici clasice de procesare a tonului.
+          </p>
+        </div>
+        <div class="pt-3 border-t border-slate-800/60 font-mono text-[11px] text-slate-500 flex items-center justify-between">
+          <span>Signal & Tone Studio</span>
+          <a href="https://github.com/voidwave-lab" target="_blank" class="text-sky-400 hover:underline">GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MUSICAL PROJECTS & MONIKERS -->
+  <div class="pb-2 mb-6 border-b border-slate-800/80">
+    <div class="font-mono text-xs text-slate-400 uppercase tracking-wider mb-1">
+      ARCHIVED & ACTIVE MONIKERS // 2008 – PRESENT
+    </div>
+    <h2 class="font-display font-bold text-xl text-slate-100 tracking-tight">
+      Musical Projects
+    </h2>
+  </div>
+
+  <!-- PROJECTS BENTO GRID -->
+  <div class="space-y-6">
+    <!-- Project 1: Scentient Pencils -->
+    <div class="tactical-panel p-6 sm:p-8 border-purple-500/30">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <span class="badge-purple">2020 – PRESENT // ACTIVE MONIKER</span>
+        <span class="font-mono text-xs text-slate-400">MODULAR &bull; AMBIENT &bull; FIELD RECORDINGS</span>
+      </div>
+      <h2 class="font-display font-bold text-2xl text-slate-100 mb-2">
+        Scentient Pencils
+      </h2>
+      <p class="text-sm text-slate-300 font-sans leading-relaxed mb-4">
+        The name under which I sometimes put out various recordings or live sessions. Born at the beginning of 2020, while experimenting with ambient sounds in my living room. Mainly revolving around hardware synths, some acoustics, sound textures, ambient soundscapes, and field recordings.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://www.youtube.com/channel/UCMUYR9Kyk4JZxifm84lW7Bg" target="_blank" class="tactical-btn-emerald">
+          <i class="ph-bold ph-youtube-logo text-base"></i>
+          YOUTUBE CHANNEL
+        </a>
+        <a href="https://scentientpencils.bandcamp.com" target="_blank" class="tactical-btn">
+          <i class="ph-bold ph-music-note text-base"></i>
+          BANDCAMP PAGE
+        </a>
+      </div>
+    </div>
+
+    <!-- Project 2: Sentem -->
+    <div class="tactical-panel p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <span class="badge-amber">2011 – 2016 // ARCHIVED</span>
+        <span class="font-mono text-xs text-slate-400">DRONE ROCK &bull; DRONE METAL &bull; DARK AMBIENT</span>
+      </div>
+      <h2 class="font-display font-bold text-2xl text-slate-100 mb-2">
+        Sentem
+      </h2>
+      <p class="text-sm text-slate-300 font-sans leading-relaxed mb-4">
+        My former solo project active between 2011 and 2016. Drone rock, drone metal, dark ambient, and experimental guitar textures. Probably my favorite release is the “Alean” EP (November 2014), blending dark ambient, droney guitars, and subtle folk elements.
+      </p>
+      <div>
+        <a href="https://sentem.bandcamp.com" target="_blank" class="tactical-btn">
+          <i class="ph-bold ph-music-note text-base"></i>
+          SENTEM ON BANDCAMP
+        </a>
+      </div>
+    </div>
+
+    <!-- Project 3: Versta -->
+    <div class="tactical-panel p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <span class="badge-sky">EXPERIMENTAL ELECTRONICA</span>
+        <span class="font-mono text-xs text-slate-400">LIVE SESSION RECORDING</span>
+      </div>
+      <h2 class="font-display font-bold text-2xl text-slate-100 mb-2">
+        Versta
+      </h2>
+      <p class="text-sm text-slate-300 font-sans leading-relaxed mb-4">
+        A short-lived moniker. The most notable recording is a live experimental electronica session titled <em>Versta Septentrionalica</em>.
+      </p>
+      <div>
+        <a href="https://soundcloud.com/deep-roller-rec/versta-septentrionalica" target="_blank" class="tactical-btn">
+          <i class="ph-bold ph-play text-base"></i>
+          LISTEN ON SOUNDCLOUD
+        </a>
+      </div>
+    </div>
+
+    <!-- Project 4: Soul Overload -->
+    <div class="tactical-panel p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <span class="badge-slate">2008 – 2010 // EARLY WORK</span>
+        <span class="font-mono text-xs text-slate-400">ARCHIVE.ORG SURVIVAL</span>
+      </div>
+      <h2 class="font-display font-bold text-2xl text-slate-100 mb-2">
+        Soul Overload
+      </h2>
+      <p class="text-sm text-slate-300 font-sans leading-relaxed mb-4">
+        Quite a cheesy teenage name, but it was what it was. My very first attempts at solo recordings. Three surviving tracks are preserved on the Internet Archive.
+      </p>
+      <div>
+        <a href="https://archive.org/details/souloverload-dystopia" target="_blank" class="tactical-btn">
+          <i class="ph-bold ph-archive text-base"></i>
+          ARCHIVE.ORG DYSTOPIA
+        </a>
+      </div>
+    </div>
+
+    <!-- Project 5: Tulbur -->
+    <div class="tactical-panel p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <span class="badge-slate">2009 // BAND ARCHIVE</span>
+        <span class="font-mono text-xs text-slate-400">GRUNGE &bull; ALTERNATIVE METAL &bull; DRUMS</span>
+      </div>
+      <h2 class="font-display font-bold text-2xl text-slate-100 mb-2">
+        Tulbur
+      </h2>
+      <p class="text-sm text-slate-300 font-sans leading-relaxed mb-4">
+        A project started with two good friends and colleagues in 2009. Grunge and Tool-like influences. Played bass and drums.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://soundcloud.com/ciprian-lazar/green-yellow-brown" target="_blank" class="tactical-btn">
+          <i class="ph-bold ph-play text-base"></i>
+          GREEN, YELLOW, BROWN (DRUMS)
+        </a>
+        <a href="https://soundcloud.com/ciprian-lazar/dosp" target="_blank" class="tactical-btn">
+          <i class="ph-bold ph-play text-base"></i>
+          DOSP
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+  <!-- TACTICAL FOOTER HUD -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/tactical.js"></script>
+</body>
+</html>

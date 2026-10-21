@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Păcăneaua din buzunar // Blog // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+
+  <!-- TOP HUD BAR -->
+  <div class="border-b border-slate-800/80 bg-[#0B0F17]/95 text-[11px] font-mono text-slate-400 py-1.5 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          SYS // ONLINE
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-400">NODE // BUCHAREST</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span class="hidden sm:inline text-slate-400">ARCH // STANDALONE-HTML5</span>
+      </div>
+      <div class="flex items-center gap-3 text-slate-400">
+        <span id="hud-clock">--:--:-- // LOCAL</span>
+        <span class="text-slate-700">|</span>
+        <span class="text-sky-400 font-medium">ENGINE // ZERO DEPENDENCY</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span id="theme-status-hud" class="hidden sm:inline font-mono text-[10px] uppercase text-emerald-400">MODE // DARK</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN TACTICAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#111827]/85 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-emerald-400 group-hover:border-emerald-500/50 group-hover:shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)] transition-all">
+          <i class="ph-duotone ph-terminal-window text-xl"></i>
+        </div>
+        <div>
+          <div class="font-display font-bold text-slate-100 text-base tracking-wider group-hover:text-emerald-400 transition-colors">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <div class="text-[10px] font-mono uppercase tracking-widest text-slate-400">
+            TEST ENGINEER // STRENGTH PRACTITIONER // ASPIRING VIDEOGRAPHER
+          </div>
+        </div>
+      </a>
+
+      <!-- DESKTOP NAV -->
+      <nav class="hidden md:flex items-center gap-1 font-mono text-xs uppercase tracking-wider">
+        <a href="../../blog/" class="px-3 py-1.5 rounded-lg border transition-all bg-slate-800 text-white border-slate-700 font-bold">
+          <span class="text-slate-500 mr-1">01 //</span>BLOG
+        </a>
+        <a href="../../programe/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">02 //</span>PROGRAMS
+        </a>
+        <a href="../../sounds/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">03 //</span>SOUNDS
+        </a>
+        <a href="../../howto/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">04 //</span>HOW-TO
+        </a>
+        <a href="../../now.html" class="ml-2 px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-all flex items-center gap-1.5 text-[11px] ">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+          NOW
+        </a>
+
+        <!-- THEME TOGGLE BUTTON (DESKTOP) -->
+        <button type="button" class="theme-toggle-btn ml-3 w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- MOBILE ACTIONS (THEME TOGGLE + HAMBURGER) -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" class="theme-toggle-btn w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:border-slate-700" aria-label="Toggle Menu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU DROPDOWN -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 backdrop-blur-xl px-4 py-4 space-y-2 font-mono text-xs uppercase tracking-wider">
+      <a href="../../" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">00 // HOME</a>
+      <a href="../../blog/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">01 // BLOG</a>
+      <a href="../../programe/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">02 // TRAINING PROGRAMS</a>
+      <a href="../../sounds/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">03 // SOUNDS</a>
+      <a href="../../howto/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">04 // HOW-TO</a>
+      <a href="../../now.html" class="block px-3 py-2.5 rounded-lg text-emerald-400 bg-emerald-500/10 border border-emerald-500/30">05 // NOW PAGE</a>
+      <div class="pt-2 border-t border-slate-800 flex items-center justify-between px-3 py-2 text-slate-400">
+        <span>SCHEMA VIZUALĂ</span>
+        <button type="button" class="theme-toggle-btn px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
+          <i class="theme-toggle-icon ph-bold ph-sun text-amber-400"></i>
+          <span>SCHIMBĂ TEMA</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
+    <a href="../../blog/" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// RETURN TO BLOG DIRECTORY</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="badge-emerald">JOURNAL // ESSAY</span>
+      <span class="status-pill">
+        <span class="status-dot-emerald"></span>
+        DISPATCH #PACANEAUA-DI
+      </span>
+    </div>
+  </div>
+
+  <div class="tactical-card mb-8">
+    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-400 mb-3">
+      <span class="inline-flex items-center gap-1 text-emerald-400 font-semibold">
+        <i class="ph-bold ph-calendar-blank"></i>
+        <time datetime="2022-03-02">02 Mar 2022</time>
+      </span>
+      <span class="text-slate-700">•</span>
+      <span class="inline-flex items-center gap-1 text-sky-400">
+        <i class="ph-bold ph-clock"></i>
+        7 MIN READ
+      </span>
+      <span class="text-slate-700">•</span>
+      <span class="text-slate-400">LOG // pacaneaua-din-buzunar</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight mb-4">
+      Păcăneaua din buzunar
+    </h1>
+
+    <div class="recessed-box text-xs font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span>AUTHOR // DRAGOȘ IORGULESCU</span>
+      <span>STREAM // BLOG</span>
+      <span>STATUS // PUBLISHED</span>
+    </div>
+  </div>
+
+  <article class="tactical-panel p-6 sm:p-10 prose-tactical">
+    <p>Probabil că orice om care a folosit sau folosește un smartphone și mai are și cont pe vreo rețea socială (indiferent care ar fi aceasta) a avut de-a face cu minute bune sau chiar ore în care nu a făcut nimic altceva decât să scrolleze aiurea prin feed. De cele mai multe ori, utilizatorul pleacă de la impulsul de a verifica rapid ceva: vreo poză nouă de la un prieten aflat într-o călătorie, actualizări pe pagina vreunui eveniment, etc. În foarte scurt timp, acesta ajunge să consume conținut pus pe masă de aplicația rețelei sociale pe care-o folosește (de cele mai multe ori este Facebook). Se îndepărtează total de ideea inițială sau chiar uită ce dorea să caute de la bun început.</p>
+
+<p>Cu toții am pățit-o și-o pățim. Motivul este simplu: platformele de acest gen sunt gândite să te țină cât mai mult timp conectat la ele. Așa-zisa inginerie a atenției este o găselniță a unor tipi inteligenți din Silicon Valley ce au transpus principiile aparatelor de jocuri de noroc din Las Vegas (slot machines în engleză, păcănele pe românește) în mediul digital, cu scopul de-a genera profit.</p>
+
+<p>Cu cât utilizatorul scrollează mai mult, cu atât profiturile sunt mai mari. Iar conținutul este tot timpul altul. Vă puteți convinge ușor, deschizând aplicația Facebook și uitându-vă la primele 3-4 postări afișate, apoi închizând și deschizând-o din nou. Veți vedea altceva.</p>
+
+<p>Mai mult, toate informațiile personale puse benevol de noi acolo sunt o uriașă bază statistică ce se vinde pe bani mulți comercianților ce doresc să-și facă reclame către un public țintă. Toate fotografiile sunt material de antrenament pentru algoritmii de recunoaștere facială.</p>
+
+<p>Dar, cel mai inteligent și perfid lucru în același timp este modul în care platformele acestea te țin conectat: validarea socială. Aparent nu poți rezista să nu pui măcar o poză, oricât de rar ai face-o, ca să arăți prietenilor, amicilor, părinților sau rudelor ce ai mai făcut sau pe unde te-ai mai plimbat. Sau să comentezi la câte-un articol sau dezbatere.</p>
+
+<p>Butonul de Like și acel mic cerculeț roșu ce-ți arată notificările noi fac uz de niște mecanisme inconștiente pe care le avem de mii de ani la nivelul psihicului. Dorința de noutate, de conectare cu tribul, de validare a conexiunii cu cei din jur, toate astea generează raspuns dopaminic atunci când sunt satisfăcute. Iar cum în prezent trăim în medii urbane sau suburbane, tribul nu mai există. Comunitatea este, în general, erodată (este suficient să te uiți pe stradă și vei observa indiferența la absolut fiecare pas) și ne rămâne luxul unui ecran albastru, la ceas târziu în noapte, prin care ne pseudo-satisfacem dorințele sociale în cel mai antisocial mod cu putință: între patru pereți, singuri.</p>
+
+<p>Normal, poți fi singur și dacă ești înconjurat de oameni, dar ai telefonul sub nas și ești absent. Multitasking-ul este o iluzie, creierul funcționând secvențial și neexistând în mod real posibilitatea de-a fi simultan atent la discuțiile prietenilor sau familiei cu care stai la masă în vreme ce stai pe Facebook sau citești știrile.</p>
+
+<p>Revenind la titlul acestei debitări, Tristan Harris (un om care a lucrat în cadrul Google exact pe metodele de captare a atenției utilizatorilor) este cel ce, în timpul unui interviu pentru emisiunea „60 minutes” a scos telefonul din buzunar și a spus: „This is a slot machine in your pocket”. Evident, a făcut asta deja după ce își dăduse demisia din cadrul Google, din cauza unor neînțelegeri cu privire la etica utilizării datelor personale.</p>
+
+<p>Chiar comportamentul de a trage cu degetul în jos și a elibera pentru a reactualiza feed-ul este similar cu cel al tragerii manetei sau apăsarea unui buton al păcănelelor. „Oare ce mai vine? Ce-o ieși?”</p>
+
+<p>Din chestiile astea au derivat multe în ultimii ani. Trăim într-o societate obsedată de conectivitatea non-stop (tot timpul să poți fi ușor și rapid contactat de către oricine, dar doar în mod text, mail-urile de la serviciu să curgă și-n timpul concediului sau noaptea, șamd) iar copiii sunt printre cei mai vulnerabili.</p>
+
+<p>Odată cu dorința părinților de-a își ține copiii la curent cu tehnologia (sau chiar ca să calmeze o criză interminabilă, căci știu foarte bine cât de consumatoare sunt astea pentru un părinte), se ajunge prea ușor în situația în care copiii sar etape întregi ale dezvoltării cognitive: dezvoltarea limbajului, învățarea kinetică, citirea mimicii feței celorlalți oameni, învățarea inflexiunilor și tonurilor vocii, etc. Cultivarea unei plaje de atenție este una din problemele cele mai vizibile. Copiii au mari dificultăți în a se concentra pe un lucru, iar asta vine atât din expunerea la un număr exagerat de stimuli, cât și din avalanșa din jurul lor (alți copii neliniștiți, televizoare pornite multe ore, ecrane care le captivează atenția și care le învață sistemul limbic cu doze regulate de dopamină).</p>
+
+<p>Efectele sunt deja statistic vizibile în țările mai dezvoltate (America de Nord și Vestul Europei) O serie de studii psihiatrice relevă faptul că utilizarea prelungită a rețelelor sociale duce la afecțiuni precum depresia (clinică) și scăderea dramatică a respectului de sine (atunci când vezi numai imaginea imaculată a unui profil online și tinzi să crezi că viața ta este un eșec comparativ cu a respectivei persoane, omițând faptul că toată lumea își creionează doar o imagine perfectă, problemele și neajunsurile fiind invizibile).</p>
+
+<p>De multe ori, când ni se pare că nu avem timp, de fapt îl irosim pe cel existent. Iar păcăneaua de buzunar a înlocuit orice idee de singurătate, stat degeaba (sau o mică plictiseală, lucru eronat stigmatizat în ziua de azi) sau context social incomod.</p>
+
+<p>Ești în lift cu încă un vecin? Scoți telefonul, ca să nu te simți obligat să spui ceva. Ești la coadă la casa de marcat? Scoți telefonul. Mănânci acasă? Scoți telefonul. Ești în concediu, pe malul mării? Scoți telefonul.</p>
+
+<p>Despre contemplare nici că se mai poate pune problema, iar de asta avem mare, mare nevoie.</p>
+
+<p>Am face foarte bine să căscăm ochii la ce au pățit alții și să învățăm atât din greșelile lor, cât și din metodele prin care au început să corecteze lucrurile astea. În fond, telefonul chiar e o unealtă și atât. Iar prietenii și familia sunt întotdeauna la un telefon distanță și chiar ne putem întâlni să petrecem timp împreună. Tot atunci le putem arăta fotografii din vacanță, povestindu-le detalii în vreme ce ne delectăm la un vin, o bere, un mic sau pizza. Așa-i natural.</p>
+
+<p>Platformele sociale au și părți bune, evident, dar nimic care să necesite 1-2 sau mai multe ore pe zi de utilizare. În rest, rețeaua socială analogă este ceea ce ne trebuie. Mai ales celor mici. A butona joculețe pe telefon, a te uita pe YouTube ore-n șir sau a perfecționa un profil de Facebook nu sunt „abilități ale viitorului” și, cu atât mai mult, nu sunt lucruri care vor face un copil să devină un adult competent, capabil și autonom.</p>
+
+<p>Faptul că Facebook a devenit singura sursă de informare și mediul dominant de propagare a conținutului (inclusiv textul de față) este, în sine, o mare problemă. Când un algoritm dictează cine și ce vede sub nas, lucrurile iau o altă turnură.</p>
+
+<p>Schimbarea se poate face. Problema rămâne dependența (sau obiceiul nesănătos), acceptarea ei și primul pas spre rezolvare. Știu, e comod acum. Și călduț. Ne mai fură și valul uneori. Dar confortul excesiv și calea ușoară vor avea întotdeauna costuri foarte ridicate pe termen mediu și lung.</p>
+
+<p>## BIBLIOGRAFIE + 1) – The Guardian, “Social media copies gambling methods to create psychological cravings” + 2) – 60 Minutes Show, “Brain Hacking”, începând cu minutul 1 + 3) – Anxiety and Depression Association of America, statistică + 4) – “Online Social Networking and Mental Health”, US National Library of Medicine</p>
+  </article>
+
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-slate-800 bg-[#111827]/60">
+    <a href="../../blog/" class="tactical-btn">
+      <i class="ph-bold ph-arrow-left"></i>
+      BACK TO ALL BLOG
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="tactical-btn-emerald">
+      <i class="ph-bold ph-arrow-up"></i>
+      BACK TO TOP
+    </a>
+  </div>
+</main>
+
+
+  <!-- TACTICAL FOOTER HUD -->
+  <footer class="mt-20 border-t border-slate-800/80 bg-[#0B0F17] py-12 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+        <div class="md:col-span-5 space-y-3">
+          <div class="font-display font-bold text-slate-100 text-lg tracking-wider">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <p class="text-sm text-slate-400 font-sans leading-relaxed max-w-md">
+            Software Test Engineer, kettlebell lifter, open-source enthusiast, and audio explorer. Dedicated to high-leverage simplicity, robust physical conditioning, and pragmatic engineering across open and proprietary platforms.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
+            <span class="inline-flex items-center gap-1.5 text-emerald-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              STANDALONE ARCHITECTURE
+            </span>
+            <span class="text-slate-700">//</span>
+            <span>100% PURE HTML5</span>
+          </div>
+        </div>
+
+        <div class="md:col-span-3 space-y-3 font-mono text-xs">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-bold">DIRECTORY //</div>
+          <ul class="space-y-2">
+            <li><a href="../../blog/" class="text-slate-400 hover:text-emerald-400 transition-colors">01 // Journal (Blog)</a></li>
+            <li><a href="../../programe/" class="text-slate-400 hover:text-emerald-400 transition-colors">02 // Training Frameworks</a></li>
+            <li><a href="../../sounds/" class="text-slate-400 hover:text-emerald-400 transition-colors">03 // Sound Archives</a></li>
+            <li><a href="../../howto/" class="text-slate-400 hover:text-emerald-400 transition-colors">04 // Technical How-Tos</a></li>
+            <li><a href="../../now.html" class="text-slate-400 hover:text-emerald-400 transition-colors">05 // Current Focus (Now)</a></li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-4 space-y-3">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">COMMS CHANNELS //</div>
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <a href="mailto:dragos@iorgos.net" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/40 transition-all">
+              <i class="ph-bold ph-envelope text-base text-emerald-400"></i>
+              <span>Email</span>
+            </a>
+            <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-purple-400 hover:border-purple-500/40 transition-all">
+              <i class="ph-bold ph-chats text-base text-purple-400"></i>
+              <span>Mastodon</span>
+            </a>
+            <a href="https://github.com/diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/40 transition-all">
+              <i class="ph-bold ph-github-logo text-base text-sky-400"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="#" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-amber-400 hover:border-amber-500/40 transition-all">
+              <i class="ph-bold ph-terminal text-base text-amber-400"></i>
+              <span>twtxt</span>
+            </a>
+          </div>
+          <p class="text-[11px] font-mono text-slate-500 pt-1">
+            LIFT HEAVY. BE KIND. BUILD ROBUST SOFTWARE.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> DRAGOȘ IORGULESCU. 
+          <span class="text-slate-600">//</span> ALL RIGHTS RESERVED.
+        </div>
+        <div class="flex items-center gap-4">
+          <span>HOST // <a href="https://my.namebox.ro/aff.php?aff=505" class="text-slate-400 hover:underline">NAMEBOX.RO</a></span>
+          <span class="text-slate-600">|</span>
+          <span class="text-emerald-400/90 font-semibold">ZERO ENGINE DEPENDENCY</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>

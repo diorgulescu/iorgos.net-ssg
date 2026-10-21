@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deploying Microsoft Hyper-V Server 2019 without a Domain Controller // How-To // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../../programe/" class="text-slate-400 hover:text-slate-100 transition-colors">Programs</a>
+        <a href="../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
+        <a href="../../howto/" class="text-emerald-400 font-semibold">How-To</a>
+        <a href="../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <div class="mb-8">
+    <a href="../../howto/" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// HOW-TO</span>
+    </a>
+  </div>
+
+  <header class="mb-10 pb-6 border-b border-slate-800/60">
+    <div class="flex items-center gap-2 font-mono text-xs text-slate-400 mb-3">
+      <time datetime="2021-05-20">20 May 2021</time>
+      <span class="text-slate-600">&middot;</span>
+      <span>3 MIN READ</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight">
+      Deploying Microsoft Hyper-V Server 2019 without a Domain Controller
+    </h1>
+  </header>
+
+  <article class="prose-tactical text-slate-300">
+    <h3 id="prerequisites">Prerequisites</h3>
+
+<ul>
+<li>For fully managing the Hyper-V server remotely, you need to install Remote Server Administration Tools</li><li>Download the Hyper-V 2019 ISO from Microsoft</li><li>Rufus USB flashing tool</li><li>A decent PC LOL</li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<p>Well, not much to say here. Pretty straightforward, just like a normal Windows installation.</p>
+
+<p>Once the ISO is downloaded, stick an USB stick into your PC and launch Rufus. Select the ISO file you’ve just downloaded, make sure the USB stick is selected and check that GPT is used. Reboot your server-to-be and select the USB drive as a boot option. Then, carry on as usual.</p>
+
+<p>Easy-peasy lemon-squeezy!</p>
+
+<h3 id="enable-remote-hyper-v-management">Enable Remote Hyper-V Management</h3>
+
+<p>This is strictly in regards to Hyper-V and it’s settings. For “full” remote server management, please see the section about using Remote Administration Tools/Server Manager. All commands are for Powershell, unless otherwise specified so. Make sure you run these in a Powershell session with administrative rights!</p>
+
+<p>On The Server:</p>
+
+<pre><code>Enable-PSRemoting Enable-WSManCredSSP -Role server</code></pre>
+
+<p>On the client (my laptop in this case):</p>
+
+<pre><code>Set-Item WSMan:\localhost\Client\TrustedHosts -Value &quot;HYPERV-SERVER&quot; Enable-WSManCredSSP -Role &quot;Client&quot; -DelegateComputer &quot;HYPERV-SERVER&quot;</code></pre>
+
+<p>Now, for me this did not seem to work at all, so I reissued the commands above, but with the IP address replacing the FQDN of the Hyper-V server:</p>
+
+<pre><code>Set-Item WSMan:\localhost\Client\TrustedHosts -Value &quot;192.168.1.6&quot; Enable-WSManCredSSP -Role &quot;Client&quot; -DelegateComputer &quot;192.168.1.6&quot;</code></pre>
+
+<p>After that, it was required for me edit the Group Policies.</p>
+
+<h3 id="edit-group-policies">Edit Group Policies</h3>
+
+<p>Again, following the official instructions from Microsoft proved to be insufficient, so I once again need to praise Taylord Tech, because he did encounter all these issues and pointed to a valuable tip.</p>
+
+<p>Open <strong>gpedit.msc</strong> and go to <strong>“Computer Configuration > Administrative Templates > System > Credentials Delegation”</strong>. Double click <strong>“Allow delegating fresh credentials with NTLM-only server authentication”</strong> and select <strong>“Enable”</strong>. Then, Click <strong>“Show”</strong>, next to <strong>“Add servers to the list”</strong> and add *<em>“WSMAN</em>“<strong>. The official docs say one should add the FQDN of the server (</strong>“WSMAN\HYPERV-SERVER” in my case**), but that didn’t work at all for me.</p>
+
+<h3 id="enable-remote-disk-management">Enable Remote Disk Management</h3>
+
+<p>I did not succeed in setting up remote disk management, even though I did follow some how-to’s/tutorials/links in the MS Docs. I issued the following PowerShell commands on both the server & the client, but with no luck:</p>
+
+<pre><code>Set-NetFirewallRule –Name “RVM-VDS-In-TCP” –Enabled True -Profile Any
+Set-NetFirewallRule –Name “RVM-VDSLDR-In-TCP” –Enabled True -Profile Any
+Set-NetFirewallRule –Name “RVM-RPCSS-In-TCP” –Enabled True -Profile Any</code></pre>
+
+<p>After installing Remote Server Administration Tools on my Windows 10 laptop, I couldn’t get the Server Manager to properly connect to the Hyper-V host. I have some things to learn, that’s true. The errors were in regards to HTTPS access, since my laptop & server are not part of a domain (I guess that has something to do with it).</p>
+
+<p>But, for my needs, a simple Remote Desktop Connection was enough.</p>
+
+<h3 id="adding-a-new-disk">Adding a new disk</h3>
+
+<p>I ran the ‘diskpart.exe’ tool from a simple command prompt (“cmd.exe”) and formatted the second SSD drive on my server (~500GB) and assigned it a drive letter:</p>
+
+<pre><code>c:\diskpart
+DISKPART&gt; list disk
+Disk ###  Status         Size     Free     Dyn  Gpt
+--------  -------------  -------  -------  ---  ---
+Disk 0    Online          120 GB     0 B
+Disk 1    Online          500 GB   200 GB
+DISKPART&gt; select disk 1
+Disk 1 is now the selected disk.
+DISKPART&gt; create partition primary
+DISKPART&gt; list partition
+DISKPART&gt; select partition 1
+DISKPART&gt; format fs=NTFS quick
+DISKPART&gt; assign letter=D</code></pre>
+
+<h3 id="copying-files-to-the-hyper-v-host">Copying files to the Hyper-V host</h3>
+
+<p>Now, I just needed a way to actually copy some ISO’s over to the server so that I could install various operating systems. Being in the context of a homelab, I resorted to file sharing (I even mapped the drive on which I keep my “ISO store”). For that, I issued the following from a Powershell instance on the Server:</p>
+
+<pre><code>netsh advfirewall firewall set rule group=&quot;File and Printer Sharing&quot; new enable=Yes</code></pre>
+
+<p>Then, I mapped the C: drive on my server to Z: on my laptop. This way, I was able to copy all ISO files I would ever need (and not only that).</p>
+
+<p>Right after that, I began installing my first VMs on my first homelab Hyper-V Server.</p>
+
+<p>Yay me!</p>
+
+<h3 id="references-resources">References & Resources</h3>
+
+<ul>
+<li>https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/remotely-manage-hyper-v-hosts</li><li>https://www.youtube.com/watch?v=57Ijn7re8X8</li><li>https://social.technet.microsoft.com/Forums/office/en-US/cbdbcf92-d697-41d1-aa7a-bacf34bd48a5/remote-disk-management-rpc-server-unavailable</li><li>https://serverfault.com/questions/449192/server-2012-core-no-gui-how-to-manage-disks</li><li>http://technet.microsoft.com/en-us/library/cc770877.aspx</li><li>https://www.nakivo.com/blog/copy-iso-file-hyper-v-host/</li>
+</ul>
+  </article>
+
+  <div class="mt-12 pt-6 border-t border-slate-800/60 flex items-center justify-between font-mono text-xs text-slate-400">
+    <a href="../../howto/" class="hover:text-emerald-400 transition-colors">
+      ← Back to How-To
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="hover:text-emerald-400 transition-colors">
+      Back to top ↑
+    </a>
+  </div>
+</main>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>

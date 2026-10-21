@@ -1,0 +1,14 @@
+{{ define "main" }}
+    <article>
+        <h1>{{ .Title }}</h1>
+        
+        <!-- Afiseaza data doar daca suntem in sectiunea de blog -->
+        {{ if eq .Type "blog" }}
+            <p class="post-date"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time></p>
+        {{ end }}
+        
+        <div class="content">
+            {{ .Content }}
+        </div>
+    </article>
+{{ end }}

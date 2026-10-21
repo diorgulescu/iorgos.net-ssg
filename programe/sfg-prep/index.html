@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SFG I &amp; SFB Prep // 3-Phase Blueprint // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Dark Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+  <!-- Zero-FOUC Theme Initializer -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../../programe/" class="text-emerald-400 font-semibold">Programs</a>
+        <a href="../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
+        <a href="../../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
+        <a href="../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+  <!-- BREADCRUMB / HUD -->
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
+    <a href="../../programe/" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-amber-400 transition-colors">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>← Programs</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="badge-amber">STRONGFIRST CERTIFICATION PROTOCOL</span>
+      <span class="status-pill">
+        <span class="status-dot-amber"></span>
+        8-MONTH PROGRESSION
+      </span>
+    </div>
+  </div>
+
+  <!-- HERO CARD -->
+  <div class="tactical-card mb-8">
+    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-400 mb-3">
+      <span class="text-amber-400 font-semibold">FRAMEWORK // 02</span>
+      <span class="text-slate-700">•</span>
+      <span class="text-slate-400">TARGET // STRONGFIRST GIRYA 1 & BODYWEIGHT</span>
+      <span class="text-slate-700">•</span>
+      <span class="text-emerald-400">STRUCTURE // 3 PROGRESSIVE PHASES</span>
+    </div>
+
+    <h1 class="font-display font-bold text-3xl sm:text-5xl text-slate-100 leading-tight mb-4">
+      Program de Pregătire SFG I & SFB
+    </h1>
+
+    <p class="text-slate-400 text-sm max-w-3xl leading-relaxed mb-4">
+      Un program de antrenament progresiv, structurat în 3 faze mari pe 8 luni, pentru pregătirea certificărilor StrongFirst Girya (SFG) Nivelul 1 și StrongFirst Bodyweight (SFB). Îmbină Rite of Passage, anduranța alactică (A+A), și simularea celor 3 zile consecutive de stres de la certificare.
+    </p>
+
+    <div class="recessed-box text-xs font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span>PHASE 1: FOUNDATION (ROP & S&S)</span>
+      <span>PHASE 2: DOUBLE KB & A+A EMOM</span>
+      <span>PHASE 3: CERTIFICATION SIMULATION</span>
+    </div>
+  </div>
+
+  <!-- PHASES -->
+  
+        <section class="tactical-panel p-6 sm:p-8 mb-8 border border-slate-800">
+          <div class="flex flex-wrap items-center justify-between gap-4 pb-4 mb-6 border-b border-slate-800">
+            <div class="flex items-center gap-4">
+              <span class="font-display font-extrabold text-4xl sm:text-5xl text-amber-500 font-mono">01</span>
+              <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-slate-400">PHASE 01 // SFG LEVEL 1 + SFB</span>
+                <h2 class="font-display font-bold text-xl sm:text-2xl text-slate-100">
+                  Construirea Fundației (Rite of Passage & S&S)
+                </h2>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-right">
+              <span class="badge-amber">LIFT HEAVY. BE KIND.</span>
+            </div>
+          </div>
+
+          <!-- Focus Guidance -->
+          <div class="recessed-box mb-6 border-l-4 border-l-amber-500 text-sm text-slate-300">
+            
+        <strong>Ghid Ardere Grăsimi & SNC (+40):</strong> Deficit caloric moderat. Pentru a proteja sistemul nervos și a stimula oxidarea grăsimilor fără acumulare de cortizol, structurăm volumul în 3 zile mari (L-M-V), lăsând zilele de Marți și Joi ca module flexibile axate pe varietate și regenerare.
+    
+          </div>
+
+          <!-- Poster Content Grid -->
+          <div class="prose-tactical text-sm">
+            <div class="grid-container">
+        <div class="grid-col col-heavy">
+            <div class="day-title">Luni: Ziua Grea (RoP)</div>
+            <div class="day-subtitle">Volum Maximal & Tensiune</div>
+            <div class="section-label">Încălzire S&S + Prep Bent Press</div>
+            <div class="ex-block">
+                <div class="ex-name">Prying Squats, Halos, Arm Bars</div>
+                <div class="ex-desc">Inclusiv varianta cu brațul îndoit pentru deblocarea umerilor.</div>
+            </div>
+            <div class="section-label">Blocul Principal: Rite of Passage</div>
+            <div class="ex-block">
+                <div class="ex-name">Clean & Press + Tactical Pull-ups (SFB)</div>
+                <div class="ex-meta">4-5 scări de la 1 la 4 sau 5 rep (până la 5x5)</div>
+                <div class="ex-desc">Execuție: 1 rep C&P stânga/dreapta, 1 Tracțiune tactică rigidă, pauză. Treci la treapta de 2 rep, etc. 3-5 min repaus între scări.</div>
+            </div>
+            <div class="section-label">Finisher Balistic</div>
+            <div class="ex-block">
+                <div class="ex-name">Heavy Two-Arm Swings</div>
+                <div class="ex-meta">5 - 12 minute (Seturi de 10 repetări)</div>
+            </div>
+            <div class="section-label" style="color:#eccc68;">MODULUL FLEXIBIL: Marți (Varietate SFB)</div>
+            <div class="ex-block">
+                <div class="ex-name">Turkish Get-Up Slow Motion & Progresii SFB</div>
+                <div class="ex-desc">3x1+1 TGU ultra-lent. Pistol Asistat (3x5-8) + Flotări înclinate (3x5 focus pe linie).</div>
+            </div>
+        </div>
+        <div class="grid-col col-light">
+            <div class="day-title">Miercuri: Ziua Ușoară (RoP)</div>
+            <div class="day-subtitle">Regenerare Neurală & Cadență</div>
+            <div class="section-label">Blocul Principal: RoP Regresat</div>
+            <div class="ex-block">
+                <div class="ex-name">Clean & Press + Tactical Pull-ups</div>
+                <div class="ex-meta">3 scări a câte 1, 2, 3 repetări</div>
+                <div class="ex-desc">Menține aceeași greutate ca luni, dar taie drastic volumul general.</div>
+            </div>
+            <div class="section-label">Abilitate Tehnică SFG</div>
+            <div class="ex-block">
+                <div class="ex-name">Kettlebell Snatch Practică</div>
+                <div class="ex-meta">5 până la 10 seturi &times; 10 repetări (5S / 5D)</div>
+                <div class="ex-desc">Lucru lejer, concentrare pe traiectorie fluidă. Rămâi complet proaspăt.</div>
+            </div>
+            <div class="section-label" style="color:#eccc68;">MODULUL FLEXIBIL: Joi (Bent Press & S&S)</div>
+            <div class="ex-block">
+                <div class="ex-name">Bent Press Preliminarii & Simple & Sinister</div>
+                <div class="ex-desc">High & Low Windmill (3x3). Apoi 100 One-Arm Swings (10x10) + 10 TGU totale alternate lejer.</div>
+            </div>
+            <div class="card-footer-note">Zilele de miercuri și joi curăță acidul lactic și accelerează refacerea.</div>
+        </div>
+        <div class="grid-col col-medium">
+            <div class="day-title">Vineri: Ziua Medie (RoP)</div>
+            <div class="day-subtitle">Puntea de Volum Structural</div>
+            <div class="section-label">Blocul Principal: RoP Mediu</div>
+            <div class="ex-block">
+                <div class="ex-name">Clean & Press + Tactical Pull-ups</div>
+                <div class="ex-meta">5 scări a câte 1, 2, 3 repetări</div>
+                <div class="ex-desc">Punctul perfect de echilibru. Fără eșec muscular, mișcări perfect curate.</div>
+            </div>
+            <div class="section-label">Finisher Balistic</div>
+            <div class="ex-block">
+                <div class="ex-name">Heavy Two-Arm Swings</div>
+                <div class="ex-meta">5 - 12 minute (Seturi de 10 repetări)</div>
+            </div>
+            <div class="section-label" style="color:#2ed573;">WEEKEND: Management Lipidic Aerob</div>
+            <div class="ex-block">
+                <div class="ex-name">Cardio LSD & Rucking</div>
+                <div class="ex-meta">Sâmbătă sau Duminică: 45-60 minute</div>
+                <div class="ex-desc">Mers outdoor alert cu vestă ponderată în Zone 2 pentru consumarea directă a grăsimilor.</div>
+            </div>
+        </div>
+    </div>
+          </div>
+
+          <!-- Coach Directive -->
+          <div class="mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 font-mono text-xs text-slate-400">
+            
+        <strong>Directiva Antrenorului:</strong> „Forța este o abilitate.” Nu te antrena până la epuizare mecanică. În deficit caloric, odihna este la fel de anabolică ca antrenamentul.
+    
+          </div>
+        </section>
+        
+        <section class="tactical-panel p-6 sm:p-8 mb-8 border border-slate-800">
+          <div class="flex flex-wrap items-center justify-between gap-4 pb-4 mb-6 border-b border-slate-800">
+            <div class="flex items-center gap-4">
+              <span class="font-display font-extrabold text-4xl sm:text-5xl text-amber-500 font-mono">02</span>
+              <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-slate-400">PHASE 02 // SFG LEVEL 1 + SFB</span>
+                <h2 class="font-display font-bold text-xl sm:text-2xl text-slate-100">
+                  Câștigarea Forței și Antrenament A+A
+                </h2>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-right">
+              <span class="badge-amber">LIFT HEAVY. BE KIND.</span>
+            </div>
+          </div>
+
+          <!-- Focus Guidance -->
+          <div class="recessed-box mb-6 border-l-4 border-l-amber-500 text-sm text-slate-300">
+            
+        <strong>Ghid Ardere Grăsimi & SNC (+40):</strong> Lucrul cu 2 kettlebell-uri crește masiv consumul caloric. Aplicăm protocolul alactic EMOM (Snatches A+A) pentru a arde țesutul adipos fără a genera aciditate sistemică distructivă.
+    
+          </div>
+
+          <!-- Poster Content Grid -->
+          <div class="prose-tactical text-sm">
+            <div class="grid-container">
+        <div class="grid-col col-heavy">
+            <div class="day-title">Luni: Workout 1 (Duble)</div>
+            <div class="day-subtitle">Complex de Înaltă Densitate</div>
+            <div class="section-label">Circuit cu 2 Kettlebell-uri</div>
+            <div class="ex-meta">3 Circuite &bull; Pauză 5 min între ele</div>
+            <div class="ex-desc">Pauza dintre exerciții scade în timp de la 60s la 20s.</div>
+            <div class="section-label">Secvența Circuitului</div>
+            <div class="ex-block"><div class="ex-name">1. One-Arm Swing</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
+            <div class="ex-block"><div class="ex-name">2. Double Clean & Press</div><div class="ex-meta">5 repetări</div></div>
+            <div class="ex-block"><div class="ex-name">3. Double Clean & Front Squat</div><div class="ex-meta">5 repetări</div></div>
+            <div class="ex-block"><div class="ex-name">4. Turkish Get-Up</div><div class="ex-meta">1 Stânga / 1 Dreapta</div></div>
+            <div class="ex-block"><div class="ex-name">5. Kettlebell Snatch</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
+        </div>
+        <div class="grid-col col-light">
+            <div class="day-title">Miercuri: Snatches A+A</div>
+            <div class="day-subtitle">Anduranță Anti-Glicolică</div>
+            <div class="section-label">Pregătire Neurală</div>
+            <div class="ex-block"><div class="ex-name">Turkish Get-Ups Fin</div><div class="ex-meta">6 repetări totale (3/braț) ca încălzire</div></div>
+            <div class="section-label">Snatch A+A Protocol (EMOM)</div>
+            <div class="ex-block">
+                <div class="ex-name">Kettlebell Snatch Targetat</div>
+                <div class="ex-meta">Timp: 15 minute &bull; EMOM</div>
+                <div class="ex-desc">Execută 5 Snatches pe dreapta, apoi 5 pe stânga la începutul minutului. Odihnă restul timpului.</div>
+            </div>
+            <div class="section-label" style="color:#eccc68;">MODULUL FLEXIBIL: Marți (Justa & SFB)</div>
+            <div class="ex-block">
+                <div class="ex-name">Bent Press (Metoda Justa) & OAPU/Pistol</div>
+                <div class="ex-desc">15-25 serii &times; 1 rep @ 70% 1RM. Easy Strength pentru OAPU & Pistol: 2 serii x 5 rep submaximale.</div>
+            </div>
+            <div class="card-footer-note">Joia este zi obligatorie de RECUPERARE ACTIVĂ: Mobilitate și Rucking ușor.</div>
+        </div>
+        <div class="grid-col col-medium">
+            <div class="day-title">Vineri: Workout 2 (Duble)</div>
+            <div class="day-subtitle">Forță Structurală</div>
+            <div class="section-label">Circuit Modificat cu 2 KB</div>
+            <div class="ex-meta">3 Circuite &bull; Pauză 5 min între ele</div>
+            <div class="section-label">Secvența Circuitului 2</div>
+            <div class="ex-block"><div class="ex-name">1. Double Clean & Press</div><div class="ex-meta">5 Stânga / 5 Dreapta</div></div>
+            <div class="ex-block"><div class="ex-name">2. Turkish Get-Up</div><div class="ex-meta">1 Stânga / 1 Dreapta</div></div>
+            <div class="ex-block"><div class="ex-name">3. Double Clean & Front Squat</div><div class="ex-meta">5 repetări</div></div>
+            <div class="ex-block"><div class="ex-name">4. One-Arm Swing</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
+            <div class="ex-block"><div class="ex-name">5. Kettlebell Snatch</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
+            <div class="section-label" style="color:#ff7675;">SÂMBĂTĂ: Heavy Engine & SFB</div>
+            <div class="ex-block">
+                <div class="ex-name">Heavy Swings EMOM & SFB Menținere</div>
+                <div class="ex-desc">10 serii x 10 rep EMOM (cel mai greu KB). OAPU & Pistol: 2x5 ușor, concentrat pe formă.</div>
+            </div>
+        </div>
+    </div>
+          </div>
+
+          <!-- Coach Directive -->
+          <div class="mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 font-mono text-xs text-slate-400">
+            
+        <strong>Directiva Antrenorului:</strong> Protocolul A+A de miercuri îți construiește densitatea mitocondrială. Nu lăsa respirația să treacă pe mod gâfâit continuu.
+    
+          </div>
+        </section>
+        
+        <section class="tactical-panel p-6 sm:p-8 mb-8 border border-slate-800">
+          <div class="flex flex-wrap items-center justify-between gap-4 pb-4 mb-6 border-b border-slate-800">
+            <div class="flex items-center gap-4">
+              <span class="font-display font-extrabold text-4xl sm:text-5xl text-amber-500 font-mono">03</span>
+              <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-slate-400">PHASE 03 // SFG LEVEL 1 + SFB</span>
+                <h2 class="font-display font-bold text-xl sm:text-2xl text-slate-100">
+                  Specificitate SFG I
+                </h2>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-right">
+              <span class="badge-amber">LIFT HEAVY. BE KIND.</span>
+            </div>
+          </div>
+
+          <!-- Focus Guidance -->
+          <div class="recessed-box mb-6 border-l-4 border-l-amber-500 text-sm text-slate-300">
+            
+        <strong>Ghid Ardere Grăsimi & SNC (+40):</strong> Faza de vârf. Blocul Vineri-Sâmbătă-Duminică simulează cele 3 zile consecutive de stres de la certificare. Toate circuitele se execută cu greutatea oficială. Mișcările SFB trec pe modul „Menținere/Easy”.
+    
+          </div>
+
+          <!-- Poster Content Grid -->
+          <div class="prose-tactical text-sm">
+            <div class="grid-container">
+        <div class="grid-col col-heavy">
+            <div class="day-title">Simulare Certificare (Zilele 1 & 2)</div>
+            <div class="day-subtitle">Încărcare Dublă Consecutivă</div>
+            <div class="section-label">Vineri: Ziua 1 SFG (Workout 1)</div>
+            <div class="ex-block">
+                <div class="ex-name">Circuit Duble Exclusiv (Greutate Test)</div>
+                <div class="ex-meta">3 Circuite &bull; Pauză 5 min &bull; Max 20s între exerciții</div>
+                <div class="ex-desc">Swing (10S/10D) &rarr; Double C&P (5) &rarr; Double Squat (5) &rarr; TGU (1S/1D) &rarr; Snatch (10S/10D).</div>
+            </div>
+            <div class="section-label">Sâmbătă: Ziua 2 SFG (Workout 2)</div>
+            <div class="ex-block">
+                <div class="ex-name">Circuit Duble Modificat sub Oboseală</div>
+                <div class="ex-meta">3 Circuite complete &bull; Pauză 5 min între ele</div>
+                <div class="ex-desc">Secvența de Vineri din Faza 2. Focus pe execuția explozivă a bazinului sub oboseală cumulată.</div>
+            </div>
+            <div class="card-footer-note">Consumă carbohidrați complecși în acest weekend pentru rezervele de glicogen.</div>
+        </div>
+        <div class="grid-col col-medium">
+            <div class="day-title">Duminică: Simulare Certificare (Ziua 3)</div>
+            <div class="day-subtitle">Efortul Final & Rezistență Mentală</div>
+            <div class="section-label">Duminică: Ziua 3 SFG (Workout 3)</div>
+            <div class="ex-block">
+                <div class="ex-name">Circuit Duble Final</div>
+                <div class="ex-meta">3 Circuite complete</div>
+                <div class="ex-desc">Secvență modificată pentru testarea trunchiului:</div>
+            </div>
+            <div class="ex-block"><div class="ex-name">1. Double Clean & Front Squat</div><div class="ex-meta">5 repetări sub paralelă</div></div>
+            <div class="ex-block"><div class="ex-name">2. One-Arm Swing</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
+            <div class="ex-block"><div class="ex-name">3. Double Clean & Press</div><div class="ex-meta">5 repetări stricte</div></div>
+            <div class="ex-block"><div class="ex-name">4. Turkish Get-Up</div><div class="ex-meta">1 Stânga / 1 Dreapta</div></div>
+            <div class="ex-block"><div class="ex-name">5. Kettlebell Snatch</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
+            <div class="card-footer-note">Luni este zi de REPAUS ABSOLUT. Doar mers pe jos lejer.</div>
+        </div>
+        <div class="grid-col col-light">
+            <div class="day-title">Marți: Ziua de Snatch Test</div>
+            <div class="day-subtitle">Măsurarea Condiției Oficiale</div>
+            <div class="section-label">Testul Oficial (Snatch Test Practice)</div>
+            <div class="ex-block">
+                <div class="ex-name">100 Snatches / Greutatea Oficială / max 5 min</div>
+                <div class="ex-desc">Format strategic: 20/20, 15/15, 10/10, 5/5. Repetă blocul de 2-3 ori (5-10 min pauză completă între ele).</div>
+            </div>
+            <div class="section-label">Menținere Neurologică SFB & Bent Press</div>
+            <div class="ex-block">
+                <div class="ex-name">Pistol Squat & OAPU & Bent Press</div>
+                <div class="ex-meta">Menținerea căii active</div>
+                <div class="ex-desc">SFB: 2 serii x 3-5 rep (lejer). Bent Press: 2-3 single-uri cu greutate medie (60-70%).</div>
+            </div>
+            <div class="section-label" style="color:#747d8c;">Joi: Finisher Balistic Scurt</div>
+            <div class="ex-block">
+                <div class="ex-name">Heavy Swings EMOM</div>
+                <div class="ex-meta">10 minute EMOM (10S / 10D) + Rucking lejer</div>
+            </div>
+        </div>
+    </div>
+          </div>
+
+          <!-- Coach Directive -->
+          <div class="mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 font-mono text-xs text-slate-400">
+            
+        <strong>Directiva Antrenorului:</strong> Snatch Testul se câștigă cu mintea rece și pârghii biomecanice perfecte. Protejează-ți pielea palmelor și hidratează-te.
+    
+          </div>
+        </section>
+        
+
+  <!-- FOOTER ACTIONS -->
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-slate-800 bg-[#111827]/60">
+    <a href="../../programe/" class="tactical-btn">
+      <i class="ph-bold ph-arrow-left"></i>
+      BACK TO TRAINING DIRECTORY
+    </a>
+    <button onclick="window.print()" class="tactical-btn-emerald">
+      <i class="ph-bold ph-printer"></i>
+      PRINT FULL PROGRAM
+    </button>
+  </div>
+</main>
+
+
+  <!-- TACTICAL FOOTER HUD -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>

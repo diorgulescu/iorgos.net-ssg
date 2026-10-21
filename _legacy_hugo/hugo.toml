@@ -1,0 +1,7 @@
+baseURL = "https://iorgos.net/"
+languageCode = "en-us"
+title = "Dragoș Iorgulescu"
+
+# Permite executarea de tag-uri HTML raw in fisierele .md
+[markup.goldmark.renderer]
+  unsafe = true

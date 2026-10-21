@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compiling ‘suckless tools’ on FreeBSD // Howto // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+
+  <!-- TOP HUD BAR -->
+  <div class="border-b border-slate-800/80 bg-[#0B0F17]/95 text-[11px] font-mono text-slate-400 py-1.5 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          SYS // ONLINE
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-400">NODE // BUCHAREST</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span class="hidden sm:inline text-slate-400">ARCH // STANDALONE-HTML5</span>
+      </div>
+      <div class="flex items-center gap-3 text-slate-400">
+        <span id="hud-clock">--:--:-- // LOCAL</span>
+        <span class="text-slate-700">|</span>
+        <span class="text-sky-400 font-medium">ENGINE // ZERO DEPENDENCY</span>
+        <span class="hidden sm:inline text-slate-700">|</span>
+        <span id="theme-status-hud" class="hidden sm:inline font-mono text-[10px] uppercase text-emerald-400">MODE // DARK</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN TACTICAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#111827]/85 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-emerald-400 group-hover:border-emerald-500/50 group-hover:shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)] transition-all">
+          <i class="ph-duotone ph-terminal-window text-xl"></i>
+        </div>
+        <div>
+          <div class="font-display font-bold text-slate-100 text-base tracking-wider group-hover:text-emerald-400 transition-colors">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <div class="text-[10px] font-mono uppercase tracking-widest text-slate-400">
+            TEST ENGINEER // STRENGTH PRACTITIONER // ASPIRING VIDEOGRAPHER
+          </div>
+        </div>
+      </a>
+
+      <!-- DESKTOP NAV -->
+      <nav class="hidden md:flex items-center gap-1 font-mono text-xs uppercase tracking-wider">
+        <a href="../../blog/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">01 //</span>BLOG
+        </a>
+        <a href="../../programe/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">02 //</span>PROGRAMS
+        </a>
+        <a href="../../sounds/" class="px-3 py-1.5 rounded-lg border transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border-transparent hover:border-slate-700">
+          <span class="text-slate-500 mr-1">03 //</span>SOUNDS
+        </a>
+        <a href="../../howto/" class="px-3 py-1.5 rounded-lg border transition-all bg-slate-800 text-white border-slate-700 font-bold">
+          <span class="text-slate-500 mr-1">04 //</span>HOW-TO
+        </a>
+        <a href="../../now.html" class="ml-2 px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-all flex items-center gap-1.5 text-[11px] ">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+          NOW
+        </a>
+
+        <!-- THEME TOGGLE BUTTON (DESKTOP) -->
+        <button type="button" class="theme-toggle-btn ml-3 w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- MOBILE ACTIONS (THEME TOGGLE + HAMBURGER) -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" class="theme-toggle-btn w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-500/50 transition-all cursor-pointer shadow-sm" title="Comută Schema de Culoare" aria-label="Comută Schema de Culoare">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:border-slate-700" aria-label="Toggle Menu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU DROPDOWN -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 backdrop-blur-xl px-4 py-4 space-y-2 font-mono text-xs uppercase tracking-wider">
+      <a href="../../" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">00 // HOME</a>
+      <a href="../../blog/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">01 // BLOG</a>
+      <a href="../../programe/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">02 // TRAINING PROGRAMS</a>
+      <a href="../../sounds/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">03 // SOUNDS</a>
+      <a href="../../howto/" class="block px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 border border-transparent hover:border-slate-700">04 // HOW-TO</a>
+      <a href="../../now.html" class="block px-3 py-2.5 rounded-lg text-emerald-400 bg-emerald-500/10 border border-emerald-500/30">05 // NOW PAGE</a>
+      <div class="pt-2 border-t border-slate-800 flex items-center justify-between px-3 py-2 text-slate-400">
+        <span>SCHEMA VIZUALĂ</span>
+        <button type="button" class="theme-toggle-btn px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200 flex items-center gap-1.5">
+          <i class="theme-toggle-icon ph-bold ph-sun text-amber-400"></i>
+          <span>SCHIMBĂ TEMA</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
+    <a href="../../howto/" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// RETURN TO HOWTO DIRECTORY</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="badge-sky">SYSADMIN // TECH</span>
+      <span class="status-pill">
+        <span class="status-dot-emerald"></span>
+        DISPATCH #COMPILING-SU
+      </span>
+    </div>
+  </div>
+
+  <div class="tactical-card mb-8">
+    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-400 mb-3">
+      <span class="inline-flex items-center gap-1 text-emerald-400 font-semibold">
+        <i class="ph-bold ph-calendar-blank"></i>
+        <time datetime="2019-10-23">23 Oct 2019</time>
+      </span>
+      <span class="text-slate-700">•</span>
+      <span class="inline-flex items-center gap-1 text-sky-400">
+        <i class="ph-bold ph-clock"></i>
+        12 MIN READ
+      </span>
+      <span class="text-slate-700">•</span>
+      <span class="text-slate-400">LOG // compiling-suckless-tools-freebsd</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight mb-4">
+      Compiling ‘suckless tools’ on FreeBSD
+    </h1>
+
+    <div class="recessed-box text-xs font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
+      <span>AUTHOR // DRAGOȘ IORGULESCU</span>
+      <span>STREAM // HOWTO</span>
+      <span>STATUS // PUBLISHED</span>
+    </div>
+  </div>
+
+  <article class="tactical-panel p-6 sm:p-10 prose-tactical">
+    <p>I wrote this tutorial for potential new users that want to try out new stuff and wish to expand their technical knowledge, but also because there are some commands and details around here I might forget some months or years down the line (for example, Xorg video driver configurations). The whole writing process was a very good opportunity for me to extend the CSS I used for my website and to try do to a better job at formatting tech/code/console-related text. I would be glad if someone else found these instructions useful.</p>
+
+<p><strong>⚠ WARNING This tutorial was written on October 23rd, 2019. I decided to keep it here for reference. Things potentially marked as „In progress”, „Not solved” or „Not working” (if any at a given time) may already have a workaround or a solution. Keep in mind that the exact instructions provided here may not be fully applicable to your system’s context!</strong></p>
+
+<p>### Why bother? Since most of these tools are already available in the FreeBSD package tree, why go through the hassle of building them yourself? Well, why bother with anything, really?</p>
+
+<p>In my opinion, this is the only way you get to truly undestrand how these tools are built and how they interact with each other. There’s also a small chance you’ll get the hang of manually building software if you’re not used to it or never have done it before. Last,but not least, you get to customize each software piece. Since suckless tools rely on the user recompiling the source files in order to set various parameters, this is the way to do it. Finally, it’s a good first look at the (I would say) intentional philosophy behind these tools.</p>
+
+<h3 id="assumptions">Assumptions</h3>
+
+<ul>
+<li>First of all, you have a new, freshly installed FreeBSD system (version 12 being the latest stable one, at the time of writing). No X server, no pkg-config, etc. The following steps describe what one should to in order to get a fully functional suckless.org-based desktop (strange choice of words, I know).</li><li>Of course, a bit of experience working in a console is required. But why would you install FreeBSD otherwise?</li><li>Your user account has administrative privileges or is, at least, added to the /usr/local/etc/sudoers file</li><li>You have read about the tools developed by the people at suckless.org and their philosophy (if not, go do it now, because it won’t take long)</li><li>You understand that in order to change some configuration attributes, editing a C header file is mandatory. Luckily, this is just a formality and you don’t really need to know C in order to change some intuitive settings.</li>
+</ul>
+
+<h3 id="general-guidelines">General guidelines</h3>
+
+<p>Change X11INC and X11LIB paths in each & every config.mk file (each tool folder contains one such file). This is their FreeBSD-adjusted form:</p>
+
+<p>X11INC=/usr/local/include         X11LIB=/usr/local/lib</p>
+
+<p>Each software piece produced by the people at suckless.org relies on a config.h header file that lies in the main source folder, along with Makefile and all the rest. This file does not exist by default, but a template with default settings is available. So, do a quick $ cp config.def.h config.h for each tool you wish to setup.</p>
+
+<h3 id="preparations">Preparations</h3>
+
+<p>To setup these tools, we need to install a few things first. Issue this command as root or with sudo privileges:</p>
+
+<p>$ pkg install git xorg-server xorg-fonts-truetype gcr devel/glib20 \          xorg-fonts-type1 p5-X11-Xlib p5-PkgConfig xauth xrandr xinit libXft xrdb webkit2-gtk3 \         feh xf86-input-mouse xf86-input-keyboard linux-c7-libpng</p>
+
+<p>Good. Now, let’s take it step by step. In order to keep things organized, create a folder in your home directory where the sources will be stored. Then, proceed in fetching all the source files:</p>
+
+<p>$ mkdir ~/git         $ cd git         $ git clone git://git.suckless.org/dmenu         $ git clone git://git.suckless.org/slstatus         $ git clone git://git.suckless.org/st         $ git clone git://git.suckless.org/dwm         $ git clone git://git.suckless.org/sent         $ git clone git://git.suckless.org/surf</p>
+
+<p>Of course, there are more tools available (farbfeld, tabbed, slock, etc.), but these are not essential and will be covered in a separate post.TIP: st is an acronym for „suckless terminal”. It’s quite a simple terminal and some of the functionalities you might’ve found in xterm are missing (even scrolling). Of course, these can all be set by editing the config.h file, but if you want a quick alternative, go ahead and download Luke Smith’s build, which includes tweaks and additional settings that turn this into a more usable terminal emulator.</p>
+
+<p>Now you are ready to start building.</p>
+
+<h3 id="dmenu-a-fast-app-search-launch-thingy">dmenu (a fast app „search & launch” thingy)</h3>
+
+<p>This is a nifty tool that allows you to search & execute programs installed on your system. By default, it uses a so-called „Mod key” in combination with „P”, but we’ll get to that later. In short: this is a must for convenience.</p>
+
+<p>$ cd dmenu         $ cp config.def.h config.h         $ vim config.h         $ vim config.mk</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<ul>
+<li>Set FREETYPEINC to /usr/local/include/freetype2</li><li>Update X11INC and X11LIB as shown in the Prerequisites section</li>
+</ul>
+
+<h4 id="config-h">config.h</h4>
+
+<p>Increase the font from 10 to 12 or more. This is for readability, but it’s a matter of taste and eyestrain:          static const char *fonts[] = {"monospace:size=12"}   Now, build and install it:          $ make $ sudo make install</p>
+
+<h3 id="slstatus-a-nice-status-bar">slstatus (a nice status bar)</h3>
+
+<p>Actually, a very nice and highly customizable status bar. Create the config.h file from the template and edit it.</p>
+
+<p>$ cd ../slstatus         $ cp config.def.h config.h</p>
+
+<h4 id="config-h">config.h</h4>
+
+<p>Since there are quite a lot of available options, here’s how my file looks at the moment (for my laptop installation, that is):</p>
+
+<p>static const struct arg args[] = {                 /<em> function format          argument </em>/                 { datetime, "%s",           "%F %T" },                 { cpu_perc, "[CPU %3s%%] ", NULL    },                 { ram_used, "[RAM %2s%%] ", NULL    },                 { battery_state, "[BAT %s", "BAT0" },                 { battery_perc, "%s%%] ", "BAT0" },                 { run_command, "[VOL %s%%] ", "/bin/sh -c \"amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1\"" },                 { ipv4, "[wlan0 %s] ", "wlan0" }         };</p>
+
+<p>All available options and attributes are listed in a long comment inside the original config.def.h file. Please do check them out!</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<p>Update X-related variables (as previously shown)</p>
+
+<h4 id="makefile">Makefile</h4>
+
+<p>For some reason I still can’t grasp, the swap component causes a compilation error. Since I don’t find it useful, I choose to take it out of the build process. Just edit the Makefile and remove the following line:</p>
+
+<p>components/swap  \</p>
+
+<p>Next, the usual:</p>
+
+<p>$ make         $ sudo make install</p>
+
+<h3 id="dwm-the-window-manager">dwm (THE window manager)</h3>
+
+<p>Or the dynamic window manager. In my opinion, probably i3’s nemesis. A tiling window manager that’s very lightweight & fast. Very similar to i3 in some respects, but a bit different when it comes to how it’s being used (refer to the original docs for details). I admit that it might not seem very different to the average user, but the specifics come about after using it for at least a week.</p>
+
+<p>$ cd ../dwm         $ cp config.def.h config.h</p>
+
+<h4 id="config-h">config.h</h4>
+
+<p>By default, the „modifier key” (the one used for all keyboard shortcuts) is Alt. If one wants to use the Win key, for example, the MODKEY must be redefined. Go to line 47 in config.h and change Mod1Mask to Mod4Mask (Mod1Mask for Alt). You should end up with:          #define MODKEY Mod4Mask  dwm uses „st” implicitly when the user requests a new terminal window ($MODKEY + Shift + Enter). If another terminal emulator is desired, feel free to set it at line 60:          static const char <em>termcmd[] = {"xterm", NULL}  I am not comfortable with small screen fonts, therefore I also change that at line 8:          static const char </em>fonts[] = {"monospace:size=12"}</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<p>Update freetype fonts path:          FREETYPEINC=/usr/local/include/freetype2</p>
+
+<p>Next:         $ sudo make clean install</p>
+
+<h3 id="st-simple-terminal">st („simple terminal”)</h3>
+
+<p>The people at suckless.org find xterm to be bloated and carrying a lot of „baggage” (code for interacting with systems that nowadays are pretty scarce). Therefore, they developed their own terminal emulator. A very basic one, which lacks some of the features I personally love about xterm and mrxvt (like scrolling and easy copy/pasting). Of course, it can be extended and tinkered by tackling the config.h file, but there is an alternative: Luke Smith’s st fork actually contains all these missing features. If you wish to use that instead, go ahead and clone his repo.</p>
+
+<p>Because I like Luke’s fork, I am going to remove the original st I cloned at the very beginning and fetch that instead:</p>
+
+<p>$ cd ..         $ rm -rf st/         $ git clone https://github.com/LukeSmithxyz/st.git         $ cd st</p>
+
+<p>Of course, feel free to mess around with the config file if you wish.</p>
+
+<p>In case you really want to use the original st repository, keep the current clone and remember to $ cp config.def.h config.h so you have a custom config file.</p>
+
+<p>Some changes need to be made in order to successfully compile st on FreeBSD.</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<p>Update X11INC & X11LIB paths as before:</p>
+
+<p>X11INC = /usr/local/include         X11LIB = /usr/local/lib</p>
+
+<p>Properly set PKG_CONFIG:</p>
+
+<p>PKG_CONFIG=/usr/local/bin/pkg-config</p>
+
+<p>Once all settings are in place, build & install:</p>
+
+<p>$ sudo make clean install</p>
+
+<h3 id="sent">sent</h3>
+
+<p>It’s trendy to „go minimal” nowadays, but minimalism itself is not a new thing. Let’s face it: letting go of superficial content & eye-candy is the only way to actively focus on relevant issues and information. sent adheres to the Takahashi method by helping you create simple presentations that support you, the presenter.</p>
+
+<p>During a corporate or technical presentation, the presenter needs to be the one people pay attention to, not the slides coming on & off the walls. Apart from some relevant screenshots or simple charts, concise textual information is the only thing that should reside in a presentation.</p>
+
+<p>Just remember how many times you dozed-off during a boring but visually loaded presentation. Wouldn’t it be nicer if you could bravely show an alternative way of doing presentations? At least the more technical ones, which target tech people. You know, challenging the status-quo of MS PowerPoint.</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<ul>
+<li>Update X-related paths as shown before</li><li>Change -I/usr/include/freetype2 to -I/usr/local/include/freetype2 in INCS</li>
+</ul>
+
+<p>config.h is a good place to learn about all the available shortcuts and options.</p>
+
+<p>Then,</p>
+
+<p>$ sudo make clean install</p>
+
+<p>I intend to do a brief tutorial for this tool in the near future.</p>
+
+<h3 id="surf">surf</h3>
+
+<p>Talking about minimalism, here’s a Webkit-based browser that has no tabs or any other „bling”. Just the main window and a few shortcuts. It handles almost any common website very well, including HTML5, CSS3, JavaScript and the such. I admit this is the browser I use 99% of the time, except those moments when I must make sure some CSS changes in my website’s appearance work well on others, too.</p>
+
+<p>It’s kind of tricky for someone that’s been using dozens of tabs & browser extensions, but I fancy it quite a lot. Maybe it is because using many tabs has a confusing effect on me, making me lose focus a lot easier. I remember a time when I started working on a Firefox extension that would deny the use of more than one tab :).</p>
+
+<p>Anyway, I will come back to surf and „focused browsing” on another occasion.</p>
+
+<p>This one is pretty straightforward, assuming you don’t want to tinker all options availabe in config.h:</p>
+
+<p>$ cd ../surf         $ sudo make clean install</p>
+
+<p>If all goes well, lauch it using something like surf https://duckduckgo.com. If you want to enter a different web address in the current window, use Ctrl + G and then just type it and hit Enter.TIP: Alternatively, you may use a fork of surf that improves usability by facilitating bookmarks and the use of WebKit Inspector (useful for web developers). If that sounds good, go ahead and</p>
+
+<p>$ rm -rf git/surf; git clone https://github.com/imiric/surf.git</p>
+
+<h3 id="xorg-configuration">Xorg configuration</h3>
+
+<p>At this point, we have everything we need to start using our new „desktop UI”. In order to wrap this up, we need to make sure Xorg uses the appropriate display drivers and quickly set a couple other things. nVidia drivers ¶</p>
+
+<p>I use a GeForce GT 430 on my desktop. Even though I knew the adapter was officially supported by the original nVidia driver for FreeBSD systems, I set things wrong the first time. So, here are the steps, in order:</p>
+
+<p>Install the official nVidia driver (check the version you need, depending on your graphics card):</p>
+
+<p>$ sudo kldload linux64         $ sudo pkg install nvidia-driver</p>
+
+<p>Run sudo sysrc kld_list+="nvidia-modeset" Add the following to /boot/loader.conf:</p>
+
+<p>linux_load="YES"         linux64_load="YES"</p>
+
+<p>Create /usr/local/etc/X11/xorg.conf.d/driver-nvidia.conf and add populate it with the following:</p>
+
+<p>Section "Device"                 Identifier "NVIDIA Card"                 VendorName "NVIDIA Corporation"                 Driver "nvidia"         EndSection</p>
+
+<h4 id="intel-integrated-graphics">Intel integrated graphics</h4>
+
+<p>sudo pkg install drm-kmod</p>
+
+<p>Edit /etc/rc.conf and add:</p>
+
+<p>kld_list="/boot/modules/i915kms.ko"</p>
+
+<h4 id="keyboard-configuration">Keyboard configuration</h4>
+
+<p>Create /usr/local/etc/X11/xorg.conf.d/kbd-layout-multi.conf and add:</p>
+
+<p>Section "InputClass"                 Identifier "All Keyboards"                 MatchIsKeyboard "yes"                 Option  "XkbLayout" "us, ro"         EndSection</p>
+
+<h4 id="xinitrc">.xinitrc</h4>
+
+<p>Create .xinitrc in your $HOME and populate it accordingly:</p>
+
+<p>xrdb -load $HOME/.Xresources         slstatus&         exec dwm</p>
+
+<h4 id="xresources">.Xresources</h4>
+
+<p>Using your editor, create $HOME/.Xresources and add the following):</p>
+
+<p>! Use a nice truetype font and size by default...         xterm<em>faceName: DejaVu Sans Mono Book         xterm</em>faceSize: 12</p>
+
+<p>! Every shell is a login shell by default (for inclusion of all necessary environment variables)         xterm*loginshell: true</p>
+
+<p>! I like a LOT of scrollback...         xterm*savelines: 16384</p>
+
+<p>! double-click to select whole URLs 😀         xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48</p>
+
+<p>! DOS-box colours...         xterm<em>foreground: rgb:a8/a8/a8         xterm</em>background: rgb:00/00/00         xterm<em>color0: rgb:00/00/00         xterm</em>color1: rgb:a8/00/00         xterm<em>color2: rgb:00/a8/00         xterm</em>color3: rgb:a8/54/00         xterm<em>color4: rgb:00/00/a8         xterm</em>color5: rgb:a8/00/a8         xterm<em>color6: rgb:00/a8/a8         xterm</em>color7: rgb:a8/a8/a8         xterm<em>color8: rgb:54/54/54         xterm</em>color9: rgb:fc/54/54         xterm<em>color10: rgb:54/fc/54         xterm</em>color11: rgb:fc/fc/54         xterm<em>color12: rgb:54/54/fc         xterm</em>color13: rgb:fc/54/fc         xterm<em>color14: rgb:54/fc/fc         xterm</em>color15: rgb:fc/fc/fc</p>
+
+<p>! right hand side scrollbar...         xterm<em>rightScrollBar: true         xterm</em>ScrollBar: true</p>
+
+<p>! stop output to terminal from jumping down to bottom of scroll again         xterm*scrollTtyOutput: false</p>
+
+<h3 id="ready-go">Ready? Go!</h3>
+
+<p>The moment has come. Reboot your system to make sure all modules are loaded correctly.</p>
+
+<p>Then:</p>
+
+<p>$ startx</p>
+
+<p>That’s mainly it. I hope this was useful. The config files I use can be found in this repo.</p>
+  </article>
+
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-slate-800 bg-[#111827]/60">
+    <a href="../../howto/" class="tactical-btn">
+      <i class="ph-bold ph-arrow-left"></i>
+      BACK TO ALL HOWTO
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="tactical-btn-emerald">
+      <i class="ph-bold ph-arrow-up"></i>
+      BACK TO TOP
+    </a>
+  </div>
+</main>
+
+
+  <!-- TACTICAL FOOTER HUD -->
+  <footer class="mt-20 border-t border-slate-800/80 bg-[#0B0F17] py-12 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+        <div class="md:col-span-5 space-y-3">
+          <div class="font-display font-bold text-slate-100 text-lg tracking-wider">
+            // DRAGOȘ IORGULESCU
+          </div>
+          <p class="text-sm text-slate-400 font-sans leading-relaxed max-w-md">
+            Software Test Engineer, kettlebell lifter, open-source enthusiast, and audio explorer. Dedicated to high-leverage simplicity, robust physical conditioning, and pragmatic engineering across open and proprietary platforms.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
+            <span class="inline-flex items-center gap-1.5 text-emerald-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              STANDALONE ARCHITECTURE
+            </span>
+            <span class="text-slate-700">//</span>
+            <span>100% PURE HTML5</span>
+          </div>
+        </div>
+
+        <div class="md:col-span-3 space-y-3 font-mono text-xs">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-bold">DIRECTORY //</div>
+          <ul class="space-y-2">
+            <li><a href="../../blog/" class="text-slate-400 hover:text-emerald-400 transition-colors">01 // Journal (Blog)</a></li>
+            <li><a href="../../programe/" class="text-slate-400 hover:text-emerald-400 transition-colors">02 // Training Frameworks</a></li>
+            <li><a href="../../sounds/" class="text-slate-400 hover:text-emerald-400 transition-colors">03 // Sound Archives</a></li>
+            <li><a href="../../howto/" class="text-slate-400 hover:text-emerald-400 transition-colors">04 // Technical How-Tos</a></li>
+            <li><a href="../../now.html" class="text-slate-400 hover:text-emerald-400 transition-colors">05 // Current Focus (Now)</a></li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-4 space-y-3">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">COMMS CHANNELS //</div>
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <a href="mailto:dragos@iorgos.net" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/40 transition-all">
+              <i class="ph-bold ph-envelope text-base text-emerald-400"></i>
+              <span>Email</span>
+            </a>
+            <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-purple-400 hover:border-purple-500/40 transition-all">
+              <i class="ph-bold ph-chats text-base text-purple-400"></i>
+              <span>Mastodon</span>
+            </a>
+            <a href="https://github.com/diorgulescu" target="_blank" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/40 transition-all">
+              <i class="ph-bold ph-github-logo text-base text-sky-400"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="#" class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-amber-400 hover:border-amber-500/40 transition-all">
+              <i class="ph-bold ph-terminal text-base text-amber-400"></i>
+              <span>twtxt</span>
+            </a>
+          </div>
+          <p class="text-[11px] font-mono text-slate-500 pt-1">
+            LIFT HEAVY. BE KIND. BUILD ROBUST SOFTWARE.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> DRAGOȘ IORGULESCU. 
+          <span class="text-slate-600">//</span> ALL RIGHTS RESERVED.
+        </div>
+        <div class="flex items-center gap-4">
+          <span>HOST // <a href="https://my.namebox.ro/aff.php?aff=505" class="text-slate-400 hover:underline">NAMEBOX.RO</a></span>
+          <span class="text-slate-600">|</span>
+          <span class="text-emerald-400/90 font-semibold">ZERO ENGINE DEPENDENCY</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>
