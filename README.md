@@ -235,3 +235,10 @@ Site-ul include ambele direcții de design, complet funcționale:
   python3 publish.py --rebuild
   ```
   Scriptul `publish.py` recompilează toate eseurile, ghidurile și paginile statice cu layout-ul aerisit și concentrat pe conținut.
+
+---
+
+## 📄 Licență / License
+
+* **Scripturile Generatorului & Utilitarele:** Toate scripturile Python de generare și administrare a site-ului (`publish.py`, `build_tactical_site.py`, `restore_backup.py`) sunt publicate sub licența liberă **[GNU General Public License v3.0 (GPLv3)](LICENSE)**.
+* **Conținut & Articole:** Textele articolelor, eseurile, ghidurile și materialele media originale sunt &copy; 2026 Dragoș Iorgulescu (toate drepturile rezervate, cu excepția cazului în care se specifică altfel).

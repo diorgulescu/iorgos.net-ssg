@@ -235,3 +235,10 @@ The repository maintains both design directions in fully working order:
   python3 publish.py --rebuild
   ```
   The `publish.py` engine rebuilds all essays, guides, and static pages with the clean, distraction-free reading layout.
+
+---
+
+## 📄 License
+
+* **Generator Scripts & Tooling:** All Python site generation, publishing, and maintenance scripts (`publish.py`, `build_tactical_site.py`, `restore_backup.py`) are licensed under the **[GNU General Public License v3.0 (GPLv3)](LICENSE)**.
+* **Content & Writings:** Original essays, technical articles, training guides, and media assets are &copy; 2026 Dragoș Iorgulescu (all rights reserved, unless stated otherwise).
