@@ -699,31 +699,68 @@ def generate_home_page(posts, guides):
   <!-- PROJECTS & AUDIO -->
   <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="tactical-card p-5">
-      <h3 class="font-display font-bold text-base text-slate-100 mb-3">Open Source & Projects</h3>
+      <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800/60">
+        <h3 class="font-display font-bold text-base text-slate-100">Open Source & Tools</h3>
+        <a href="https://github.com/diorgulescu" target="_blank" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors">github.com/diorgulescu ↗</a>
+      </div>
       <ul class="space-y-3 font-sans text-xs text-slate-300">
         <li>
-          <a href="https://github.com/voidwave-lab" target="_blank" class="font-mono font-semibold text-purple-400 hover:underline">voidwave-lab →</a>
-          <span class="text-slate-400 block mt-0.5">Audio generators for experimental, glitch & ambient music (modular synth, MS-20 clone, test equipment studio).</span>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/diorgulescu/tcpflowy" target="_blank" class="font-mono font-semibold text-emerald-400 hover:underline">tcpflowy →</a>
+            <span class="badge-emerald text-[10px] py-0.5 px-1.5 leading-none">v1.0.0 &bull; PyPI</span>
+          </div>
+          <span class="text-slate-400 block mt-0.5">Terminal network flow analysis & TCP visualization tool, available on <a href="https://pypi.org/project/tcpflowy/" target="_blank" class="text-emerald-400 hover:underline">PyPI</a>.</span>
         </li>
         <li>
-          <a href="https://github.com/diorgulescu/DAMF" target="_blank" class="font-mono font-semibold text-emerald-400 hover:underline">DAMF →</a>
-          <span class="text-slate-400 block mt-0.5">Device automation framework for hardware lab test engineers.</span>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/diorgulescu/GirevoyPulse" target="_blank" class="font-mono font-semibold text-amber-400 hover:underline">GirevoyPulse →</a>
+            <span class="badge-amber text-[10px] py-0.5 px-1.5 leading-none">Xcode & Android Studio</span>
+          </div>
+          <span class="text-slate-400 block mt-0.5">Real-time heart-rate telemetry & pace monitor for kettlebell sport and alactic conditioning.</span>
         </li>
         <li>
-          <a href="https://github.com/diorgulescu/suckless-ubuntu" target="_blank" class="font-mono font-semibold text-sky-400 hover:underline">Suckless Ubuntu →</a>
-          <span class="text-slate-400 block mt-0.5">Minimal keyboard-driven Linux environment built on dwm, dmenu, and surf.</span>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/diorgulescu/DAMF" target="_blank" class="font-mono font-semibold text-sky-400 hover:underline">DAMF →</a>
+            <span class="badge-sky text-[10px] py-0.5 px-1.5 leading-none">Updated</span>
+          </div>
+          <span class="text-slate-400 block mt-0.5">Device automation framework for embedded hardware testing and lab validation.</span>
+        </li>
+        <li>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/diorgulescu/suckless-debian" target="_blank" class="font-mono font-semibold text-slate-300 hover:underline">suckless-debian →</a>
+            <span class="badge-slate text-[10px] py-0.5 px-1.5 leading-none">amd64 &bull; ARM &bull; i386</span>
+          </div>
+          <span class="text-slate-400 block mt-0.5">Minimalist keyboard-driven Debian environment built on dwm, dmenu, and st with multi-arch support.</span>
         </li>
       </ul>
     </div>
 
-    <div class="tactical-card p-5">
-      <h3 class="font-display font-bold text-base text-slate-100 mb-3">Sounds & Modular</h3>
-      <p class="text-xs text-slate-400 leading-relaxed mb-3">
-        Over 15 years exploring modular synthesizers, ambient textures, hardware sound design, and experimental DSP tools.
-      </p>
-      <a href="sounds/" class="font-mono text-xs text-purple-400 hover:text-purple-300 transition-colors">
-        Explore sound archives & software tools →
-      </a>
+    <div class="tactical-card p-5 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800/60">
+          <h3 class="font-display font-bold text-base text-slate-100">Audio Labs & Modular</h3>
+          <a href="sounds/" class="font-mono text-xs text-purple-400 hover:text-purple-300 transition-colors">sounds/ ↗</a>
+        </div>
+        <div class="space-y-3 font-sans text-xs text-slate-300 mb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <a href="https://github.com/voidwave-lab" target="_blank" class="font-mono font-semibold text-purple-400 hover:underline">voidwave-lab →</a>
+              <span class="badge-purple text-[10px] py-0.5 px-1.5 leading-none">3 Open Source Tools</span>
+            </div>
+            <span class="text-slate-400 block mt-0.5">DSP audio generators for experimental, glitch & ambient music: Modular Synth, MS-20 mini clone, and early electronic test equipment workbench.</span>
+          </div>
+          <div>
+            <span class="font-mono font-semibold text-slate-200">Musical Archives & Releases</span>
+            <span class="text-slate-400 block mt-0.5">Over 15 years exploring hardware modular synthesis, drone soundscapes, field recordings, and raw living-room sessions.</span>
+          </div>
+        </div>
+      </div>
+      <div class="pt-3 border-t border-slate-800/60">
+        <a href="sounds/" class="font-mono text-xs text-purple-400 hover:text-purple-300 transition-colors flex items-center justify-between">
+          <span>Explore sound archives & DSP tools (5 monikers)</span>
+          <span>→</span>
+        </a>
+      </div>
     </div>
   </section>
 </main>
@@ -980,7 +1017,7 @@ def sync_static_headers():
                 content = re.sub(r'<header[\s\S]*?</header>', minimal_hdr, content, count=1)
                 
                 minimal_ftr = get_footer(depth=depth).strip()
-                content = re.sub(r'<footer[\s\S]*?</html>', minimal_ftr, content)
+                content = re.sub(r'(?:<!-- (?:TACTICAL FOOTER HUD|MINIMAL FOOTER) -->\s*)*<footer[\s\S]*?</html>', minimal_ftr, content)
 
             if content != orig:
                 html_file.write_text(content, encoding="utf-8")

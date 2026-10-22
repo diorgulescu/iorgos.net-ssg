@@ -18,6 +18,13 @@ Deeply involved in building and maintaining test automation frameworks for embed
 
 > **Environment:** Python, Linux daemons, serial communications, suckless toolchains, QEMU/virtualization.
 
+#### Open Source Systems & Telemetry
+
+* **[tcpflowy](https://pypi.org/project/tcpflowy/) (v1.0.0 on PyPI):** Fast terminal-based utility for capturing, filtering, and dissecting live TCP flows. Just published the official 1.0.0 release and made it available as a standard Python package (`pip install tcpflowy`).
+* **[suckless-debian](https://github.com/diorgulescu/suckless-debian):** Evolved from the previous suckless-ubuntu setup into a streamlined, ultra-minimalist Debian environment powered by `dwm`, `dmenu`, and `st`. Now supporting `amd64`, `ARM`, and legacy `i386` architectures.
+* **[DAMF](https://github.com/diorgulescu/DAMF):** Device Automation & Management Framework for embedded hardware testing and lab validation, actively receiving architecture and reliability updates.
+* **[GirevoyPulse](https://github.com/diorgulescu/GirevoyPulse):** Native kettlebell telemetry and pacing app. Features native project setups for both **Xcode** (iOS/macOS) and **Android Studio**.
+
 ---
 
 ### 02 // Physical Conditioning
@@ -26,7 +33,9 @@ Deeply involved in building and maintaining test automation frameworks for embed
 
 Refining the *Tension Spectrum* methodology: daily loaded stretching, kettlebell ladders, tactical pull-ups, and Zone 2 aerobic maintenance. Rehabilitating elbow tendons through daily micro-routines while maintaining strong overhead pressing mechanics.
 
-> **Focus:** Rite of Passage, Heavy Doubles EMOM, Navy Seal Burpees, Fast & Loose recovery.
+Using **[GirevoyPulse](https://github.com/diorgulescu/GirevoyPulse)** (iOS & Android) for real-time heart rate pacing and EMOM interval telemetry during ballistics and high-density training sessions.
+
+> **Focus:** Rite of Passage, Heavy Doubles EMOM, Navy Seal Burpees, Fast & Loose recovery, live telemetry via GirevoyPulse.
 
 ---
 
