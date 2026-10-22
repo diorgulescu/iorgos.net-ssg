@@ -55,6 +55,7 @@ SITE_CONFIG = {
     "subtitle": "Test Engineer · Strength Practitioner",
     "location": "Bucharest, RO",
     "site_title_suffix": "Dragoș Iorgulescu",
+    "site_url": "https://iorgos.net",
     "email": "dragos@iorgos.net",
     "mastodon": "https://mastodon.social/@diorgulescu",
     "github": "https://github.com/diorgulescu",
@@ -263,6 +264,7 @@ def get_html_head(title, depth=0):
   <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
   
   <link rel="icon" type="image/x-icon" href="{root_path}images/favicon.ico">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="{root_path}sitemap.xml">
   
   <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
   <script>
@@ -827,6 +829,103 @@ def generate_now_page():
     print("[SYS // NOW] Generated now.html from content/now.md")
     return True
 
+def generate_sitemap(blog_items, howto_items):
+    """
+    Generates sitemap.xml and robots.txt in the website root directory.
+    Includes all core sections, training programs, blog articles, and how-to guides.
+    """
+    base_url = SITE_CONFIG.get("site_url", "https://iorgos.net").rstrip("/")
+    today_str = datetime.now().strftime("%Y-%m-%d")
+
+    # Determine latest dates for sections
+    latest_blog_date = blog_items[0]["date"] if blog_items else today_str
+    latest_howto_date = howto_items[0]["date"] if howto_items else today_str
+
+    # Date for now page
+    now_date = today_str
+    now_md = BASE_DIR / "content" / "now.md"
+    if now_md.exists():
+        try:
+            m_time = datetime.fromtimestamp(now_md.stat().st_mtime).strftime("%Y-%m-%d")
+            now_date = m_time
+        except Exception:
+            pass
+
+    # Date for kettlebell guide
+    kettlebell_date = today_str
+    kb_md = BASE_DIR / "content" / "kettlebell.md"
+    if kb_md.exists():
+        try:
+            k_time = datetime.fromtimestamp(kb_md.stat().st_mtime).strftime("%Y-%m-%d")
+            kettlebell_date = k_time
+        except Exception:
+            pass
+
+    # Core URL list: (url_path, lastmod, changefreq, priority)
+    urls = [
+        ("/", today_str, "weekly", "1.0"),
+        ("/now.html", now_date, "weekly", "0.9"),
+        ("/programe/", today_str, "weekly", "0.9"),
+        ("/programe/tension-spectrum/", today_str, "monthly", "0.8"),
+        ("/programe/sfg-prep/", today_str, "monthly", "0.8"),
+        ("/programe/bjj-prep/", today_str, "monthly", "0.8"),
+        ("/kettlebell/", kettlebell_date, "monthly", "0.8"),
+        ("/sounds/", today_str, "monthly", "0.8"),
+        ("/blog/", str(latest_blog_date)[:10], "weekly", "0.8"),
+        ("/howto/", str(latest_howto_date)[:10], "weekly", "0.8"),
+    ]
+
+    # Add all blog articles
+    for item in blog_items:
+        date_val = str(item.get("date", today_str)).strip().strip('"').strip("'")[:10]
+        urls.append((f"/blog/{item['slug']}/", date_val, "monthly", "0.7"))
+
+    # Add all howto guides
+    for item in howto_items:
+        date_val = str(item.get("date", today_str)).strip().strip('"').strip("'")[:10]
+        urls.append((f"/howto/{item['slug']}/", date_val, "monthly", "0.7"))
+
+    # Build XML
+    xml_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+
+    for path, lastmod, freq, prio in urls:
+        full_loc = f"{base_url}{path}" if path.startswith("/") else f"{base_url}/{path}"
+        xml_lines.append("  <url>")
+        xml_lines.append(f"    <loc>{full_loc}</loc>")
+        xml_lines.append(f"    <lastmod>{lastmod}</lastmod>")
+        xml_lines.append(f"    <changefreq>{freq}</changefreq>")
+        xml_lines.append(f"    <priority>{prio}</priority>")
+        xml_lines.append("  </url>")
+
+    xml_lines.append("</urlset>\n")
+    sitemap_content = "\n".join(xml_lines)
+
+    sitemap_file = BASE_DIR / "sitemap.xml"
+    with open(sitemap_file, "w", encoding="utf-8") as fp:
+        fp.write(sitemap_content)
+    print(f"[SYS // SITEMAP] Generated sitemap.xml with {len(urls)} URLs")
+
+    # Generate robots.txt
+    robots_content = f"""# robots.txt for {base_url}
+User-agent: *
+Allow: /
+
+# Disallow internal backup and legacy directories
+Disallow: /_backup_tactical_hud/
+Disallow: /_legacy_hugo/
+Disallow: /.git/
+
+# Sitemap location
+Sitemap: {base_url}/sitemap.xml
+"""
+    robots_file = BASE_DIR / "robots.txt"
+    with open(robots_file, "w", encoding="utf-8") as fp:
+        fp.write(robots_content)
+    print("[SYS // ROBOTS] Generated robots.txt")
+
 # --- Core Scanner & Rebuilder ---
 def load_and_compile_all():
     content_dir = BASE_DIR / "content"
@@ -966,6 +1065,9 @@ def load_and_compile_all():
 
     # 5. Synchronize static pages (programe/, sounds/, kettlebell/)
     sync_static_headers()
+
+    # 6. Generate Sitemap & Robots.txt
+    generate_sitemap(blog_items, howto_items)
 
     return blog_items, howto_items
 
