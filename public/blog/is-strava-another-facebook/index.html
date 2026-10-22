@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Is Strava just another Facebook? // Journal // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../../../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../../../programe/" class="text-slate-400 hover:text-slate-100 transition-colors">Programs</a>
+        <a href="../../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
+        <a href="../../../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
+        <a href="../../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../../../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../../../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <div class="mb-8">
+    <a href="../../blog/" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// JOURNAL</span>
+    </a>
+  </div>
+
+  <header class="mb-10 pb-6 border-b border-slate-800/60">
+    <div class="flex items-center gap-2 font-mono text-xs text-slate-400 mb-3">
+      <time datetime="2019-07-02">02 Jul 2019</time>
+      <span class="text-slate-600">&middot;</span>
+      <span>6 MIN READ</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight">
+      Is Strava just another Facebook?
+    </h1>
+  </header>
+
+  <article class="prose-tactical text-slate-300">
+    <p><em>(revisited in 2023)</em></p>
+
+<p>Well, of course it’s not. Not really. Or, maybe just a bit.</p>
+
+<p>It would appear as dumb or superficial to think that Strava is just another Facebook, targeted at a different audience. Especially since, for example, “posting” something to your Strava profile generally requires that some form of physical activity has been performed (be it running, swimming, walking, cycling, strength training, yoga, etc.). This makes it more of a social network for sports enthusiasts, which is really cool. I've used it myself, on and off, for a while. And I still have a profile there, somewhere (it was synced with Polar Flow, since I used Polar devices).</p>
+
+<p>Now, being me, I’m constantly undergoing some sort of self-evaluation, trying to analyse my own behaviour as best as I can. This led me aboard an intriguing train of thought that I’ll try to detail next.</p>
+
+<p>Facebook generally serves as a platform for satisfying very deep needs in regard to social interaction and validation. By it's very nature, interaction is merely virtual, so only validations through “Likes” remain. It is also an ideal way to fill up voids within yourself and your life. The thin line between sharing and desperately bragging is ever more blurry nowadays, and every time we feel the urge to post a photo of an intimate moment (dinner with our children, celebrating an anniversary with our spouse at a nice resort, being on vacation at a popular spot and so on) we must ask ourselves:</p>
+
+<ul>
+<li>“Why do I get the urge to post something about this wonderful thing I am living right now?”</li><li>“Why do I need others to know exactly what my kid drew for my birthday?”</li><li>“Is it vital to take a carefully crafted photo of us as a couple living an ideal and romantic life and sharing it with the world? Are we missing something that could be covered by <em>Likes</em> from our friends and relatives?”</li>
+</ul>
+
+<p>If sharing interesting articles, events and photos of landscapes or landmarks may be perfectly understandable (as a way to popularise them or share some of that beauty with others), publicly sharing photos of private and personal moments is intriguing. And I believe there is a true fear in tackling this deep subject and finding out what are we trying to compensate by engaging in such weird and paradoxical behaviours. Because yes, it is a paradox. Think of all the people yelling about online privacy issues while voluntarily sharing their own private moments and data.</p>
+
+<p>So, can Strava also fill up a void? After all, replacing <em>"Likes"</em> with <em>"Kudos"</em> doesn't change a thing when compared to Facebook. Could a similar urge lie beyond simply sharing sport activities and using the platform as an advanced performance evaluation tool (for example, observing your progress on a 10 kilometre run over time is quite interesting and useful, especially when combined with heart rate analysis)? Is it possible that we sometimes want to show others that we’re still alive and that we still matter? “Look, I’m here! I can still run a half-marathon!”. Do we always engage in tracked physical activities for our own sake, or for getting online feedback? Are Garmin Connect, Polar Flow and all the rest not enough for tracking personal progress?</p>
+
+<p>Is it possible for Strava to make you feel bad about yourself, just like Facebook might when you look at other people’s “tidy, ideal, happy lives”? Could one feel bad for gaining weight due to constraints on available leisure time (because of child care or professional duties, for example) and/or lack of discipline, while other people in the Strava feed keep cycling 80+ kilometres a day or constantly run 10 kilometres three times a week? Would a woman that just gave birth develop depression while looking at activities posted by her friends (things she also enjoyed doing just before deciding to have a child), feeling that her life might be over and that she will never be able to get back in shape and enjoying the luxury of physical activity and self-care? Especially if those Strava entries have some photos attached to them. Well, it might. Then again, it is not the platform's fault and it's all just a matter of getting your life together, no matter what hurdles you face.</p>
+
+<p>But (yet another) <em>digital alter-ego</em> will never be the cure to one's problems or the optimal way to instil some good-old self discipline. On the contrary, striving to "compete" on Strava might end up being bad for your health, just because you might push yourself way beyond your current healthy limits, without a structured approach (run at a very high heart rate for extended periods of time, going downhill at 70 kmh on a bicycle just so you can set a personal record, overtraining without proper recovery, etc.). I've been there and I've done that.    After all, our life is ours alone. When it comes to health & fitness, we should compete with ourselves above all, since that drives improvement over the long run by forcing you to reshape your habits and perceptions. Seeing and feeling your own progress and increase in wellbeing is priceless when compared to trivial digital interactions (which are, most of the time, forced or fake - but no one dares to admit that). Once you've got all that going, get out in the world and try to "compete" and compare with people you consider to be role-models. See where you're at, redefine your goals (if necessary), keep your discipline and march on. Things will get even better, with patience and perseverance. And for all that, a simple sports watch, a paper notebook and a pen would suffice.</p>
+
+<p>Our private moments are unique. By constantly thinking about immediately sharing them with the world and getting anxious about the positive feedback we will receive on a social media site, we are truly missing out. But we do so on our own existence, by voluntarily devaluing it, bit by bit, photo by photo, share by share.</p>
+
+<p>So, next time you go out for a run/bike ride/whatever, don't track it with Strava. You may use a heart rate monitor or any device that helps you keep track of your health, but don't share the session anywhere. How does that make you feel? If "Oh, God! But how will the world know I went out today?!" pops in your mind, then you might have a problem. What makes you think the world cares about your daily routines? Are you THAT important? Should the world care, instead of seeing you looking healthy when they meet you face-to-face?</p>
+
+<p>What happened to storytelling?</p>
+
+<p>P.S.: Mind you, I'm not bashing fitness trackers or Strava. They're fine for what they were initially designed to do, but I think Strava "gamifies" too much when it comes to health.</p>
+
+<p><p align="center"><img src="../../images/female-runner-phone.jpeg" style="max-width:60%;border-radius:10%;"/></p></p>
+  </article>
+
+  <div class="mt-12 pt-6 border-t border-slate-800/60 flex items-center justify-between font-mono text-xs text-slate-400">
+    <a href="../../blog/" class="hover:text-emerald-400 transition-colors">
+      ← Back to Journal
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="hover:text-emerald-400 transition-colors">
+      Back to top ↑
+    </a>
+  </div>
+</main>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../js/tactical.js"></script>
+</body>
+</html>

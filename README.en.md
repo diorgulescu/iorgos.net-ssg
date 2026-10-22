@@ -35,46 +35,32 @@ The site offers a carefully calibrated visual experience with two fully compatib
 
 ```
 iorgos-hugo/
-├── index.html                   # Main page (Minimalist Editorial layout)
-├── now.html                     # "Now" Page (real-time focus & active projects)
 ├── content/                     # Source Markdown content
 │   ├── now.md                   # Source for the "Now" page (current focus)
+│   ├── kettlebell.md            # Source for kettlebell & telemetry guide
 │   ├── blog/                    # Source Markdown for journal essays
 │   ├── howto/                   # Source Markdown for technical guides
 │   └── programe/                # Source Markdown for training frameworks
-├── blog/
-│   ├── index.html               # Journal / Essay archive with live client search
-│   ├── telefonul/               # Essay: The Smartphone
-│   ├── pacaneaua-din-buzunar/   # Essay: The Pocket Slot Machine
-│   ├── curatenie-reprezentata-femei/
-│   ├── soferi-grabiti-scaune-copii/
-│   ├── tool-becomes-drug/
-│   ├── gasit-nordul/
-│   └── is-strava-another-facebook/
-├── programe/
-│   ├── index.html               # Hub for training frameworks
-│   ├── tension-spectrum/        # Tension Spectrum Protocol + SVG diagrams
-│   ├── sfg-prep/                # 3-Phase SFG I & SFB preparation framework
-│   └── bjj-prep/                # BJJ elbow rehabilitation, Zone 2 running & rucking
-├── howto/
-│   ├── index.html               # Technical How-To archive with live client search
-│   ├── deploy-hyperv2019/       # Guide: Workgroup Hyper-V Server Deployment
-│   ├── create-fixed-size-files/ # Guide: Preallocated Dummy Files
-│   ├── aliases-profiles-pwsh/   # Guide: PowerShell Profiles & Aliases
-│   ├── ssh-auth-windows10/      # Guide: SSH Key Authentication on Windows 10
-│   ├── first-homelab/           # Guide: First Homelab (Supermicro, Proxmox)
-│   ├── first-raspberrypi-cluster/# Guide: Raspberry Pi 4 k3s Cluster
-│   └── compiling-suckless-tools-freebsd/ # Guide: Compiling dwm/dmenu on FreeBSD
-├── kettlebell/
-│   └── index.html               # Navy Seal Burpees & Hardstyle Protocol
-├── sounds/
-│   └── index.html               # Audio archive & voidwave-lab open source audio tool suite
+├── programe/                    # Source templates for training frameworks
+├── sounds/                      # Source template for audio archive & voidwave-lab
+├── kettlebell/                  # Source template for kettlebell guide
 ├── images/                      # Media assets, diagrams, charts, and SVGs
-├── css/
-│   └── tactical.css             # Style system (Dark Obsidian & Light Paper)
-├── js/
-│   └── tactical.js              # Theme controller (Dark/Light), mobile menu, copy code
-├── publish.py                   # Central CLI & generator: Minimal rebuild, Ingest, Delete, Drafts, Serve
+├── css/                         # tactical.css (Dark Obsidian & Light Paper)
+├── js/                          # tactical.js (Dark/Light controller, mobile menu)
+├── public/                      # 🚀 COMPLETE GENERATED WEBSITE ROOT (ready to deploy)
+│   ├── index.html               # Compiled homepage
+│   ├── now.html                 # Compiled "Now" page
+│   ├── sitemap.xml              # Generated sitemap XML for search engines
+│   ├── robots.txt               # Crawler directives
+│   ├── blog/                    # All compiled HTML essays
+│   ├── howto/                   # All compiled HTML guides
+│   ├── programe/                # All training program subpages
+│   ├── sounds/                  # Compiled sounds page
+│   ├── kettlebell/              # Compiled kettlebell protocol
+│   ├── css/                     # Synchronized CSS styles
+│   ├── js/                      # JavaScript assets
+│   └── images/                  # Media assets & favicon
+├── publish.py                   # Central CLI & generator (GPLv3)
 ├── restore_backup.py            # Instant restoration script to Tactical Bento HUD design
 ├── _backup_tactical_hud/        # Full untouched backup of the former Bento HUD design
 ├── build_tactical_site.py       # Standalone build utility
@@ -86,16 +72,16 @@ iorgos-hugo/
 ## 🚀 How to View or Preview
 
 ### 1. Direct Viewing (Offline / Standalone)
-Open `index.html` directly in any web browser via double-click. All internal links and images use relative paths calibrated to work without a web server.
+Open `public/index.html` directly in any web browser via double-click. All internal links and images use relative paths calibrated to work without a web server.
 
 ### 2. Local Web Server
-To launch a lightweight preview server:
+To launch a lightweight preview server (serving directly from `public/`):
 ```bash
 # Using the built-in publish.py utility:
 python3 publish.py --serve 8080
 
-# Or via standard Python http.server:
-python3 -m http.server 8080
+# Or via standard Python http.server from the public directory:
+cd public && python3 -m http.server 8080
 ```
 Then navigate to `http://localhost:8080`.
 

@@ -1,0 +1,1089 @@
+/* ==========================================================================
+   TACTICAL DARK / BENTO HUD DESIGN SYSTEM
+   Dragoș Iorgulescu - Standalone Static Architecture
+   ========================================================================== */
+
+/* --- CSS Variables & Theme Tokens --- */
+:root {
+  /* DARK THEME (DEFAULT) */
+  --canvas: #0B0F17;
+  --panel: rgba(17, 24, 39, 0.88);
+  --panel-solid: #111827;
+  --recessed: #0B0F17;
+  --recessed-alt: rgba(15, 23, 42, 0.9);
+  --border: #1E293B;
+  --border-muted: rgba(30, 41, 59, 0.6);
+  --border-glow-emerald: rgba(16, 185, 129, 0.4);
+  --border-glow-sky: rgba(56, 189, 248, 0.4);
+  --border-glow-amber: rgba(245, 158, 11, 0.4);
+  --border-glow-purple: rgba(168, 85, 247, 0.4);
+  --text-main: #CBD5E1;
+  --text-heading: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-faint: #64748B;
+  --topbar-bg: rgba(11, 15, 23, 0.95);
+  --nav-bg: rgba(17, 24, 39, 0.85);
+  --footer-bg: #0B0F17;
+  --card-bg: rgba(17, 24, 39, 0.88);
+  --card-hover-border: rgba(56, 189, 248, 0.3);
+
+  /* Semantic Accents */
+  --emerald: #10B981;
+  --amber: #F59E0B;
+  --orange: #F97316;
+  --purple: #A855F7;
+  --sky: #38BDF8;
+  --cyan: #06B6D4;
+  --rose: #F43F5E;
+
+  /* Typography Triad */
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* --- LIGHT THEME (TECHNICAL PAPER / LAB HUD) --- */
+html.light {
+  --canvas: #F8FAFC;
+  --panel: rgba(255, 255, 255, 0.94);
+  --panel-solid: #FFFFFF;
+  --recessed: #F1F5F9;
+  --recessed-alt: #E2E8F0;
+  --border: #CBD5E1;
+  --border-muted: rgba(203, 213, 225, 0.8);
+  --border-glow-emerald: rgba(16, 185, 129, 0.5);
+  --border-glow-sky: rgba(14, 165, 233, 0.5);
+  --border-glow-amber: rgba(217, 119, 6, 0.5);
+  --border-glow-purple: rgba(147, 51, 234, 0.5);
+  --text-main: #334155;
+  --text-heading: #0F172A;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+  --topbar-bg: rgba(241, 245, 249, 0.96);
+  --nav-bg: rgba(255, 255, 255, 0.92);
+  --footer-bg: #F1F5F9;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-hover-border: #38BDF8;
+}
+
+/* --- Base Reset & Typography --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--canvas);
+  color: var(--text-main);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--canvas);
+  color: var(--text-main);
+  line-height: 1.65;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.03) 0%, transparent 75%),
+    radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.02) 0%, transparent 60%);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Selection */
+::selection {
+  background: rgba(16, 185, 129, 0.3);
+  color: #FFFFFF;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0F17;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Typography Helpers */
+.font-display { font-family: var(--font-display); }
+.font-mono { font-family: var(--font-mono); }
+.font-sans { font-family: var(--font-sans); }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #F8FAFC;
+  letter-spacing: -0.02em;
+}
+
+/* --- Tactical Glassmorphism & Panels --- */
+.tactical-panel {
+  background-color: var(--panel);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tactical-panel:hover {
+  border-color: rgba(51, 65, 85, 0.9);
+}
+
+.tactical-card {
+  background-color: rgba(17, 24, 39, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tactical-card:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.tactical-card.glow-emerald:hover {
+  border-color: var(--border-glow-emerald);
+  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15);
+}
+
+.tactical-card.glow-amber:hover {
+  border-color: var(--border-glow-amber);
+  box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.15);
+}
+
+.tactical-card.glow-purple:hover {
+  border-color: var(--border-glow-purple);
+  box-shadow: 0 10px 30px -10px rgba(168, 85, 247, 0.15);
+}
+
+/* Recessed Inset Sub-panels */
+.recessed-box {
+  background-color: var(--recessed);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+/* --- Soft Glow Badges --- */
+.badge-emerald {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.30);
+  border-radius: 9999px;
+  padding: 0.25rem 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-amber {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.30);
+  border-radius: 9999px;
+  padding: 0.25rem 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-purple {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: rgba(168, 85, 247, 0.15);
+  color: #C084FC;
+  border: 1px solid rgba(168, 85, 247, 0.30);
+  border-radius: 9999px;
+  padding: 0.25rem 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-sky {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.30);
+  border-radius: 9999px;
+  padding: 0.25rem 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-slate {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: rgba(30, 41, 59, 0.6);
+  color: #94A3B8;
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  border-radius: 9999px;
+  padding: 0.25rem 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --- Status Pills --- */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.2rem 0.625rem;
+  border-radius: 9999px;
+  background-color: rgba(11, 15, 23, 0.85);
+  border: 1px solid #1E293B;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #CBD5E1;
+}
+
+.status-dot-emerald {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.status-dot-amber {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: #F59E0B;
+  box-shadow: 0 0 8px #F59E0B;
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.status-dot-sky {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: #38BDF8;
+  box-shadow: 0 0 8px #38BDF8;
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* --- Buttons --- */
+.tactical-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background-color: #1E293B;
+  color: #F8FAFC;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 0.5rem;
+  border: 1px solid #334155;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tactical-btn:hover {
+  background-color: #334155;
+  border-color: #475569;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.tactical-btn-emerald {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tactical-btn-emerald:hover {
+  background-color: rgba(16, 185, 129, 0.25);
+  border-color: rgba(16, 185, 129, 0.8);
+  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.4);
+  color: #A7F3D0;
+  text-decoration: none;
+}
+
+/* --- Markdown Content & Prose Typography --- */
+.prose-tactical {
+  color: #CBD5E1;
+  font-family: var(--font-sans);
+  line-height: 1.75;
+}
+
+.prose-tactical p {
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  color: #CBD5E1;
+}
+
+.prose-tactical h1 {
+  font-size: 2.25rem;
+  margin-top: 2rem;
+  margin-bottom: 1.25rem;
+  color: #F8FAFC;
+  line-height: 1.2;
+}
+
+.prose-tactical h2 {
+  font-size: 1.5rem;
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #1E293B;
+  color: #F1F5F9;
+}
+
+.prose-tactical h3 {
+  font-size: 1.25rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: #E2E8F0;
+}
+
+.prose-tactical h4 {
+  font-size: 1.05rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #94A3B8;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.prose-tactical a {
+  color: #38BDF8;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(56, 189, 248, 0.5);
+  transition: all 0.15s ease;
+}
+
+.prose-tactical a:hover {
+  color: #7DD3FC;
+  border-bottom-style: solid;
+}
+
+.prose-tactical ul, .prose-tactical ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.prose-tactical li {
+  margin-bottom: 0.5rem;
+  color: #CBD5E1;
+}
+
+.prose-tactical li::marker {
+  color: #10B981;
+}
+
+.prose-tactical blockquote {
+  border-left: 3px solid #10B981;
+  background-color: rgba(16, 185, 129, 0.05);
+  padding: 0.75rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-style: italic;
+  color: #94A3B8;
+}
+
+.prose-tactical hr {
+  border: 0;
+  height: 1px;
+  background: #1E293B;
+  margin: 2.5rem 0;
+}
+
+.prose-tactical img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  border: 1px solid #1E293B;
+  margin: 1.5rem auto;
+  display: block;
+}
+
+.prose-tactical code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background-color: #0B0F17;
+  color: #38BDF8;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  border: 1px solid #1E293B;
+}
+
+.prose-tactical pre {
+  background-color: #0B0F17;
+  border: 1px solid #1E293B;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #E2E8F0;
+  position: relative;
+}
+
+.prose-tactical pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+  color: inherit;
+}
+
+.prose-tactical table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  background-color: rgba(17, 24, 39, 0.6);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid #1E293B;
+}
+
+.prose-tactical th, .prose-tactical td {
+  border: 1px solid #1E293B;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.prose-tactical th {
+  background-color: #0B0F17;
+  color: #F8FAFC;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prose-tactical tr:nth-child(even) {
+  background-color: rgba(15, 23, 42, 0.5);
+}
+
+/* Movement Block for Tension Spectrum */
+.movement-block {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  background: #0B0F17;
+  border: 1px solid #1E293B;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+}
+.movement-visual {
+  flex: 0 0 35%;
+  max-width: 220px;
+}
+.movement-visual img {
+  width: 100%;
+  border: none;
+  margin: 0;
+  background: transparent;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+}
+.movement-text {
+  flex: 1;
+}
+
+.program-logo img {
+  max-width: 300px;
+  margin: 1.5rem auto;
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.25));
+  border: none;
+  background: transparent;
+}
+
+/* Legacy .btn compatibility */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: 0.5rem;
+  color: #34D399;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+}
+.btn:hover {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: rgba(16, 185, 129, 0.8);
+  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.4);
+  color: #A7F3D0;
+}
+
+/* SFG 3-Phase Poster Tactical Dark Grid */
+.grid-container {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+@media (max-width: 820px) {
+  .grid-container {
+    flex-direction: column;
+  }
+}
+.grid-col {
+  flex: 1;
+  background-color: #0B0F17;
+  border: 1px solid #1E293B;
+  border-top: 4px solid #475569;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  transition: border-color 0.2s ease;
+}
+.col-heavy {
+  border-top-color: #F43F5E;
+  background-color: rgba(244, 63, 94, 0.03);
+}
+.col-heavy:hover {
+  border-color: rgba(244, 63, 94, 0.4);
+}
+.col-medium {
+  border-top-color: #F59E0B;
+  background-color: rgba(245, 158, 11, 0.03);
+}
+.col-medium:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+}
+.col-light {
+  border-top-color: #10B981;
+  background-color: rgba(16, 185, 129, 0.03);
+}
+.col-light:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.day-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
+}
+.col-heavy .day-title { color: #FDA4AF; }
+.col-medium .day-title { color: #FDE68A; }
+.col-light .day-title { color: #A7F3D0; }
+
+.day-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748B;
+  margin-top: 0.75rem;
+  margin-bottom: 0.35rem;
+  border-bottom: 1px solid #1E293B;
+  padding-bottom: 0.2rem;
+}
+.ex-block { margin-bottom: 0.6rem; }
+.ex-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+.ex-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #38BDF8;
+}
+.col-heavy .ex-meta { color: #FB7185; }
+.col-medium .ex-meta { color: #FBBF24; }
+.col-light .ex-meta { color: #34D399; }
+.ex-desc {
+  font-size: 0.8rem;
+  color: #94A3B8;
+  margin-top: 0.2rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid #334155;
+  line-height: 1.45;
+}
+.card-footer-note {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-style: italic;
+  color: #64748B;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed #1E293B;
+}
+
+/* ==========================================================================
+   TACTICAL LIGHT THEME // OVERRIDES & ACCENTS
+   Clean technical paper aesthetic, high-contrast, zero-glare
+   ========================================================================== */
+
+/* --- Theme Toggle Button --- */
+.theme-toggle-btn {
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.theme-toggle-btn:hover {
+  transform: scale(1.05);
+}
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* --- Light Mode Core Elements --- */
+html.light body {
+  background-color: var(--canvas) !important;
+  color: var(--text-main) !important;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.04) 0%, transparent 75%),
+    radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.03) 0%, transparent 60%) !important;
+}
+
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6 {
+  color: var(--text-heading) !important;
+}
+
+/* Panels & Cards in Light Mode */
+html.light .tactical-panel {
+  background-color: var(--panel) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+html.light .tactical-panel:hover {
+  border-color: #94A3B8 !important;
+  box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.08);
+}
+
+html.light .tactical-card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+html.light .tactical-card:hover {
+  border-color: var(--card-hover-border) !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+}
+html.light .tactical-card.glow-emerald:hover {
+  border-color: rgba(16, 185, 129, 0.6) !important;
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.15);
+}
+html.light .tactical-card.glow-amber:hover {
+  border-color: rgba(245, 158, 11, 0.6) !important;
+  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.15);
+}
+html.light .tactical-card.glow-purple:hover {
+  border-color: rgba(168, 85, 247, 0.6) !important;
+  box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.15);
+}
+
+html.light .recessed-box {
+  background-color: var(--recessed) !important;
+  border-color: var(--border) !important;
+}
+
+/* Badges in Light Mode */
+html.light .badge-emerald {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  color: #047857 !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+}
+html.light .badge-amber {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+  color: #B45309 !important;
+  border-color: rgba(245, 158, 11, 0.35) !important;
+}
+html.light .badge-purple {
+  background-color: rgba(168, 85, 247, 0.12) !important;
+  color: #7E22CE !important;
+  border-color: rgba(168, 85, 247, 0.35) !important;
+}
+html.light .badge-sky {
+  background-color: rgba(56, 189, 248, 0.14) !important;
+  color: #0369A1 !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+html.light .badge-slate {
+  background-color: #E2E8F0 !important;
+  color: #475569 !important;
+  border-color: #CBD5E1 !important;
+}
+
+/* Buttons in Light Mode */
+html.light .tactical-btn {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+html.light .tactical-btn:hover {
+  background-color: #F1F5F9 !important;
+  border-color: #94A3B8 !important;
+  color: #0F172A !important;
+}
+html.light .tactical-btn-emerald {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  color: #065F46 !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+}
+html.light .tactical-btn-emerald:hover {
+  background-color: #10B981 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+html.light .btn {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: #065F46 !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+}
+html.light .btn:hover {
+  background: #10B981 !important;
+  color: #FFFFFF !important;
+}
+
+/* Status Pills in Light Mode */
+html.light .status-pill {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #334155 !important;
+}
+
+/* Prose & Typography in Light Mode */
+html.light .prose-tactical {
+  color: #334155 !important;
+}
+html.light .prose-tactical p {
+  color: #334155 !important;
+}
+html.light .prose-tactical h1 {
+  color: #0F172A !important;
+}
+html.light .prose-tactical h2 {
+  color: #0F172A !important;
+  border-bottom-color: #E2E8F0 !important;
+}
+html.light .prose-tactical h3 {
+  color: #1E293B !important;
+}
+html.light .prose-tactical h4 {
+  color: #475569 !important;
+}
+html.light .prose-tactical a {
+  color: #0284C7 !important;
+  border-bottom-color: rgba(2, 132, 199, 0.4) !important;
+}
+html.light .prose-tactical a:hover {
+  color: #0369A1 !important;
+}
+html.light .prose-tactical li {
+  color: #334155 !important;
+}
+html.light .prose-tactical blockquote {
+  background-color: rgba(16, 185, 129, 0.08) !important;
+  border-left-color: #10B981 !important;
+  color: #475569 !important;
+}
+html.light .prose-tactical hr {
+  background: #E2E8F0 !important;
+}
+html.light .prose-tactical img {
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+html.light .prose-tactical code:not(pre code) {
+  background-color: #F1F5F9 !important;
+  color: #0284C7 !important;
+  border-color: #CBD5E1 !important;
+}
+html.light .prose-tactical table {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+}
+html.light .prose-tactical th,
+html.light .prose-tactical td {
+  border-color: #E2E8F0 !important;
+}
+html.light .prose-tactical th {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+html.light .prose-tactical tr:nth-child(even) {
+  background-color: #F8FAFC !important;
+}
+
+/* Tension Spectrum & SFG Grids in Light Mode */
+html.light .movement-block {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+html.light .movement-visual img {
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15)) !important;
+}
+html.light .grid-col {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+html.light .col-heavy {
+  background-color: rgba(244, 63, 94, 0.04) !important;
+}
+html.light .col-medium {
+  background-color: rgba(245, 158, 11, 0.04) !important;
+}
+html.light .col-light {
+  background-color: rgba(16, 185, 129, 0.04) !important;
+}
+html.light .col-heavy .day-title { color: #BE123C !important; }
+html.light .col-medium .day-title { color: #B45309 !important; }
+html.light .col-light .day-title { color: #047857 !important; }
+html.light .day-subtitle { color: #64748B !important; }
+html.light .section-label { color: #475569 !important; border-bottom-color: #E2E8F0 !important; }
+html.light .ex-name { color: #0F172A !important; }
+html.light .col-heavy .ex-meta { color: #E11D48 !important; }
+html.light .col-medium .ex-meta { color: #D97706 !important; }
+html.light .col-light .ex-meta { color: #059669 !important; }
+html.light .ex-desc { color: #475569 !important; border-left-color: #CBD5E1 !important; }
+html.light .card-footer-note { color: #64748B !important; border-top-color: #CBD5E1 !important; }
+
+/* Global Tailwind Overrides for Light Mode */
+html.light .bg-\[\#0B0F17\] {
+  background-color: #FFFFFF !important;
+}
+html.light .bg-\[\#0B0F17\]\/95,
+html.light .bg-\[\#0B0F17\]\/98 {
+  background-color: rgba(241, 245, 249, 0.96) !important;
+}
+html.light .bg-\[\#111827\]\/85 {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+}
+html.light .bg-\[\#111827\]\/60 {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+html.light .bg-slate-900,
+html.light .bg-slate-900\/20,
+html.light .bg-slate-900\/30,
+html.light .bg-slate-900\/40,
+html.light .bg-slate-900\/60,
+html.light .bg-slate-900\/80 {
+  background-color: #FFFFFF !important;
+}
+html.light .bg-slate-800,
+html.light .bg-slate-800\/60,
+html.light .bg-slate-800\/80 {
+  background-color: #F1F5F9 !important;
+}
+html.light .border-slate-800,
+html.light .border-slate-800\/80,
+html.light .border-slate-700,
+html.light .border-slate-700\/80 {
+  border-color: #CBD5E1 !important;
+}
+html.light .text-slate-100,
+html.light .text-slate-200,
+html.light .text-white {
+  color: #0F172A !important;
+}
+html.light .text-slate-300 {
+  color: #334155 !important;
+}
+html.light .text-slate-400 {
+  color: #64748B !important;
+}
+html.light .text-slate-500 {
+  color: #94A3B8 !important;
+}
+html.light .text-slate-600 {
+  color: #CBD5E1 !important;
+}
+html.light .text-slate-700 {
+  color: #CBD5E1 !important;
+}
+
+/* High-contrast accessible accent colors in Light Mode */
+html.light .text-emerald-400,
+html.light .group:hover .group-hover\:text-emerald-400,
+html.light a:hover.text-emerald-400,
+html.light .hover\:text-emerald-400:hover {
+  color: #047857 !important;
+}
+
+html.light .text-amber-400,
+html.light .group:hover .group-hover\:text-amber-400,
+html.light a:hover.text-amber-400,
+html.light .hover\:text-amber-400:hover {
+  color: #B45309 !important;
+}
+
+html.light .text-purple-400,
+html.light .group:hover .group-hover\:text-purple-400,
+html.light a:hover.text-purple-400,
+html.light .hover\:text-purple-400:hover {
+  color: #7E22CE !important;
+}
+
+html.light .text-sky-400,
+html.light .group:hover .group-hover\:text-sky-400,
+html.light a:hover.text-sky-400,
+html.light .hover\:text-sky-400:hover {
+  color: #0284C7 !important;
+}
+html.light #hud-filter-input {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+html.light #hud-filter-input::placeholder {
+  color: #94A3B8 !important;
+}
+html.light ::selection {
+  background: rgba(16, 185, 129, 0.25) !important;
+  color: #065F46 !important;
+}
+html.light ::-webkit-scrollbar-track {
+  background: #F1F5F9 !important;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1 !important;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8 !important;
+}
+
+/* ==========================================================================
+   MINIMALIST EDITORIAL REFINEMENTS
+   ========================================================================== */
+.tactical-card, .tactical-panel {
+  border-radius: 0.75rem;
+  border-color: rgba(30, 41, 59, 0.7);
+  box-shadow: none !important;
+}
+
+.tactical-card:hover, .tactical-panel:hover {
+  transform: none !important;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Light mode minimal styling */
+html.light .tactical-card,
+html.light .tactical-panel {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light .tactical-card:hover,
+html.light .tactical-panel:hover {
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light header {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: #E2E8F0 !important;
+}
+
+html.light footer {
+  border-color: #E2E8F0 !important;
+}
+
+html.light #mobile-menu {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-color: #E2E8F0 !important;
+}
+html.light #mobile-menu a {
+  color: #334155 !important;
+}
+html.light #mobile-menu a:hover {
+  color: #0F172A !important;
+}

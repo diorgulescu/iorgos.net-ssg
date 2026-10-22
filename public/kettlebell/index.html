@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kettlebell &amp; Conditioning // Protocol // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+  
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Dark Design System -->
+  <link rel="stylesheet" href="../css/tactical.css">
+  <!-- Zero-FOUC Theme Initializer -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../../programe/" class="text-slate-400 hover:text-slate-100 transition-colors">Programs</a>
+        <a href="../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
+        <a href="../../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
+        <a href="../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+  <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
+    <a href="../" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>← Home</span>
+    </a>
+    <span class="badge-emerald">HARDSTYLE CONDITIONING</span>
+  </div>
+
+  <div class="tactical-card mb-8">
+    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      PHYSICAL READINESS PROTOCOL
+    </div>
+    <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 mb-4">
+      Kettlebell & Conditioning
+    </h1>
+    <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">
+      Principiile de bază ale forței funcționale: tensiune maximă pe mișcările de presă și genuflexiuni, explozie pură alactică pe mișcările de balans și relaxare instantanee Fast & Loose între seturi.
+    </p>
+  </div>
+
+  <article class="tactical-panel p-6 sm:p-10 prose-tactical">
+    <h2>1. Navy Seal Burpees: Protocol de Anduranță Aerobă</h2>
+    <p>
+      Navy Seal Burpees (varianta cu 2 flotări rigide și 3 genunchi aduși la piept per repetiție) reprezintă unul dintre cele mai eficiente teste de anduranță musculară fără impact articular agresiv. 
+    </p>
+    <ul>
+      <li><strong>Format recomandat:</strong> 10 serii a câte 5 repetiții (50 rep totale), cu pauză ghidată strict de respirația nazală.</li>
+      <li><strong>Regulă tehnică:</strong> Fiecare flotare se execută pe pumni sau pe palme cu trunchiul complet rigid (Hollow Body). Fără arcuiri lombare.</li>
+      <li><strong>Obiectiv fiziologic:</strong> Stimularea oxidării acizilor grași și anduranță mitocondrială.</li>
+    </ul>
+
+    <h2>2. Hardstyle Kettlebell Basics</h2>
+    <p>
+      Baza oricărui progres structural rămâne stăpânirea mișcărilor fundamentale din școala StrongFirst:
+    </p>
+    <ul>
+      <li><strong>The Swing (Balansul cu 1 și 2 mâini):</strong> Explozie din bazin, proiecție balistică a greutății și lockout complet în picioare.</li>
+      <li><strong>The Turkish Get-Up (TGU):</strong> Stabilitate scapulară, mobilitate de șold și control corporal în toate cele 3 planuri de mișcare.</li>
+      <li><strong>The Clean & Press:</strong> Forță strictă a umerilor și trunchiului, ancorată pe stabilitate gluteală.</li>
+    </ul>
+
+    <h2>3. Telemetrie Cardiacă & Monitorizare: GirevoyPulse</h2>
+    <p>
+      Pentru monitorizarea precisă a ritmului cardiac și a cadenței în seturile balistice (EMOM, circuite de anduranță alactică și ladders de presă), am dezvoltat aplicația open source <a href="https://github.com/diorgulescu/GirevoyPulse" target="_blank" class="font-semibold text-amber-400 hover:underline">GirevoyPulse</a>, disponibilă atât cu proiect nativ pentru <strong>Xcode</strong> (iOS/macOS), cât și pentru <strong>Android Studio</strong>.
+    </p>
+
+    <h2>4. Programe Specializate</h2>
+    <p>
+      Pentru protocoale complete de antrenament și cicluri pe săptămâni, consultă secțiunea dedicată de <a href="../programe/">Programe de Antrenament</a> (Tension Spectrum, SFG 1 Prep și BJJ Prep).
+    </p>
+  </article>
+</main>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/tactical.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Femeile sunt Icoana curățeniei și a confortului // Journal // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../../../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../../../programe/" class="text-slate-400 hover:text-slate-100 transition-colors">Programs</a>
+        <a href="../../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
+        <a href="../../../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
+        <a href="../../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../../../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../../../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <div class="mb-8">
+    <a href="../../blog/" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// JOURNAL</span>
+    </a>
+  </div>
+
+  <header class="mb-10 pb-6 border-b border-slate-800/60">
+    <div class="flex items-center gap-2 font-mono text-xs text-slate-400 mb-3">
+      <time datetime="2021-07-10">10 Jul 2021</time>
+      <span class="text-slate-600">&middot;</span>
+      <span>5 MIN READ</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight">
+      Femeile sunt Icoana curățeniei și a confortului
+    </h1>
+  </header>
+
+  <article class="prose-tactical text-slate-300">
+    <p>Te-ai întrebat vreodată de ce mai toate reclamele ce privesc confortul, curățenia și armonia casei sunt cu femei în diferite ipostaze? Fie la duș, poate pregătindu-se de-o baie în cadă, relaxându-se sub un aer condiționat sau ventilator ori pășind grațios pe gresia curată a unei băi luminoase.</p>
+
+<p>Serios, uite-aci niște exemple (fără a face reclamă cuiva), ba chiar unele decupate de pe Google Street View (str. Valea Cascadelor din București): <img src="../../images/bath_2.jpg" alt="bath2"></p>
+
+<p><img src="../../images/bath_1.jpg" alt="bath1"></p>
+
+<p><img src="../../images/imorom.png" alt="imorom"></p>
+
+<p><img src="../../images/amira.png" alt="amira"></p>
+
+<p><img src="../../images/bath_3.jpg" alt="bath3"></p>
+
+<p><img src="../../images/ac1.jpg" alt="ac1"></p>
+
+<p>La naiba, până și pe cutia unui ventilator ce-mi alină atmosfera pe timp de caniculă e aceeași idee. Ia uite-o, ea zice: „Aaaaa...răcoare, în sfârșit!”, iar el e ceva de genul: „Ei, vezi? E? E OK? Mai ai nevoie de ceva? Ești mai bine?” <img src="../../images/vent.jpg" alt="vent"></p>
+
+<p>Păi, ai putea spune că-i simplu: bărbații se ocupă de sanitare și amenajări. Doar că nu-i atât de trivial. Orice tip care își împarte viața și casa cu-o femeie știe că nu el este cel ce decide ce culoare și model va avea gresia din baie, ce culoare vor avea jaluzelele ori ce mânere să pui la mobila din bucătărie. Să fim sinceri, că dacă era după noi, trăiam înconjurați de câteva dulapuri metalice, chiuvetele erau ca alea din tablă de le mai vezi prin camping-urile vechi iar pe jos aveam linoleum. Nu mai zic de cromatică, deoarece carcalete mai inedit de culori incompatibile cu greu poți găsi altundeva decât în casa unui bărbat singur.</p>
+
+<p>Normal, există și tipi care se pricep la capitolul ăsta, doar că i-aș împărți în trei categorii:</p>
+
+<ul>
+<li>Cei ce lucrează în domeniul amenajărilor și au trebuit să învețe toate astea</li><li>Cei ce au mai trăit deja câțiva ani cu câte-o tipă prin casă</li><li>Cei ce-și împart casa cu alți bărbați (ei fiind „the sensitive side” - lucru perfect OK și frumos; casa lor, viața lor, au tot dreptul)</li>
+</ul>
+
+<p>Și totuși: de ce femei? Păi, bre, e ideea de Cuib. Dacă citești textul ăsta și n-ai 16 ani, cunoști faptul că o tipă faină nu vine la orice ciurli-burli nespălat și nearanjat prin a cărui casă i se lipesc șosetele de covor, parchet sau linoleum.</p>
+
+<p>Și n-are treabă neapărat cu valoarea-n bani, deși reclamele alea arătate mai devreme sunt întâlnite mai mult prin mediul urban. Ai văzut oameni pe la țară ce-și mătură zilnic curtea și prin fața porții? Iar când intri în casă, e curat și albiturile sunt chiar albe și miros a curat? Știu, în prezent există multă delăsare prin mediul rural (sudic, mai ales), dar mergi prin Moldova sau Ardeal și-o să vezi la ce mă refer.</p>
+
+<blockquote><p>Serios, uite altă treabă interesantă de analizat: mergi în Gara de Nord din București, undeva pe la orele 10-10:30 dimineața. Fă o comparație între oamenii care vin sau pleacă dinspre Iași, Suceava, Botoșani și cei ce merg la Pitești, Craiova, Târgu Jiu. Mă refer la același rang de tren (IR), cu bilet de același preț. Ei, o să vezi că moldovenii ăia de care fac mișto bucureștenii (pentru că „vulpea care n-ajunge la struguri zice că-s acri și nu-i trebuie”) sunt cei mai prezentabili. Frumos aranjați, cu spatele drept și încrezători, cu un mic iz de parfum în urma lor (vorbesc despre ambele sexe). Și nu-i prea vezi aruncând flegme-n praf la fiecare 35 de secunde, indiferent de statutul social. Na de-aci temă de gândire :).</p></blockquote>
+
+<p>Revenind... Vrei mai mult de la viață, bărbat fiind? Trebuie să vrei mai mult de la tine. Constant. Adună-te nițel:</p>
+
+<ul>
+<li>Spală-te! Da, ăsta e primul pas, să te menții pe tine curat la nivel individual. Dar s-o faci pe bune, asumat, căci degeaba arăți relativ curat dacă, vorba cântecului, „ai lilieci în pantofi și telemea pe dinți”. Baia e locul din care trebuie să ieși mai curat decât ai intrat. N-ai nevoie de bani mulți, căci un Protex, o pastă de dinți (+ periuță) și-un antiperspirant bun iei cu 25 de lei (la un loc).</li><li>Aranjează-te, prezintă-te frumos în lume, indiferent de calitățile ori defectele fizice (prea puțini dintre noi suntem Brad Pitt). Tuns, bărbierit, tăiat unghii, etc. hai că știi ce zic, sunt exact lucrurile cu care te stresa maică-ta atunci când erai mic iar ea era îngrozită de ideea că ai putea ajunge un ratat pe care nu-l va dori nicio tipă OK (căci bărbații mai praf ajung cu câte una din când în când, doar că-i la fel ca ei: nespălate, fără pretenții, ambiții sau perspective serioase)</li><li>Nu mai fi atât de prost. Știu, e cel mai greu, dar ține minte că atunci când te trezești vorbind fără să te fi întrebat cineva ceva (adică așa cum fac eu acum ;) ), e posibil ca singurul lucru observabil pentru cei din jur să fie prostia ta, în toată splendoarea ei. Totodată, adu-ți aminte că „Nu tot ce zboară-i bun de haleală” și că „Nu-i bine să alergi după cai verzi pe pereți”.</li><li>Fii mai umil, mai modest și realist. Acceptă-ți greșelile și inadcvarea și-ncearcă să le repari.</li><li>Vrei o „Regină” (la modul non-manelistic vorbind)? Ei bine, asta spun reclamele: fă casa aia să arate frumos iar curățenia să fie de la sine înțeleasă; clădește un cuib bun (asta presupune că muncești și iei niște responsabilități în cârcă) iar apoi, dacă ești consecvent, i se va face vreunei tipe mai răsărite milă și de existența ta debusolată.</li>
+</ul>
+
+<p>Râdem, glumim, dar mie-mi pare că reclamele astea fac apel la o întreagă filosofie de viață. Cam aceeași de mii de ani, de altfel. Până și păsările ori peștii își fac curat în cuib.</p>
+
+<p>Depinde de tine pe cine-aduci în viață și, mai ales, dacă ești capabil s-o păstrezi alături.</p>
+  </article>
+
+  <div class="mt-12 pt-6 border-t border-slate-800/60 flex items-center justify-between font-mono text-xs text-slate-400">
+    <a href="../../blog/" class="hover:text-emerald-400 transition-colors">
+      ← Back to Journal
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="hover:text-emerald-400 transition-colors">
+      Back to top ↑
+    </a>
+  </div>
+</main>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../js/tactical.js"></script>
+</body>
+</html>

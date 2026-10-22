@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compiling ‘suckless tools’ on FreeBSD // How-To // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../../../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../../../programe/" class="text-slate-400 hover:text-slate-100 transition-colors">Programs</a>
+        <a href="../../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
+        <a href="../../../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
+        <a href="../../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../../../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../../../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <div class="mb-8">
+    <a href="../../howto/" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// HOW-TO</span>
+    </a>
+  </div>
+
+  <header class="mb-10 pb-6 border-b border-slate-800/60">
+    <div class="flex items-center gap-2 font-mono text-xs text-slate-400 mb-3">
+      <time datetime="2019-10-23">23 Oct 2019</time>
+      <span class="text-slate-600">&middot;</span>
+      <span>12 MIN READ</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight">
+      Compiling ‘suckless tools’ on FreeBSD
+    </h1>
+  </header>
+
+  <article class="prose-tactical text-slate-300">
+    <p>I wrote this tutorial for potential new users that want to try out new stuff and wish to expand their technical knowledge, but also because there are some commands and details around here I might forget some months or years down the line (for example, Xorg video driver configurations). The whole writing process was a very good opportunity for me to extend the CSS I used for my website and to try do to a better job at formatting tech/code/console-related text. I would be glad if someone else found these instructions useful.</p>
+
+<p><strong>⚠ WARNING This tutorial was written on October 23rd, 2019. I decided to keep it here for reference. Things potentially marked as „In progress”, „Not solved” or „Not working” (if any at a given time) may already have a workaround or a solution. Keep in mind that the exact instructions provided here may not be fully applicable to your system’s context!</strong></p>
+
+<p>### Why bother? Since most of these tools are already available in the FreeBSD package tree, why go through the hassle of building them yourself? Well, why bother with anything, really?</p>
+
+<p>In my opinion, this is the only way you get to truly undestrand how these tools are built and how they interact with each other. There’s also a small chance you’ll get the hang of manually building software if you’re not used to it or never have done it before. Last,but not least, you get to customize each software piece. Since suckless tools rely on the user recompiling the source files in order to set various parameters, this is the way to do it. Finally, it’s a good first look at the (I would say) intentional philosophy behind these tools.</p>
+
+<h3 id="assumptions">Assumptions</h3>
+
+<ul>
+<li>First of all, you have a new, freshly installed FreeBSD system (version 12 being the latest stable one, at the time of writing). No X server, no pkg-config, etc. The following steps describe what one should to in order to get a fully functional suckless.org-based desktop (strange choice of words, I know).</li><li>Of course, a bit of experience working in a console is required. But why would you install FreeBSD otherwise?</li><li>Your user account has administrative privileges or is, at least, added to the /usr/local/etc/sudoers file</li><li>You have read about the tools developed by the people at suckless.org and their philosophy (if not, go do it now, because it won’t take long)</li><li>You understand that in order to change some configuration attributes, editing a C header file is mandatory. Luckily, this is just a formality and you don’t really need to know C in order to change some intuitive settings.</li>
+</ul>
+
+<h3 id="general-guidelines">General guidelines</h3>
+
+<p>Change X11INC and X11LIB paths in each & every config.mk file (each tool folder contains one such file). This is their FreeBSD-adjusted form:</p>
+
+<p>X11INC=/usr/local/include         X11LIB=/usr/local/lib</p>
+
+<p>Each software piece produced by the people at suckless.org relies on a config.h header file that lies in the main source folder, along with Makefile and all the rest. This file does not exist by default, but a template with default settings is available. So, do a quick $ cp config.def.h config.h for each tool you wish to setup.</p>
+
+<h3 id="preparations">Preparations</h3>
+
+<p>To setup these tools, we need to install a few things first. Issue this command as root or with sudo privileges:</p>
+
+<p>$ pkg install git xorg-server xorg-fonts-truetype gcr devel/glib20 \          xorg-fonts-type1 p5-X11-Xlib p5-PkgConfig xauth xrandr xinit libXft xrdb webkit2-gtk3 \         feh xf86-input-mouse xf86-input-keyboard linux-c7-libpng</p>
+
+<p>Good. Now, let’s take it step by step. In order to keep things organized, create a folder in your home directory where the sources will be stored. Then, proceed in fetching all the source files:</p>
+
+<p>$ mkdir ~/git         $ cd git         $ git clone git://git.suckless.org/dmenu         $ git clone git://git.suckless.org/slstatus         $ git clone git://git.suckless.org/st         $ git clone git://git.suckless.org/dwm         $ git clone git://git.suckless.org/sent         $ git clone git://git.suckless.org/surf</p>
+
+<p>Of course, there are more tools available (farbfeld, tabbed, slock, etc.), but these are not essential and will be covered in a separate post.TIP: st is an acronym for „suckless terminal”. It’s quite a simple terminal and some of the functionalities you might’ve found in xterm are missing (even scrolling). Of course, these can all be set by editing the config.h file, but if you want a quick alternative, go ahead and download Luke Smith’s build, which includes tweaks and additional settings that turn this into a more usable terminal emulator.</p>
+
+<p>Now you are ready to start building.</p>
+
+<h3 id="dmenu-a-fast-app-search-launch-thingy">dmenu (a fast app „search & launch” thingy)</h3>
+
+<p>This is a nifty tool that allows you to search & execute programs installed on your system. By default, it uses a so-called „Mod key” in combination with „P”, but we’ll get to that later. In short: this is a must for convenience.</p>
+
+<p>$ cd dmenu         $ cp config.def.h config.h         $ vim config.h         $ vim config.mk</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<ul>
+<li>Set FREETYPEINC to /usr/local/include/freetype2</li><li>Update X11INC and X11LIB as shown in the Prerequisites section</li>
+</ul>
+
+<h4 id="config-h">config.h</h4>
+
+<p>Increase the font from 10 to 12 or more. This is for readability, but it’s a matter of taste and eyestrain:          static const char *fonts[] = {"monospace:size=12"}   Now, build and install it:          $ make $ sudo make install</p>
+
+<h3 id="slstatus-a-nice-status-bar">slstatus (a nice status bar)</h3>
+
+<p>Actually, a very nice and highly customizable status bar. Create the config.h file from the template and edit it.</p>
+
+<p>$ cd ../slstatus         $ cp config.def.h config.h</p>
+
+<h4 id="config-h">config.h</h4>
+
+<p>Since there are quite a lot of available options, here’s how my file looks at the moment (for my laptop installation, that is):</p>
+
+<p>static const struct arg args[] = {                 /<em> function format          argument </em>/                 { datetime, "%s",           "%F %T" },                 { cpu_perc, "[CPU %3s%%] ", NULL    },                 { ram_used, "[RAM %2s%%] ", NULL    },                 { battery_state, "[BAT %s", "BAT0" },                 { battery_perc, "%s%%] ", "BAT0" },                 { run_command, "[VOL %s%%] ", "/bin/sh -c \"amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1\"" },                 { ipv4, "[wlan0 %s] ", "wlan0" }         };</p>
+
+<p>All available options and attributes are listed in a long comment inside the original config.def.h file. Please do check them out!</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<p>Update X-related variables (as previously shown)</p>
+
+<h4 id="makefile">Makefile</h4>
+
+<p>For some reason I still can’t grasp, the swap component causes a compilation error. Since I don’t find it useful, I choose to take it out of the build process. Just edit the Makefile and remove the following line:</p>
+
+<p>components/swap  \</p>
+
+<p>Next, the usual:</p>
+
+<p>$ make         $ sudo make install</p>
+
+<h3 id="dwm-the-window-manager">dwm (THE window manager)</h3>
+
+<p>Or the dynamic window manager. In my opinion, probably i3’s nemesis. A tiling window manager that’s very lightweight & fast. Very similar to i3 in some respects, but a bit different when it comes to how it’s being used (refer to the original docs for details). I admit that it might not seem very different to the average user, but the specifics come about after using it for at least a week.</p>
+
+<p>$ cd ../dwm         $ cp config.def.h config.h</p>
+
+<h4 id="config-h">config.h</h4>
+
+<p>By default, the „modifier key” (the one used for all keyboard shortcuts) is Alt. If one wants to use the Win key, for example, the MODKEY must be redefined. Go to line 47 in config.h and change Mod1Mask to Mod4Mask (Mod1Mask for Alt). You should end up with:          #define MODKEY Mod4Mask  dwm uses „st” implicitly when the user requests a new terminal window ($MODKEY + Shift + Enter). If another terminal emulator is desired, feel free to set it at line 60:          static const char <em>termcmd[] = {"xterm", NULL}  I am not comfortable with small screen fonts, therefore I also change that at line 8:          static const char </em>fonts[] = {"monospace:size=12"}</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<p>Update freetype fonts path:          FREETYPEINC=/usr/local/include/freetype2</p>
+
+<p>Next:         $ sudo make clean install</p>
+
+<h3 id="st-simple-terminal">st („simple terminal”)</h3>
+
+<p>The people at suckless.org find xterm to be bloated and carrying a lot of „baggage” (code for interacting with systems that nowadays are pretty scarce). Therefore, they developed their own terminal emulator. A very basic one, which lacks some of the features I personally love about xterm and mrxvt (like scrolling and easy copy/pasting). Of course, it can be extended and tinkered by tackling the config.h file, but there is an alternative: Luke Smith’s st fork actually contains all these missing features. If you wish to use that instead, go ahead and clone his repo.</p>
+
+<p>Because I like Luke’s fork, I am going to remove the original st I cloned at the very beginning and fetch that instead:</p>
+
+<p>$ cd ..         $ rm -rf st/         $ git clone https://github.com/LukeSmithxyz/st.git         $ cd st</p>
+
+<p>Of course, feel free to mess around with the config file if you wish.</p>
+
+<p>In case you really want to use the original st repository, keep the current clone and remember to $ cp config.def.h config.h so you have a custom config file.</p>
+
+<p>Some changes need to be made in order to successfully compile st on FreeBSD.</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<p>Update X11INC & X11LIB paths as before:</p>
+
+<p>X11INC = /usr/local/include         X11LIB = /usr/local/lib</p>
+
+<p>Properly set PKG_CONFIG:</p>
+
+<p>PKG_CONFIG=/usr/local/bin/pkg-config</p>
+
+<p>Once all settings are in place, build & install:</p>
+
+<p>$ sudo make clean install</p>
+
+<h3 id="sent">sent</h3>
+
+<p>It’s trendy to „go minimal” nowadays, but minimalism itself is not a new thing. Let’s face it: letting go of superficial content & eye-candy is the only way to actively focus on relevant issues and information. sent adheres to the Takahashi method by helping you create simple presentations that support you, the presenter.</p>
+
+<p>During a corporate or technical presentation, the presenter needs to be the one people pay attention to, not the slides coming on & off the walls. Apart from some relevant screenshots or simple charts, concise textual information is the only thing that should reside in a presentation.</p>
+
+<p>Just remember how many times you dozed-off during a boring but visually loaded presentation. Wouldn’t it be nicer if you could bravely show an alternative way of doing presentations? At least the more technical ones, which target tech people. You know, challenging the status-quo of MS PowerPoint.</p>
+
+<h4 id="config-mk">config.mk</h4>
+
+<ul>
+<li>Update X-related paths as shown before</li><li>Change -I/usr/include/freetype2 to -I/usr/local/include/freetype2 in INCS</li>
+</ul>
+
+<p>config.h is a good place to learn about all the available shortcuts and options.</p>
+
+<p>Then,</p>
+
+<p>$ sudo make clean install</p>
+
+<p>I intend to do a brief tutorial for this tool in the near future.</p>
+
+<h3 id="surf">surf</h3>
+
+<p>Talking about minimalism, here’s a Webkit-based browser that has no tabs or any other „bling”. Just the main window and a few shortcuts. It handles almost any common website very well, including HTML5, CSS3, JavaScript and the such. I admit this is the browser I use 99% of the time, except those moments when I must make sure some CSS changes in my website’s appearance work well on others, too.</p>
+
+<p>It’s kind of tricky for someone that’s been using dozens of tabs & browser extensions, but I fancy it quite a lot. Maybe it is because using many tabs has a confusing effect on me, making me lose focus a lot easier. I remember a time when I started working on a Firefox extension that would deny the use of more than one tab :).</p>
+
+<p>Anyway, I will come back to surf and „focused browsing” on another occasion.</p>
+
+<p>This one is pretty straightforward, assuming you don’t want to tinker all options availabe in config.h:</p>
+
+<p>$ cd ../surf         $ sudo make clean install</p>
+
+<p>If all goes well, lauch it using something like surf https://duckduckgo.com. If you want to enter a different web address in the current window, use Ctrl + G and then just type it and hit Enter.TIP: Alternatively, you may use a fork of surf that improves usability by facilitating bookmarks and the use of WebKit Inspector (useful for web developers). If that sounds good, go ahead and</p>
+
+<p>$ rm -rf git/surf; git clone https://github.com/imiric/surf.git</p>
+
+<h3 id="xorg-configuration">Xorg configuration</h3>
+
+<p>At this point, we have everything we need to start using our new „desktop UI”. In order to wrap this up, we need to make sure Xorg uses the appropriate display drivers and quickly set a couple other things. nVidia drivers ¶</p>
+
+<p>I use a GeForce GT 430 on my desktop. Even though I knew the adapter was officially supported by the original nVidia driver for FreeBSD systems, I set things wrong the first time. So, here are the steps, in order:</p>
+
+<p>Install the official nVidia driver (check the version you need, depending on your graphics card):</p>
+
+<p>$ sudo kldload linux64         $ sudo pkg install nvidia-driver</p>
+
+<p>Run sudo sysrc kld_list+="nvidia-modeset" Add the following to /boot/loader.conf:</p>
+
+<p>linux_load="YES"         linux64_load="YES"</p>
+
+<p>Create /usr/local/etc/X11/xorg.conf.d/driver-nvidia.conf and add populate it with the following:</p>
+
+<p>Section "Device"                 Identifier "NVIDIA Card"                 VendorName "NVIDIA Corporation"                 Driver "nvidia"         EndSection</p>
+
+<h4 id="intel-integrated-graphics">Intel integrated graphics</h4>
+
+<p>sudo pkg install drm-kmod</p>
+
+<p>Edit /etc/rc.conf and add:</p>
+
+<p>kld_list="/boot/modules/i915kms.ko"</p>
+
+<h4 id="keyboard-configuration">Keyboard configuration</h4>
+
+<p>Create /usr/local/etc/X11/xorg.conf.d/kbd-layout-multi.conf and add:</p>
+
+<p>Section "InputClass"                 Identifier "All Keyboards"                 MatchIsKeyboard "yes"                 Option  "XkbLayout" "us, ro"         EndSection</p>
+
+<h4 id="xinitrc">.xinitrc</h4>
+
+<p>Create .xinitrc in your $HOME and populate it accordingly:</p>
+
+<p>xrdb -load $HOME/.Xresources         slstatus&         exec dwm</p>
+
+<h4 id="xresources">.Xresources</h4>
+
+<p>Using your editor, create $HOME/.Xresources and add the following):</p>
+
+<p>! Use a nice truetype font and size by default...         xterm<em>faceName: DejaVu Sans Mono Book         xterm</em>faceSize: 12</p>
+
+<p>! Every shell is a login shell by default (for inclusion of all necessary environment variables)         xterm*loginshell: true</p>
+
+<p>! I like a LOT of scrollback...         xterm*savelines: 16384</p>
+
+<p>! double-click to select whole URLs 😀         xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48</p>
+
+<p>! DOS-box colours...         xterm<em>foreground: rgb:a8/a8/a8         xterm</em>background: rgb:00/00/00         xterm<em>color0: rgb:00/00/00         xterm</em>color1: rgb:a8/00/00         xterm<em>color2: rgb:00/a8/00         xterm</em>color3: rgb:a8/54/00         xterm<em>color4: rgb:00/00/a8         xterm</em>color5: rgb:a8/00/a8         xterm<em>color6: rgb:00/a8/a8         xterm</em>color7: rgb:a8/a8/a8         xterm<em>color8: rgb:54/54/54         xterm</em>color9: rgb:fc/54/54         xterm<em>color10: rgb:54/fc/54         xterm</em>color11: rgb:fc/fc/54         xterm<em>color12: rgb:54/54/fc         xterm</em>color13: rgb:fc/54/fc         xterm<em>color14: rgb:54/fc/fc         xterm</em>color15: rgb:fc/fc/fc</p>
+
+<p>! right hand side scrollbar...         xterm<em>rightScrollBar: true         xterm</em>ScrollBar: true</p>
+
+<p>! stop output to terminal from jumping down to bottom of scroll again         xterm*scrollTtyOutput: false</p>
+
+<h3 id="ready-go">Ready? Go!</h3>
+
+<p>The moment has come. Reboot your system to make sure all modules are loaded correctly.</p>
+
+<p>Then:</p>
+
+<p>$ startx</p>
+
+<p>That’s mainly it. I hope this was useful. The config files I use can be found in this repo.</p>
+  </article>
+
+  <div class="mt-12 pt-6 border-t border-slate-800/60 flex items-center justify-between font-mono text-xs text-slate-400">
+    <a href="../../howto/" class="hover:text-emerald-400 transition-colors">
+      ← Back to How-To
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="hover:text-emerald-400 transition-colors">
+      Back to top ↑
+    </a>
+  </div>
+</main>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../js/tactical.js"></script>
+</body>
+</html>

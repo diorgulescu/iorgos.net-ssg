@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quickly creating fixed sized files in Linux &amp; Windows // How-To // Dragoș Iorgulescu</title>
+  <meta name="description" content="Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu.">
+  
+  <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml">
+  
+  <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme_preference');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#0B0F17',
+            panel: 'rgba(17, 24, 39, 0.88)',
+            'panel-solid': '#111827',
+            recessed: '#0B0F17',
+            borderline: '#1E293B',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Tactical Design System -->
+  <link rel="stylesheet" href="../../css/tactical.css">
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+
+  <!-- MINIMAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="../../../" class="flex items-center gap-2 group">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+          Dragoș Iorgulescu
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+        <a href="../../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
+        <a href="../../../programe/" class="text-slate-400 hover:text-slate-100 transition-colors">Programs</a>
+        <a href="../../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
+        <a href="../../../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
+        <a href="../../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Now
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu Button & Toggle -->
+      <div class="flex items-center gap-1 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+        </button>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+          <i class="ph-bold ph-list text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+      <a href="../../../" class="block text-slate-300 hover:text-white">Home</a>
+      <a href="../../../blog/" class="block text-slate-300 hover:text-white">Journal</a>
+      <a href="../../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+      <a href="../../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+      <a href="../../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="../../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+    </div>
+  </header>
+
+
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <div class="mb-8">
+    <a href="../../howto/" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
+      <i class="ph-bold ph-arrow-left"></i>
+      <span>// HOW-TO</span>
+    </a>
+  </div>
+
+  <header class="mb-10 pb-6 border-b border-slate-800/60">
+    <div class="flex items-center gap-2 font-mono text-xs text-slate-400 mb-3">
+      <time datetime="2021-03-24">24 Mar 2021</time>
+      <span class="text-slate-600">&middot;</span>
+      <span>3 MIN READ</span>
+    </div>
+
+    <h1 class="font-display font-bold text-2xl sm:text-4xl text-slate-100 leading-tight">
+      Quickly creating fixed sized files in Linux & Windows
+    </h1>
+  </header>
+
+  <article class="prose-tactical text-slate-300">
+    <p>Often times, while working as a Software Test Engineer, I encountered situations in which the software I was testing relied a lot on available disk space. If that wasn’t the case, surely it had a way to upload files to it (either through a WEB-UI or by sending them over a certain network protocol). So, I was either going to make sure the device/machine that program ran on would end up without any available disk space at a given point in time, or try to crash the whole program by feeding it large dummy or random binary files.</p>
+
+<p>However, for that to work quickly, I could not rely on an endless copy operation just for the sake of populating disk space. Especially if I wanted this to happen at a particular time during the run of an automated test case (i.e. triggering that programatically).</p>
+
+<h3 id="on-linux">On Linux</h3>
+
+<p>The ``<code>dd</code>`` and the newer fallocate commands are here to help.</p>
+
+<p>``<code>fallocate</code>`<code> is available on newer systems, but if that is not your case, fear not, because </code>`<code>dd</code>`` does get you there.</p>
+
+<p>You basically tell these to create a file of a certain size. The size itself may be expressed in a “human-friendly form”: 1G for 1 Gigabyte, 466M for 466 Megs, and so on (you get the idea).</p>
+
+<p>So, here they are, in action.</p>
+
+<h4 id="creating-a-144-mb-file">Creating a 144 MB file</h4>
+
+<pre><code>dragos@laptop:~$ dd if=/dev/zero of=test_dd.bin bs=144M count=1
+1+0 records in
+1+0 records out
+150994944 bytes (151 MB, 144 MiB) copied, 0,130152 s, 1,2 GB/s</code></pre>
+
+<pre><code>dragos@laptop:~$ fallocate -l 144M test_fallocate.img</code></pre>
+
+<h4 id="creating-a-2-5-gb-file-well-roughly-it-s-best-to-specify-the-exact-size-in-mbs">Creating a 2.5 GB file (well, roughly; it’s best to specify the exact size in MBs):</h4>
+
+<pre><code>dragos@laptop:~$ dd if=/dev/zero of=2.5_g.bin bs=2500M count=1
+0+1 records in
+0+1 records out
+2147479552 bytes (2,1 GB, 2,0 GiB) copied, 1,68972 s, 1,3 GB/s</code></pre>
+
+<pre><code>dragos@laptop:~$ fallocate -l 2500M test.img</code></pre>
+
+<h3 id="on-windows-systems">On Windows systems</h3>
+
+<p>Don’t generally disregard Windows. It does have its place & tools, and newer improvements and additions (Windows Terminal, PowerShell, Windows Subsystem for Linux) demonstrate the company is nowadays fully aware of the mixed environments businesses and people use on a daily basis.</p>
+
+<p>A big thanks to Windows-CommandLine.com for the clear hints that enlightened me.</p>
+
+<p>So, if you find yourself in a need to generate such files on Windows, fire up a Command Prompt (cmd.exe).</p>
+
+<h4 id="create-a-dummy-sparse-empty-file-of-a-given-size">Create a dummy/sparse/empty file of a given size</h4>
+
+<pre><code>fsutil file createnew test.txt 52428800</code></pre>
+
+<p>The above creates a 50 MB file. The size is always expressed in bytes.</p>
+
+<h4 id="create-a-128-mb-file-with-real-data">Create a 128 MB file with real data:</h4>
+
+<pre><code>echo &quot;Sample text to create some big files.&quot; &gt; dummy.txt
+for /L %i in (1,1,21) do type dummy.txt &gt;&gt; dummy.txt</code></pre>
+
+<p>And the trick here is to increase the third value within the parenthesis. Each run, the file doubles itself in size.</p>
+
+<p>That’s about it. *** ### TESTER’S TIP</p>
+
+<p>You can easily script these commands in order to generate a “test bed” of variable-sized dummy files. These could be very useful for testing an FTP server, for example. Let’s say you wish to generate 50 files with sizes between 1KB and 366787K (just of the top of my head). It could very well be files between 1 MB & 500 MB, depending on your needs & plans. ***</p>
+  </article>
+
+  <div class="mt-12 pt-6 border-t border-slate-800/60 flex items-center justify-between font-mono text-xs text-slate-400">
+    <a href="../../howto/" class="hover:text-emerald-400 transition-colors">
+      ← Back to How-To
+    </a>
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="hover:text-emerald-400 transition-colors">
+      Back to top ↑
+    </a>
+  </div>
+</main>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+        <div>
+          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+        <div>
+          &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
+        </div>
+        <div class="flex items-center gap-3">
+          <span>Zero engine dependency</span>
+          <span class="text-slate-700">&middot;</span>
+          <span>Host: Namebox.ro</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../js/tactical.js"></script>
+</body>
+</html>

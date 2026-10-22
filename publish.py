@@ -43,6 +43,7 @@ from datetime import datetime
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
+OUTPUT_DIR = BASE_DIR / "public"
 
 # =============================================================================
 # SITE GLOBAL CONFIGURATION
@@ -412,7 +413,7 @@ def get_footer(depth=0):
 
 # --- Article Page Generator ---
 def generate_single_article(meta, content_html, category, slug):
-    target_dir = BASE_DIR / category / slug
+    target_dir = OUTPUT_DIR / category / slug
     target_dir.mkdir(parents=True, exist_ok=True)
 
     title = meta.get("title", slug.capitalize())
@@ -473,7 +474,7 @@ def generate_single_article(meta, content_html, category, slug):
 
 # --- Category Index Generator ---
 def generate_category_index(category, items):
-    output_dir = BASE_DIR / category
+    output_dir = OUTPUT_DIR / category
     output_dir.mkdir(parents=True, exist_ok=True)
 
     category_titles = {
@@ -553,6 +554,25 @@ def generate_category_index(category, items):
 
     with open(output_dir / "index.html", "w", encoding="utf-8") as f:
         f.write(page_html)
+
+def copy_static_assets():
+    """
+    Copies static assets (css, js, images) and standalone sections (programe, sounds, kettlebell)
+    from workspace sources into the public/ output directory.
+    """
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    asset_folders = ["css", "js", "images", "programe", "sounds", "kettlebell"]
+    for folder in asset_folders:
+        src = BASE_DIR / folder
+        dst = OUTPUT_DIR / folder
+        if src.is_dir():
+            shutil.copytree(src, dst, dirs_exist_ok=True)
+
+    # Any standalone root files like favicon
+    for filename in ["favicon.ico", "CNAME"]:
+        extra_src = BASE_DIR / filename
+        if extra_src.is_file():
+            shutil.copy2(extra_src, OUTPUT_DIR / filename)
 
 # --- Home Page Generator ---
 def generate_home_page(posts, guides):
@@ -769,7 +789,7 @@ def generate_home_page(posts, guides):
 
 {get_footer(depth=0)}"""
 
-    with open(BASE_DIR / "index.html", "w", encoding="utf-8") as f:
+    with open(OUTPUT_DIR / "index.html", "w", encoding="utf-8") as f:
         f.write(home_html)
 
 def generate_now_page():
@@ -824,9 +844,9 @@ def generate_now_page():
 
 {get_footer(depth=0)}"""
 
-    with open(BASE_DIR / "now.html", "w", encoding="utf-8") as fp:
+    with open(OUTPUT_DIR / "now.html", "w", encoding="utf-8") as fp:
         fp.write(now_html)
-    print("[SYS // NOW] Generated now.html from content/now.md")
+    print("[SYS // NOW] Generated public/now.html from content/now.md")
     return True
 
 def generate_sitemap(blog_items, howto_items):
@@ -903,28 +923,23 @@ def generate_sitemap(blog_items, howto_items):
     xml_lines.append("</urlset>\n")
     sitemap_content = "\n".join(xml_lines)
 
-    sitemap_file = BASE_DIR / "sitemap.xml"
+    sitemap_file = OUTPUT_DIR / "sitemap.xml"
     with open(sitemap_file, "w", encoding="utf-8") as fp:
         fp.write(sitemap_content)
-    print(f"[SYS // SITEMAP] Generated sitemap.xml with {len(urls)} URLs")
+    print(f"[SYS // SITEMAP] Generated public/sitemap.xml with {len(urls)} URLs")
 
     # Generate robots.txt
     robots_content = f"""# robots.txt for {base_url}
 User-agent: *
 Allow: /
 
-# Disallow internal backup and legacy directories
-Disallow: /_backup_tactical_hud/
-Disallow: /_legacy_hugo/
-Disallow: /.git/
-
 # Sitemap location
 Sitemap: {base_url}/sitemap.xml
 """
-    robots_file = BASE_DIR / "robots.txt"
+    robots_file = OUTPUT_DIR / "robots.txt"
     with open(robots_file, "w", encoding="utf-8") as fp:
         fp.write(robots_content)
-    print("[SYS // ROBOTS] Generated robots.txt")
+    print("[SYS // ROBOTS] Generated public/robots.txt")
 
 # --- Core Scanner & Rebuilder ---
 def load_and_compile_all():
@@ -933,10 +948,13 @@ def load_and_compile_all():
         print(f"[ERR // CONTENT] content/ directory not found at {content_dir}")
         return [], []
 
+    # 1. Copy static assets and sections into public/
+    copy_static_assets()
+
     blog_items = []
     howto_items = []
 
-    # 1. Process Blog
+    # 2. Process Blog
     blog_dir = content_dir / "blog"
     if blog_dir.exists():
         for md_file in sorted(blog_dir.glob("*.md")):
@@ -951,10 +969,10 @@ def load_and_compile_all():
             # Check draft status
             is_draft = str(meta.get("draft", "false")).lower() in ["true", "1", "yes"]
             if is_draft:
-                draft_dir = BASE_DIR / "blog" / slug
+                draft_dir = OUTPUT_DIR / "blog" / slug
                 if draft_dir.is_dir():
                     shutil.rmtree(draft_dir)
-                    print(f"[SYS // DRAFT] Removed unlisted HTML directory for draft: blog/{slug}/")
+                    print(f"[SYS // DRAFT] Removed unlisted HTML directory for draft: public/blog/{slug}/")
                 continue
 
             title = meta.get("title") or slug.replace("-", " ").capitalize()
@@ -986,19 +1004,19 @@ def load_and_compile_all():
             generate_single_article(item, content_html, "blog", slug)
             blog_items.append(item)
 
-    # Automatic cleanup of orphaned blog directories
+    # Automatic cleanup of orphaned blog directories in public/
     active_blog_slugs = {item["slug"] for item in blog_items}
-    blog_root = BASE_DIR / "blog"
+    blog_root = OUTPUT_DIR / "blog"
     if blog_root.exists():
         for sub in blog_root.iterdir():
             if sub.is_dir() and sub.name not in active_blog_slugs and not sub.name.startswith(("_", ".")):
                 shutil.rmtree(sub)
-                print(f"[SYS // CLEANUP] Removed orphaned article directory: blog/{sub.name}/")
+                print(f"[SYS // CLEANUP] Removed orphaned article directory: public/blog/{sub.name}/")
 
     blog_items.sort(key=lambda x: str(x["date"]), reverse=True)
     generate_category_index("blog", blog_items)
 
-    # 2. Process Howto
+    # 3. Process Howto
     howto_dir = content_dir / "howto"
     if howto_dir.exists():
         for md_file in sorted(howto_dir.glob("*.md")):
@@ -1012,10 +1030,10 @@ def load_and_compile_all():
 
             is_draft = str(meta.get("draft", "false")).lower() in ["true", "1", "yes"]
             if is_draft:
-                draft_dir = BASE_DIR / "howto" / slug
+                draft_dir = OUTPUT_DIR / "howto" / slug
                 if draft_dir.is_dir():
                     shutil.rmtree(draft_dir)
-                    print(f"[SYS // DRAFT] Removed unlisted HTML directory for draft: howto/{slug}/")
+                    print(f"[SYS // DRAFT] Removed unlisted HTML directory for draft: public/howto/{slug}/")
                 continue
 
             title = meta.get("title") or slug.replace("-", " ").capitalize()
@@ -1045,28 +1063,28 @@ def load_and_compile_all():
             generate_single_article(item, content_html, "howto", slug)
             howto_items.append(item)
 
-    # Automatic cleanup of orphaned howto directories
+    # Automatic cleanup of orphaned howto directories in public/
     active_howto_slugs = {item["slug"] for item in howto_items}
-    howto_root = BASE_DIR / "howto"
+    howto_root = OUTPUT_DIR / "howto"
     if howto_root.exists():
         for sub in howto_root.iterdir():
             if sub.is_dir() and sub.name not in active_howto_slugs and not sub.name.startswith(("_", ".")):
                 shutil.rmtree(sub)
-                print(f"[SYS // CLEANUP] Removed orphaned guide directory: howto/{sub.name}/")
+                print(f"[SYS // CLEANUP] Removed orphaned guide directory: public/howto/{sub.name}/")
 
     howto_items.sort(key=lambda x: str(x["date"]), reverse=True)
     generate_category_index("howto", howto_items)
 
-    # 3. Rebuild Home Page
+    # 4. Rebuild Home Page
     generate_home_page(blog_items, howto_items)
 
-    # 4. Rebuild Now Page
+    # 5. Rebuild Now Page
     generate_now_page()
 
-    # 5. Synchronize static pages (programe/, sounds/, kettlebell/)
+    # 6. Synchronize static pages (programe/, sounds/, kettlebell/)
     sync_static_headers()
 
-    # 6. Generate Sitemap & Robots.txt
+    # 7. Generate Sitemap & Robots.txt
     generate_sitemap(blog_items, howto_items)
 
     return blog_items, howto_items
@@ -1074,7 +1092,7 @@ def load_and_compile_all():
 def sync_static_headers():
     """
     Synchronizes minimalist header and footer across all standalone static pages
-    (sounds/, programe/, kettlebell/).
+    (sounds/, programe/, kettlebell/) in both public/ and source directories.
     """
     theme_script = """  <!-- Zero-FOUC Theme Initializer -->
   <script>
@@ -1087,44 +1105,53 @@ def sync_static_headers():
     })();
   </script>"""
 
-    for html_file in BASE_DIR.glob("**/*.html"):
-        if "_legacy_hugo" in html_file.parts or "_backup_tactical_hud" in html_file.parts or "content" in html_file.parts:
+    for root_dir in [OUTPUT_DIR, BASE_DIR]:
+        if not root_dir.exists():
             continue
-        try:
-            content = html_file.read_text(encoding="utf-8")
-            orig = content
-
-            # 1. Update <html lang="ro" class="dark"> to <html lang="ro">
-            content = re.sub(r'<html\s+lang="ro"\s+class="dark">', '<html lang="ro">', content)
-
-            # 2. Add zero-fouc script if missing
-            if "theme_preference" not in content and "</head>" in content:
-                content = content.replace("</head>", f"{theme_script}\n</head>")
-
-            # 3. For standalone static pages (not blog/, howto/, root index.html or generated now.html):
-            rel_parts = html_file.relative_to(BASE_DIR).parts
+        for html_file in root_dir.glob("**/*.html"):
+            if "_legacy_hugo" in html_file.parts or "_backup_tactical_hud" in html_file.parts or "content" in html_file.parts:
+                continue
+            rel_parts = html_file.relative_to(root_dir).parts
+            if not rel_parts:
+                continue
             depth = len(rel_parts) - 1
             first_part = rel_parts[0].lower()
 
-            if html_file != (BASE_DIR / "index.html") and html_file != (BASE_DIR / "now.html") and first_part not in ["blog", "howto"]:
+            if html_file != (root_dir / "index.html") and html_file != (root_dir / "now.html") and first_part not in ["blog", "howto"]:
                 active_nav = first_part if first_part in ["programe", "sounds", "kettlebell"] else ""
-                
-                # Strip old top HUD bar and duplicate minimal comments
-                content = re.sub(r'<!-- MINIMAL NAVBAR -->\s*', '', content)
-                content = re.sub(r'<!-- TOP (?:HUD|TELEMETRY HUD) BAR -->[\s\S]*?</div>\s*</div>\s*(?=\s*<!-- [A-Z\s]+NAVBAR -->|<header)', '', content)
-                content = re.sub(r'<!-- (?:TOP|MAIN) TACTICAL NAVBAR -->\s*', '', content)
+                try:
+                    content = html_file.read_text(encoding="utf-8")
+                    orig = content
 
-                # Replace ONLY the first header (the top navbar)
-                minimal_hdr = get_header(active_nav=active_nav, depth=depth).strip()
-                content = re.sub(r'<header[\s\S]*?</header>', minimal_hdr, content, count=1)
-                
-                minimal_ftr = get_footer(depth=depth).strip()
-                content = re.sub(r'(?:<!-- (?:TACTICAL FOOTER HUD|MINIMAL FOOTER) -->\s*)*<footer[\s\S]*?</html>', minimal_ftr, content)
+                    # 1. Update <html lang="ro" class="dark"> to <html lang="ro">
+                    content = re.sub(r'<html\s+lang="ro"\s+class="dark">', '<html lang="ro">', content)
 
-            if content != orig:
-                html_file.write_text(content, encoding="utf-8")
-        except Exception as e:
-            print(f"[WARN] Error syncing {html_file}: {e}")
+                    # 2. Add zero-fouc script if missing
+                    if "theme_preference" not in content and "</head>" in content:
+                        content = content.replace("</head>", f"{theme_script}\n</head>")
+
+                    # 3. Add sitemap link if missing
+                    root_path = "./" if depth == 0 else "../" * depth
+                    sitemap_link = f'  <link rel="sitemap" type="application/xml" title="Sitemap" href="{root_path}sitemap.xml">'
+                    if 'rel="sitemap"' not in content and "</head>" in content:
+                        content = content.replace("</head>", f"{sitemap_link}\n</head>")
+
+                    # Strip old top HUD bar and duplicate minimal comments
+                    content = re.sub(r'<!-- MINIMAL NAVBAR -->\s*', '', content)
+                    content = re.sub(r'<!-- TOP (?:HUD|TELEMETRY HUD) BAR -->[\s\S]*?</div>\s*</div>\s*(?=\s*<!-- [A-Z\s]+NAVBAR -->|<header)', '', content)
+                    content = re.sub(r'<!-- (?:TOP|MAIN) TACTICAL NAVBAR -->\s*', '', content)
+
+                    # Replace ONLY the first header (the top navbar)
+                    minimal_hdr = get_header(active_nav=active_nav, depth=depth).strip()
+                    content = re.sub(r'<header[\s\S]*?</header>', minimal_hdr, content, count=1)
+                    
+                    minimal_ftr = get_footer(depth=depth).strip()
+                    content = re.sub(r'(?:<!-- (?:TACTICAL FOOTER HUD|MINIMAL FOOTER) -->\s*)*<footer[\s\S]*?</html>', minimal_ftr, content)
+
+                    if content != orig:
+                        html_file.write_text(content, encoding="utf-8")
+                except Exception as e:
+                    print(f"[WARN] Error syncing {html_file}: {e}")
 
 # --- Single File Ingest / Publishing ---
 def publish_markdown_file(filepath, forced_category=None):
@@ -1198,7 +1225,7 @@ def publish_markdown_file(filepath, forced_category=None):
         return
 
     # Trigger site rebuild to integrate the new post into indexes, home, counts
-    print(f"[SYS // COMPILE] Compiling {category}/{slug}/index.html...")
+    print(f"[SYS // COMPILE] Compiling public/{category}/{slug}/index.html...")
     blog_items, howto_items = load_and_compile_all()
 
     print("\n" + "=" * 65)
@@ -1207,7 +1234,7 @@ def publish_markdown_file(filepath, forced_category=None):
     print(f"  Title:         {title}")
     print(f"  Slug:          {slug}")
     print(f"  Date:          {meta['date']} ({format_display_date(meta['date'])})")
-    print(f"  HTML URL:      {category}/{slug}/index.html")
+    print(f"  HTML URL:      public/{category}/{slug}/index.html")
     print(f"  Total Blog:    {len(blog_items)} articles")
     print(f"  Total How-To:  {len(howto_items)} guides")
     print("=" * 65)
@@ -1283,11 +1310,12 @@ def delete_article(slug_or_path, forced_category=None):
             print(f"[SYS // DELETE] Removed source markdown: content/{cat}/{slug}.md")
             deleted_md = True
 
-        html_dir = BASE_DIR / cat / slug
-        if html_dir.is_dir():
-            shutil.rmtree(html_dir)
-            print(f"[SYS // CLEANUP] Removed HTML directory: {cat}/{slug}/")
-            deleted_html = True
+        for target_root in [OUTPUT_DIR, BASE_DIR]:
+            html_dir = target_root / cat / slug
+            if html_dir.is_dir():
+                shutil.rmtree(html_dir)
+                print(f"[SYS // CLEANUP] Removed HTML directory: {target_root.name}/{cat}/{slug}/")
+                deleted_html = True
 
     if not deleted_md and not deleted_html:
         print(f"[WARN // NOT FOUND] No article or directory found matching '{slug_or_path}'.")
@@ -1301,9 +1329,16 @@ def delete_article(slug_or_path, forced_category=None):
 # --- Local HTTP Server ---
 def serve_site(port=8080):
     from http.server import HTTPServer, SimpleHTTPRequestHandler
-    os.chdir(BASE_DIR)
-    print(f"[SYS // SERVER] Starting local Tactical HUD server on http://localhost:{port}...")
-    print(f"[SYS // SERVER] Press Ctrl+C to terminate.")
+    if not OUTPUT_DIR.exists() or not (OUTPUT_DIR / "index.html").exists():
+        print(f"[SYS // SERVER] public/ directory not found or empty. Rebuilding site first...")
+        load_and_compile_all()
+    os.chdir(OUTPUT_DIR)
+    print("\n" + "=" * 65)
+    print(f" [TACTICAL HUD // LOCAL PREVIEW SERVER]")
+    print(f"  Root:     {OUTPUT_DIR}")
+    print(f"  URL:      http://localhost:{port}/")
+    print(f"  Status:   Listening... (Press Ctrl+C to terminate)")
+    print("=" * 65 + "\n")
     server = HTTPServer(('127.0.0.1', port), SimpleHTTPRequestHandler)
     try:
         server.serve_forever()

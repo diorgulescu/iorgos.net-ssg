@@ -35,46 +35,32 @@ Site-ul oferă o experiență vizuală calibrată, având două direcții de des
 
 ```
 iorgos-hugo/
-├── index.html                   # Pagina principală (Minimalist Editorial)
-├── now.html                     # Pagina „Now” (focus curent în timp real)
 ├── content/                     # Conținutul sursă în format Markdown
 │   ├── now.md                   # Sursa paginii „Now” (priorități curente)
+│   ├── kettlebell.md            # Sursa protocolului kettlebell & telemetrie
 │   ├── blog/                    # Sursa Markdown a articolelor din jurnal
 │   ├── howto/                   # Sursa Markdown a ghidurilor tehnice
 │   └── programe/                # Sursa documentelor de antrenament
-├── blog/
-│   ├── index.html               # Arhiva eseurilor (cu căutare/filtrare live)
-│   ├── telefonul/               # Articol: Telefonul
-│   ├── pacaneaua-din-buzunar/   # Articol: Păcăneaua din buzunar
-│   ├── curatenie-reprezentata-femei/
-│   ├── soferi-grabiti-scaune-copii/
-│   ├── tool-becomes-drug/
-│   ├── gasit-nordul/
-│   └── is-strava-another-facebook/
-├── programe/
-│   ├── index.html               # Hub pentru sistemele de antrenament
-│   ├── tension-spectrum/        # Protocol complet Tension Spectrum + complexe SVG
-│   ├── sfg-prep/                # Program de pregătire SFG I & SFB în 3 faze
-│   └── bjj-prep/                # Program recuperare cot BJJ, alergare Z2 & rucking
-├── howto/
-│   ├── index.html               # Arhiva ghidurilor tehnice (cu căutare/filtrare)
-│   ├── deploy-hyperv2019/       # Ghid: Deploy Hyper-V Server fără DC
-│   ├── create-fixed-size-files/ # Ghid: Creare fișiere dummy predimensionate
-│   ├── aliases-profiles-pwsh/   # Ghid: Alias-uri și profiluri în PowerShell
-│   ├── ssh-auth-windows10/      # Ghid: Autentificare SSH prin chei în Windows 10
-│   ├── first-homelab/           # Ghid: Primul homelab (Supermicro, Proxmox)
-│   ├── first-raspberrypi-cluster/# Ghid: Cluster Raspberry Pi 4 k3s
-│   └── compiling-suckless-tools-freebsd/ # Ghid: Compilare dwm/dmenu pe FreeBSD
-├── kettlebell/
-│   └── index.html               # Protocol Navy Seal Burpees & Hardstyle
-├── sounds/
-│   └── index.html               # Arhiva proiectelor audio & suita de generatoare voidwave-lab
+├── programe/                    # Șabloane sursă programe de antrenament
+├── sounds/                      # Șablon sursă arhivă audio & voidwave-lab
+├── kettlebell/                  # Șablon sursă ghid kettlebell
 ├── images/                      # Toate activele media, SVG-urile și diagramele
-├── css/
-│   └── tactical.css             # Sistemul de stiluri (Dark Obsidian & Light Paper)
-├── js/
-│   └── tactical.js              # Controller teme (Dark/Light), meniu mobil, copiere cod
-├── publish.py                   # Generatorul central & CLI: Rebuild minimalist, Ingest, Delete, Drafts, Serve
+├── css/                         # tactical.css (Dark Obsidian & Light Paper)
+├── js/                          # tactical.js (Dark/Light controller, meniu mobil)
+├── public/                      # 🚀 ROOT-UL COMPLET AL SITE-ULUI GENERAT (gata de urcat pe server)
+│   ├── index.html               # Homepage compilat
+│   ├── now.html                 # Pagina Now compilată
+│   ├── sitemap.xml              # Harta site-ului XML pentru indexare
+│   ├── robots.txt               # Directivă crawlers
+│   ├── blog/                    # Toate eseurile HTML compilate
+│   ├── howto/                   # Toate ghidurile tehnice HTML compilate
+│   ├── programe/                # Toate sistemele de antrenament
+│   ├── sounds/                  # Arhiva audio compilată
+│   ├── kettlebell/              # Protocolul kettlebell compilat
+│   ├── css/                     # Resurse CSS sincronizate
+│   ├── js/                      # Scripturi JavaScript
+│   └── images/                  # Active media și imagini
+├── publish.py                   # Generatorul central & CLI (GPLv3)
 ├── restore_backup.py            # Script restaurare instantanee la designul Tactical Bento HUD
 ├── _backup_tactical_hud/        # Backup complet și intact al designului Bento HUD anterior
 ├── build_tactical_site.py       # Script utilitar istoric
@@ -86,16 +72,16 @@ iorgos-hugo/
 ## 🚀 Cum se Vizualizează sau Publică
 
 ### 1. Vizualizare Directă (Offline / Standalone)
-Poți deschide direct fișierul `index.html` în orice browser web prin dublu-click. Toate legăturile interne și imaginile folosesc căi relative calibrate.
+Poți deschide direct fișierul `public/index.html` în orice browser web prin dublu-click. Toate legăturile interne și imaginile folosesc căi relative calibrate.
 
 ### 2. Rulare cu Server Local
-Dacă dorești să rulezi un server local:
+Dacă dorești să rulezi un server local (care servește direct din `public/`):
 ```bash
 # Folosind utilitarul publish.py:
 python3 publish.py --serve 8080
 
-# Sau direct modulul Python:
-python3 -m http.server 8080
+# Sau direct modulul Python din folderul public:
+cd public && python3 -m http.server 8080
 ```
 Apoi deschide `http://localhost:8080`.
 
