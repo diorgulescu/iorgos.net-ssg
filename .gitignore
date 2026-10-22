@@ -17,6 +17,9 @@ __pycache__/
 venv/
 ENV/
 
+# Compiled static output directory
+public/
+
 # Legacy Hugo build caches
 _legacy_hugo/public/
 _legacy_hugo/.hugo_build.lock

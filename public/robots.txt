@@ -1,6 +1,0 @@
-# robots.txt for https://iorgos.net
-User-agent: *
-Allow: /
-
-# Sitemap location
-Sitemap: https://iorgos.net/sitemap.xml
