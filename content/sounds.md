@@ -17,6 +17,7 @@ Open source audio software and sound generators for experimental, glitch, and am
 + **Modular Synthesizer:** Flexible patch-based software synth with virtual CV and audio routing for generative textures and sound design.
 + **Korg MS-20 Mini Clone:** Aggressive dual-filter semi-modular emulation inspired by the classic Japanese analog monosynth.
 + **Test Equipment Workbench:** Virtual studio environment based on 1950s/60s early electronic music lab instruments (signal generators, passive filters, and precision test equipment).
++ **[Aetherium](https://github.com/voidwave-lab/Aetherium):** Unified cross-platform generative ambient soundscape & receptive music therapy sanctuary (Desktop, Web, iOS, Android). 100% procedural DSP with orbital physics and clinical ISO-principle vectoring.
 
 ### Scentient Pencils 
 The name under which I sometimes put out various recordings or live sessions. This was “born” at the beginning of 2020, while doing some experimental ambient sounds in my living room. Mainly revolving around synths, some acoustics, sound textures, ambient soundscapes and field recordings.

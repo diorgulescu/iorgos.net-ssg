@@ -52,6 +52,7 @@ Developing a series of open-source software tools for experimental music, glitch
 * **Modular Synthesizer:** Flexible patch-based software synth for generative sound design and complex modulation.
 * **Korg MS-20 Mini Clone:** Software emulation capturing the aggressive dual resonant filters (HP/LP) and external patch bay.
 * **Test Equipment Workbench:** Virtual studio environment based on 1950s/60s early electronic music lab instruments (signal generators, passive filters, and precision test equipment).
+* **[Aetherium](https://github.com/voidwave-lab/Aetherium):** Unified multi-platform generative ambient soundscape and receptive music therapy sanctuary (Desktop, Web, iOS, Android). Procedural Web Audio DSP, orbital physics, and clinical ISO-principle vectoring.
 
 ---
 

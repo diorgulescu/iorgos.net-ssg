@@ -767,9 +767,9 @@ def generate_home_page(posts, guides):
           <div>
             <div class="flex items-center gap-2">
               <a href="https://github.com/voidwave-lab" target="_blank" class="font-mono font-semibold text-purple-400 hover:underline">voidwave-lab →</a>
-              <span class="badge-purple text-[10px] py-0.5 px-1.5 leading-none">3 Open Source Tools</span>
+              <span class="badge-purple text-[10px] py-0.5 px-1.5 leading-none">4 Open Source Tools</span>
             </div>
-            <span class="text-slate-400 block mt-0.5">DSP audio generators for experimental, glitch & ambient music: Modular Synth, MS-20 mini clone, and early electronic test equipment workbench.</span>
+            <span class="text-slate-400 block mt-0.5">DSP audio generators for experimental, glitch & ambient music: Modular Synth, MS-20 mini clone, test equipment studio, and Aetherium generative ambient sanctuary.</span>
           </div>
           <div>
             <span class="font-mono font-semibold text-slate-200">Musical Archives & Releases</span>
