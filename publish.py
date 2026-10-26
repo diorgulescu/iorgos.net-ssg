@@ -347,17 +347,17 @@ def get_header(active_nav="", depth=0):
         </a>
 
         <!-- Theme Toggle Button -->
-        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Comută Schema de Culoare (Dark/Light)" aria-label="Comută Tema">
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Toggle Color Theme (Dark/Light)" aria-label="Toggle Theme">
           <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
         </button>
       </nav>
 
       <!-- Mobile Menu Button & Toggle -->
       <div class="flex items-center gap-1 md:hidden">
-        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Comută Tema">
+        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Toggle Theme">
           <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
         </button>
-        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Meniu">
+        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Menu">
           <i class="ph-bold ph-list text-xl"></i>
         </button>
       </div>
@@ -695,8 +695,8 @@ def generate_home_page(posts, guides):
           <div class="mb-3">
             <span class="badge-purple">BJJ PREP &bull; REHABILITATION</span>
           </div>
-          <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-purple-400 transition-colors mb-2">BJJ Prep & Reabilitare</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">Elbow tendonitis rehabilitation, daily micro-routine & Zone 2 aerobic base.</p>
+          <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-purple-400 transition-colors mb-2">BJJ Prep &amp; Rehabilitation</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Elbow tendonitis rehabilitation, daily micro-routine &amp; Zone 2 aerobic base.</p>
         </div>
       </a>
     </div>

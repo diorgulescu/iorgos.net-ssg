@@ -1,5 +1,5 @@
 ---
-title: "Programe de Antrenament"
+title: "Training Programs"
 ---
 
-Aici găsiți diverse programe și abordări de antrenament pe care le-am conceput sau adaptat de-a lungul timpului, axate pe forță funcțională și condiționare fizică.
+Here you will find various training frameworks and protocols I designed or refined over time, centered on functional strength, kettlebell ballistics, and physical conditioning.

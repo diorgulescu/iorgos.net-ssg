@@ -1,8 +1,8 @@
 ---
-title: "Program de Pregătire SFG I & SFB"
+title: "SFG I & SFB Preparation Program"
 date: 2024-05-21
 draft: false
-description: "Un program de antrenament progresiv, structurat în 3 faze, pentru pregătirea certificărilor StrongFirst Girya (SFG) Nivelul 1 și StrongFirst Bodyweight (SFB)."
+description: "A progressive 8-month training program structured in 3 phases to prepare for StrongFirst Girya (SFG) Level 1 and StrongFirst Bodyweight (SFB) certifications."
 ---
 <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -55,88 +55,88 @@ description: "Un program de antrenament progresiv, structurat în 3 faze, pentru
         <tr>
             <td class="phase-num">01</td>
             <td>
-                <div class="phase-title-text">Construirea Fundației (Rite of Passage & S&S)</div>
-                <div class="phase-meta">LUNILE 1–2 &bull; PLAN INTEGRAT SFG LEVEL 1 PROGRESIV</div>
+                <div class="phase-title-text">Building the Foundation (Rite of Passage & S&S)</div>
+                <div class="phase-meta">MONTHS 1–2 &bull; INTEGRATED SFG LEVEL 1 PROGRESSIVE BLUEPRINT</div>
             </td>
             <td class="brand-slogan">LIFT HEAVY. BE KIND.</td>
         </tr>
     </table>
     <div class="divider"></div>
     <div class="focus-box">
-        <strong>Ghid Ardere Grăsimi & SNC (+40):</strong> Deficit caloric moderat. Pentru a proteja sistemul nervos și a stimula oxidarea grăsimilor fără acumulare de cortizol, structurăm volumul în 3 zile mari (L-M-V), lăsând zilele de Marți și Joi ca module flexibile axate pe varietate și regenerare.
+        <strong>Fat Loss & CNS Management (+40):</strong> Moderate caloric deficit. To safeguard the central nervous system and promote lipid oxidation without cortisol spikes, main volume is loaded into 3 primary days (Mon-Wed-Fri), keeping Tuesday and Thursday as flexible modules dedicated to movement variety and active tissue recovery.
     </div>
     <div class="grid-container">
         <div class="grid-col col-heavy">
-            <div class="day-title">Luni: Ziua Grea (RoP)</div>
-            <div class="day-subtitle">Volum Maximal & Tensiune</div>
-            <div class="section-label">Încălzire S&S + Prep Bent Press</div>
+            <div class="day-title">Monday: Heavy Day (RoP)</div>
+            <div class="day-subtitle">Maximal Volume & Tension</div>
+            <div class="section-label">S&S Warm-up + Bent Press Prep</div>
             <div class="ex-block">
                 <div class="ex-name">Prying Squats, Halos, Arm Bars</div>
-                <div class="ex-desc">Inclusiv varianta cu brațul îndoit pentru deblocarea umerilor.</div>
+                <div class="ex-desc">Including bent-arm bar variations for thoracic and shoulder unlocking.</div>
             </div>
-            <div class="section-label">Blocul Principal: Rite of Passage</div>
+            <div class="section-label">Primary Block: Rite of Passage</div>
             <div class="ex-block">
                 <div class="ex-name">Clean & Press + Tactical Pull-ups (SFB)</div>
-                <div class="ex-meta">4-5 scări de la 1 la 4 sau 5 rep (până la 5x5)</div>
-                <div class="ex-desc">Execuție: 1 rep C&P stânga/dreapta, 1 Tracțiune tactică rigidă, pauză. Treci la treapta de 2 rep, etc. 3-5 min repaus între scări.</div>
+                <div class="ex-meta">4–5 ladders of 1, 2, 3, 4 (up to 5 reps each, max 5x5)</div>
+                <div class="ex-desc">Execution: 1 C&P left/right, 1 strict tactical pull-up, rest. Advance to the 2-rep rung, etc. 3–5 min rest between full ladders.</div>
             </div>
-            <div class="section-label">Finisher Balistic</div>
+            <div class="section-label">Ballistic Finisher</div>
             <div class="ex-block">
                 <div class="ex-name">Heavy Two-Arm Swings</div>
-                <div class="ex-meta">5 - 12 minute (Seturi de 10 repetări)</div>
+                <div class="ex-meta">5–12 minutes (Sets of 10 reps on the minute / alactic)</div>
             </div>
-            <div class="section-label" style="color:#eccc68;">MODULUL FLEXIBIL: Marți (Varietate SFB)</div>
+            <div class="section-label" style="color:#eccc68;">FLEXIBLE MODULE: Tuesday (SFB Variety)</div>
             <div class="ex-block">
-                <div class="ex-name">Turkish Get-Up Slow Motion & Progresii SFB</div>
-                <div class="ex-desc">3x1+1 TGU ultra-lent. Pistol Asistat (3x5-8) + Flotări înclinate (3x5 focus pe linie).</div>
+                <div class="ex-name">Slow-Motion Turkish Get-Up & SFB Progressions</div>
+                <div class="ex-desc">3x1+1 ultra-slow TGUs. Assisted Pistols (3x5–8) + Elevated One-Arm Push-up progressions (3x5 line integrity focus).</div>
             </div>
         </div>
         <div class="grid-col col-light">
-            <div class="day-title">Miercuri: Ziua Ușoară (RoP)</div>
-            <div class="day-subtitle">Regenerare Neurală & Cadență</div>
-            <div class="section-label">Blocul Principal: RoP Regresat</div>
+            <div class="day-title">Wednesday: Light Day (RoP)</div>
+            <div class="day-subtitle">Neural Regeneration & Rhythm</div>
+            <div class="section-label">Primary Block: Regressed RoP</div>
             <div class="ex-block">
                 <div class="ex-name">Clean & Press + Tactical Pull-ups</div>
-                <div class="ex-meta">3 scări a câte 1, 2, 3 repetări</div>
-                <div class="ex-desc">Menține aceeași greutate ca luni, dar taie drastic volumul general.</div>
+                <div class="ex-meta">3 ladders of 1, 2, 3 reps</div>
+                <div class="ex-desc">Keep the same working weight as Monday, but slash overall volume significantly.</div>
             </div>
-            <div class="section-label">Abilitate Tehnică SFG</div>
+            <div class="section-label">SFG Technical Skill</div>
             <div class="ex-block">
-                <div class="ex-name">Kettlebell Snatch Practică</div>
-                <div class="ex-meta">5 până la 10 seturi &times; 10 repetări (5S / 5D)</div>
-                <div class="ex-desc">Lucru lejer, concentrare pe traiectorie fluidă. Rămâi complet proaspăt.</div>
+                <div class="ex-name">Kettlebell Snatch Practice</div>
+                <div class="ex-meta">5–10 sets &times; 10 reps (5L / 5R)</div>
+                <div class="ex-desc">Crisp, submaximal groove work focusing on trajectory and bell float. Stay completely fresh.</div>
             </div>
-            <div class="section-label" style="color:#eccc68;">MODULUL FLEXIBIL: Joi (Bent Press & S&S)</div>
+            <div class="section-label" style="color:#eccc68;">FLEXIBLE MODULE: Thursday (Bent Press & S&S)</div>
             <div class="ex-block">
-                <div class="ex-name">Bent Press Preliminarii & Simple & Sinister</div>
-                <div class="ex-desc">High & Low Windmill (3x3). Apoi 100 One-Arm Swings (10x10) + 10 TGU totale alternate lejer.</div>
+                <div class="ex-name">Bent Press Preliminaries & Simple & Sinister</div>
+                <div class="ex-desc">High & Low Windmills (3x3). Follow with 100 One-Arm Swings (10x10) + 10 total alternating TGUs at conversation pace.</div>
             </div>
-            <div class="card-footer-note">Zilele de miercuri și joi curăță acidul lactic și accelerează refacerea.</div>
+            <div class="card-footer-note">Wednesday and Thursday clear metabolic waste and accelerate central nervous recovery.</div>
         </div>
         <div class="grid-col col-medium">
-            <div class="day-title">Vineri: Ziua Medie (RoP)</div>
-            <div class="day-subtitle">Puntea de Volum Structural</div>
-            <div class="section-label">Blocul Principal: RoP Mediu</div>
+            <div class="day-title">Friday: Medium Day (RoP)</div>
+            <div class="day-subtitle">Structural Volume Bridge</div>
+            <div class="section-label">Primary Block: Medium RoP</div>
             <div class="ex-block">
                 <div class="ex-name">Clean & Press + Tactical Pull-ups</div>
-                <div class="ex-meta">5 scări a câte 1, 2, 3 repetări</div>
-                <div class="ex-desc">Punctul perfect de echilibru. Fără eșec muscular, mișcări perfect curate.</div>
+                <div class="ex-meta">5 ladders of 1, 2, 3 reps</div>
+                <div class="ex-desc">The sweet spot of volume. Zero muscular failure, immaculate movement precision.</div>
             </div>
-            <div class="section-label">Finisher Balistic</div>
+            <div class="section-label">Ballistic Finisher</div>
             <div class="ex-block">
                 <div class="ex-name">Heavy Two-Arm Swings</div>
-                <div class="ex-meta">5 - 12 minute (Seturi de 10 repetări)</div>
+                <div class="ex-meta">5–12 minutes (Sets of 10 reps)</div>
             </div>
-            <div class="section-label" style="color:#2ed573;">WEEKEND: Management Lipidic Aerob</div>
+            <div class="section-label" style="color:#2ed573;">WEEKEND: Aerobic Lipid Metabolism</div>
             <div class="ex-block">
-                <div class="ex-name">Cardio LSD & Rucking</div>
-                <div class="ex-meta">Sâmbătă sau Duminică: 45-60 minute</div>
-                <div class="ex-desc">Mers outdoor alert cu vestă ponderată în Zone 2 pentru consumarea directă a grăsimilor.</div>
+                <div class="ex-name">LSD Cardio & Rucking</div>
+                <div class="ex-meta">Saturday or Sunday: 45–60 minutes</div>
+                <div class="ex-desc">Brisk outdoor rucking with weight vest in Zone 2 to stimulate fat oxidation and structural leg stamina.</div>
             </div>
         </div>
     </div>
     <div class="bottom-directive">
-        <strong>Directiva Antrenorului:</strong> „Forța este o abilitate.” Nu te antrena până la epuizare mecanică. În deficit caloric, odihna este la fel de anabolică ca antrenamentul.
+        <strong>Coach Directive:</strong> “Strength is a skill.” Never train to mechanical failure. In a caloric deficit, disciplined rest is just as anabolic as lifting.
     </div>
 </div>
 
@@ -145,68 +145,68 @@ description: "Un program de antrenament progresiv, structurat în 3 faze, pentru
         <tr>
             <td class="phase-num">02</td>
             <td>
-                <div class="phase-title-text">Câștigarea Forței și Antrenament A+A</div>
-                <div class="phase-meta">LUNILE 3–5 &bull; PLAN INTEGRAT SFG LEVEL 1 PROGRESIV</div>
+                <div class="phase-title-text">Strength Acquisition & Alactic (A+A) Conditioning</div>
+                <div class="phase-meta">MONTHS 3–5 &bull; INTEGRATED SFG LEVEL 1 PROGRESSIVE BLUEPRINT</div>
             </td>
             <td class="brand-slogan">LIFT HEAVY. BE KIND.</td>
         </tr>
     </table>
     <div class="divider"></div>
     <div class="focus-box">
-        <strong>Ghid Ardere Grăsimi & SNC (+40):</strong> Lucrul cu 2 kettlebell-uri crește masiv consumul caloric. Aplicăm protocolul alactic EMOM (Snatches A+A) pentru a arde țesutul adipos fără a genera aciditate sistemică distructivă.
+        <strong>Fat Loss & CNS Management (+40):</strong> Working with double kettlebells drastically escalates metabolic output. We introduce the alactic EMOM snatch protocol (A+A) to incinerate body fat without creating destructive systemic acidosis.
     </div>
     <div class="grid-container">
         <div class="grid-col col-heavy">
-            <div class="day-title">Luni: Workout 1 (Duble)</div>
-            <div class="day-subtitle">Complex de Înaltă Densitate</div>
-            <div class="section-label">Circuit cu 2 Kettlebell-uri</div>
-            <div class="ex-meta">3 Circuite &bull; Pauză 5 min între ele</div>
-            <div class="ex-desc">Pauza dintre exerciții scade în timp de la 60s la 20s.</div>
-            <div class="section-label">Secvența Circuitului</div>
-            <div class="ex-block"><div class="ex-name">1. One-Arm Swing</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
-            <div class="ex-block"><div class="ex-name">2. Double Clean & Press</div><div class="ex-meta">5 repetări</div></div>
-            <div class="ex-block"><div class="ex-name">3. Double Clean & Front Squat</div><div class="ex-meta">5 repetări</div></div>
-            <div class="ex-block"><div class="ex-name">4. Turkish Get-Up</div><div class="ex-meta">1 Stânga / 1 Dreapta</div></div>
-            <div class="ex-block"><div class="ex-name">5. Kettlebell Snatch</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
+            <div class="day-title">Monday: Workout 1 (Double KB)</div>
+            <div class="day-subtitle">High-Density Double Complex</div>
+            <div class="section-label">Double Kettlebell Circuit</div>
+            <div class="ex-meta">3 Rounds &bull; 5 min rest between rounds</div>
+            <div class="ex-desc">Rest between exercises progressively drops over the weeks from 60s down to 20s.</div>
+            <div class="section-label">Circuit Sequence</div>
+            <div class="ex-block"><div class="ex-name">1. One-Arm Swing</div><div class="ex-meta">10 Left / 10 Right</div></div>
+            <div class="ex-block"><div class="ex-name">2. Double Clean & Press</div><div class="ex-meta">5 reps</div></div>
+            <div class="ex-block"><div class="ex-name">3. Double Clean & Front Squat</div><div class="ex-meta">5 reps</div></div>
+            <div class="ex-block"><div class="ex-name">4. Turkish Get-Up</div><div class="ex-meta">1 Left / 1 Right</div></div>
+            <div class="ex-block"><div class="ex-name">5. Kettlebell Snatch</div><div class="ex-meta">10 Left / 10 Right</div></div>
         </div>
         <div class="grid-col col-light">
-            <div class="day-title">Miercuri: Snatches A+A</div>
-            <div class="day-subtitle">Anduranță Anti-Glicolică</div>
-            <div class="section-label">Pregătire Neurală</div>
-            <div class="ex-block"><div class="ex-name">Turkish Get-Ups Fin</div><div class="ex-meta">6 repetări totale (3/braț) ca încălzire</div></div>
+            <div class="day-title">Wednesday: A+A Snatches</div>
+            <div class="day-subtitle">Anti-Glycolytic Endurance</div>
+            <div class="section-label">Neural Preparation</div>
+            <div class="ex-block"><div class="ex-name">Crisp Turkish Get-Ups</div><div class="ex-meta">6 total reps (3/arm) as specific prep</div></div>
             <div class="section-label">Snatch A+A Protocol (EMOM)</div>
             <div class="ex-block">
-                <div class="ex-name">Kettlebell Snatch Targetat</div>
-                <div class="ex-meta">Timp: 15 minute &bull; EMOM</div>
-                <div class="ex-desc">Execută 5 Snatches pe dreapta, apoi 5 pe stânga la începutul minutului. Odihnă restul timpului.</div>
+                <div class="ex-name">Targeted Kettlebell Snatch</div>
+                <div class="ex-meta">Duration: 15 minutes &bull; EMOM</div>
+                <div class="ex-desc">Perform 5 snatches right, then 5 left at the top of each minute. Rest the remainder of the minute.</div>
             </div>
-            <div class="section-label" style="color:#eccc68;">MODULUL FLEXIBIL: Marți (Justa & SFB)</div>
+            <div class="section-label" style="color:#eccc68;">FLEXIBLE MODULE: Tuesday (Justa Singles & SFB)</div>
             <div class="ex-block">
-                <div class="ex-name">Bent Press (Metoda Justa) & OAPU/Pistol</div>
-                <div class="ex-desc">15-25 serii &times; 1 rep @ 70% 1RM. Easy Strength pentru OAPU & Pistol: 2 serii x 5 rep submaximale.</div>
+                <div class="ex-name">Bent Press (Justa Singles) & OAPU/Pistol</div>
+                <div class="ex-desc">15–25 singles @ 70% 1RM on the minute. Easy Strength for OAPU & Pistols: 2 sets x 5 submaximal reps.</div>
             </div>
-            <div class="card-footer-note">Joia este zi obligatorie de RECUPERARE ACTIVĂ: Mobilitate și Rucking ușor.</div>
+            <div class="card-footer-note">Thursday is a mandatory ACTIVE RECOVERY day: joint mobility and easy rucking.</div>
         </div>
         <div class="grid-col col-medium">
-            <div class="day-title">Vineri: Workout 2 (Duble)</div>
-            <div class="day-subtitle">Forță Structurală</div>
-            <div class="section-label">Circuit Modificat cu 2 KB</div>
-            <div class="ex-meta">3 Circuite &bull; Pauză 5 min între ele</div>
-            <div class="section-label">Secvența Circuitului 2</div>
-            <div class="ex-block"><div class="ex-name">1. Double Clean & Press</div><div class="ex-meta">5 Stânga / 5 Dreapta</div></div>
-            <div class="ex-block"><div class="ex-name">2. Turkish Get-Up</div><div class="ex-meta">1 Stânga / 1 Dreapta</div></div>
-            <div class="ex-block"><div class="ex-name">3. Double Clean & Front Squat</div><div class="ex-meta">5 repetări</div></div>
-            <div class="ex-block"><div class="ex-name">4. One-Arm Swing</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
-            <div class="ex-block"><div class="ex-name">5. Kettlebell Snatch</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
-            <div class="section-label" style="color:#ff7675;">SÂMBĂTĂ: Heavy Engine & SFB</div>
+            <div class="day-title">Friday: Workout 2 (Double KB)</div>
+            <div class="day-subtitle">Structural Strength</div>
+            <div class="section-label">Modified Double KB Circuit</div>
+            <div class="ex-meta">3 Rounds &bull; 5 min rest between rounds</div>
+            <div class="section-label">Circuit 2 Sequence</div>
+            <div class="ex-block"><div class="ex-name">1. Double Clean & Press</div><div class="ex-meta">5 reps</div></div>
+            <div class="ex-block"><div class="ex-name">2. Turkish Get-Up</div><div class="ex-meta">1 Left / 1 Right</div></div>
+            <div class="ex-block"><div class="ex-name">3. Double Clean & Front Squat</div><div class="ex-meta">5 reps</div></div>
+            <div class="ex-block"><div class="ex-name">4. One-Arm Swing</div><div class="ex-meta">10 Left / 10 Right</div></div>
+            <div class="ex-block"><div class="ex-name">5. Kettlebell Snatch</div><div class="ex-meta">10 Left / 10 Right</div></div>
+            <div class="section-label" style="color:#ff7675;">SATURDAY: Heavy Engine & SFB</div>
             <div class="ex-block">
-                <div class="ex-name">Heavy Swings EMOM & SFB Menținere</div>
-                <div class="ex-desc">10 serii x 10 rep EMOM (cel mai greu KB). OAPU & Pistol: 2x5 ușor, concentrat pe formă.</div>
+                <div class="ex-name">Heavy Swings EMOM & SFB Maintenance</div>
+                <div class="ex-desc">10 sets x 10 reps EMOM (heaviest available bell). OAPU & Pistol: 2x5 easy, pristine technique.</div>
             </div>
         </div>
     </div>
     <div class="bottom-directive">
-        <strong>Directiva Antrenorului:</strong> Protocolul A+A de miercuri îți construiește densitatea mitocondrială. Nu lăsa respirația să treacă pe mod gâfâit continuu.
+        <strong>Coach Directive:</strong> Wednesday’s A+A protocol builds mitochondrial volume. Keep heart rate under the anaerobic threshold—never let breathing devolve into desperate gasping.
     </div>
 </div>
 
@@ -215,72 +215,72 @@ description: "Un program de antrenament progresiv, structurat în 3 faze, pentru
         <tr>
             <td class="phase-num">03</td>
             <td>
-                <div class="phase-title-text">Specificitate SFG I</div>
-                <div class="phase-meta">LUNILE 6–8 &bull; PLAN INTEGRAT SFG LEVEL 1 PROGRESIV</div>
+                <div class="phase-title-text">SFG I Specificity</div>
+                <div class="phase-meta">MONTHS 6–8 &bull; INTEGRATED SFG LEVEL 1 PROGRESSIVE BLUEPRINT</div>
             </td>
             <td class="brand-slogan">LIFT HEAVY. BE KIND.</td>
         </tr>
     </table>
     <div class="divider"></div>
     <div class="focus-box">
-        <strong>Ghid Ardere Grăsimi & SNC (+40):</strong> Faza de vârf. Blocul Vineri-Sâmbătă-Duminică simulează cele 3 zile consecutive de stres de la certificare. Toate circuitele se execută cu greutatea oficială. Mișcările SFB trec pe modul „Menținere/Easy”.
+        <strong>Fat Loss & CNS Management (+40):</strong> Peak competition phase. The Friday-Saturday-Sunday block simulates the 3 consecutive days of testing stress encountered at certification. All circuits are performed with the official testing bell weight. SFB skills transition into “Maintenance/Easy” mode.
     </div>
     <div class="grid-container">
         <div class="grid-col col-heavy">
-            <div class="day-title">Simulare Certificare (Zilele 1 & 2)</div>
-            <div class="day-subtitle">Încărcare Dublă Consecutivă</div>
-            <div class="section-label">Vineri: Ziua 1 SFG (Workout 1)</div>
+            <div class="day-title">Certification Simulation (Days 1 & 2)</div>
+            <div class="day-subtitle">Consecutive Double KB Loading</div>
+            <div class="section-label">Friday: SFG Day 1 (Workout 1)</div>
             <div class="ex-block">
-                <div class="ex-name">Circuit Duble Exclusiv (Greutate Test)</div>
-                <div class="ex-meta">3 Circuite &bull; Pauză 5 min &bull; Max 20s între exerciții</div>
-                <div class="ex-desc">Swing (10S/10D) &rarr; Double C&P (5) &rarr; Double Squat (5) &rarr; TGU (1S/1D) &rarr; Snatch (10S/10D).</div>
+                <div class="ex-name">Double KB Circuit (Official Test Weight)</div>
+                <div class="ex-meta">3 Rounds &bull; 5 min rest &bull; Max 20s between movements</div>
+                <div class="ex-desc">Swing (10L/10R) &rarr; Double C&P (5) &rarr; Double Squat (5) &rarr; TGU (1L/1R) &rarr; Snatch (10L/10R).</div>
             </div>
-            <div class="section-label">Sâmbătă: Ziua 2 SFG (Workout 2)</div>
+            <div class="section-label">Saturday: SFG Day 2 (Workout 2)</div>
             <div class="ex-block">
-                <div class="ex-name">Circuit Duble Modificat sub Oboseală</div>
-                <div class="ex-meta">3 Circuite complete &bull; Pauză 5 min între ele</div>
-                <div class="ex-desc">Secvența de Vineri din Faza 2. Focus pe execuția explozivă a bazinului sub oboseală cumulată.</div>
+                <div class="ex-name">Modified Double KB Circuit Under Cumulative Fatigue</div>
+                <div class="ex-meta">3 Full Rounds &bull; 5 min rest between rounds</div>
+                <div class="ex-desc">Phase 2 Friday sequence. Laser focus on explosive hip drive despite systemic fatigue.</div>
             </div>
-            <div class="card-footer-note">Consumă carbohidrați complecși în acest weekend pentru rezervele de glicogen.</div>
+            <div class="card-footer-note">Prioritize complex carbohydrates and electrolytes throughout the weekend to refill muscle glycogen.</div>
         </div>
         <div class="grid-col col-medium">
-            <div class="day-title">Duminică: Simulare Certificare (Ziua 3)</div>
-            <div class="day-subtitle">Efortul Final & Rezistență Mentală</div>
-            <div class="section-label">Duminică: Ziua 3 SFG (Workout 3)</div>
+            <div class="day-title">Sunday: Certification Simulation (Day 3)</div>
+            <div class="day-subtitle">Final Crucible & Mental Toughness</div>
+            <div class="section-label">Sunday: SFG Day 3 (Workout 3)</div>
             <div class="ex-block">
-                <div class="ex-name">Circuit Duble Final</div>
-                <div class="ex-meta">3 Circuite complete</div>
-                <div class="ex-desc">Secvență modificată pentru testarea trunchiului:</div>
+                <div class="ex-name">Final Double KB Circuit</div>
+                <div class="ex-meta">3 Full Rounds</div>
+                <div class="ex-desc">Modified sequence testing core and grip integrity:</div>
             </div>
-            <div class="ex-block"><div class="ex-name">1. Double Clean & Front Squat</div><div class="ex-meta">5 repetări sub paralelă</div></div>
-            <div class="ex-block"><div class="ex-name">2. One-Arm Swing</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
-            <div class="ex-block"><div class="ex-name">3. Double Clean & Press</div><div class="ex-meta">5 repetări stricte</div></div>
-            <div class="ex-block"><div class="ex-name">4. Turkish Get-Up</div><div class="ex-meta">1 Stânga / 1 Dreapta</div></div>
-            <div class="ex-block"><div class="ex-name">5. Kettlebell Snatch</div><div class="ex-meta">10 Stânga / 10 Dreapta</div></div>
-            <div class="card-footer-note">Luni este zi de REPAUS ABSOLUT. Doar mers pe jos lejer.</div>
+            <div class="ex-block"><div class="ex-name">1. Double Clean & Front Squat</div><div class="ex-meta">5 reps below parallel</div></div>
+            <div class="ex-block"><div class="ex-name">2. One-Arm Swing</div><div class="ex-meta">10 Left / 10 Right</div></div>
+            <div class="ex-block"><div class="ex-name">3. Double Clean & Press</div><div class="ex-meta">5 strict reps</div></div>
+            <div class="ex-block"><div class="ex-name">4. Turkish Get-Up</div><div class="ex-meta">1 Left / 1 Right</div></div>
+            <div class="ex-block"><div class="ex-name">5. Kettlebell Snatch</div><div class="ex-meta">10 Left / 10 Right</div></div>
+            <div class="card-footer-note">Monday is a mandatory ABSOLUTE REST day. Gentle walking only.</div>
         </div>
         <div class="grid-col col-light">
-            <div class="day-title">Marți: Ziua de Snatch Test</div>
-            <div class="day-subtitle">Măsurarea Condiției Oficiale</div>
-            <div class="section-label">Testul Oficial (Snatch Test Practice)</div>
+            <div class="day-title">Tuesday: Snatch Test Day</div>
+            <div class="day-subtitle">Testing Benchmark Readiness</div>
+            <div class="section-label">Official Snatch Test Practice</div>
             <div class="ex-block">
-                <div class="ex-name">100 Snatches / Greutatea Oficială / max 5 min</div>
-                <div class="ex-desc">Format strategic: 20/20, 15/15, 10/10, 5/5. Repetă blocul de 2-3 ori (5-10 min pauză completă între ele).</div>
+                <div class="ex-name">100 Snatches / Official Testing Weight / max 5 min</div>
+                <div class="ex-desc">Pacing strategy: 20/20, 15/15, 10/10, 5/5. Repeat block 2–3 times over the cycle with 5–10 min full recovery between attempts.</div>
             </div>
-            <div class="section-label">Menținere Neurologică SFB & Bent Press</div>
+            <div class="section-label">SFB & Bent Press Neurological Maintenance</div>
             <div class="ex-block">
-                <div class="ex-name">Pistol Squat & OAPU & Bent Press</div>
-                <div class="ex-meta">Menținerea căii active</div>
-                <div class="ex-desc">SFB: 2 serii x 3-5 rep (lejer). Bent Press: 2-3 single-uri cu greutate medie (60-70%).</div>
+                <div class="ex-name">Pistol Squat, OAPU & Bent Press</div>
+                <div class="ex-meta">Neural Pathway Maintenance</div>
+                <div class="ex-desc">SFB: 2 sets x 3–5 reps (crisp and easy). Bent Press: 2–3 clean singles with moderate load (60–70%).</div>
             </div>
-            <div class="section-label" style="color:#747d8c;">Joi: Finisher Balistic Scurt</div>
+            <div class="section-label" style="color:#747d8c;">Thursday: Short Ballistic Finisher</div>
             <div class="ex-block">
                 <div class="ex-name">Heavy Swings EMOM</div>
-                <div class="ex-meta">10 minute EMOM (10S / 10D) + Rucking lejer</div>
+                <div class="ex-meta">10 minutes EMOM (10L / 10R) + easy rucking</div>
             </div>
         </div>
     </div>
     <div class="bottom-directive">
-        <strong>Directiva Antrenorului:</strong> Snatch Testul se câștigă cu mintea rece și pârghii biomecanice perfecte. Protejează-ți pielea palmelor și hidratează-te.
+        <strong>Coach Directive:</strong> The Snatch Test is conquered with a cold, focused mind and biomechanical precision. Guard your hand calluses and stay relentlessly hydrated.
     </div>
 </div>

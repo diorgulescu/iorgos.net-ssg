@@ -1,98 +1,98 @@
 ---
 title: "Tension Spectrum"
 date: 2026-05-19
-description: "Un framework de antrenament axat pe forță funcțională, hipertrofie și manipularea tensiunii musculare."
+description: "A strength training framework centered on functional hypertrophy, movement quality, and muscle tension manipulation."
 ---
 
 <section class="program-intro">
-    <!-- Secțiunea pentru logo-ul SVG -->
+    <!-- SVG Blueprint / Logo -->
     <div class="program-logo">
         <img src="/images/svg/tension-spectrum.svg" alt="Tension Spectrum Blueprint">
     </div>
-    <p class="lead"><strong>Tension Spectrum</strong> este un framework de antrenament axat pe manipularea tensiunii musculare. Construit pe principii solide de forță funcțională din școala <em>StrongFirst</em>, folosește complexe de mișcări pentru a dezvolta simultan rezistența, mobilitatea extremă și hipertrofia, fără a compromite sistemul nervos central.</p>
-    <a href="/docs/tension-spectrum.pdf" class="btn">Descarcă Protocolul PDF</a>
+    <p class="lead"><strong>Tension Spectrum</strong> is a strength training framework built around the manipulation of muscular tension. Rooted in StrongFirst functional strength principles, it leverages movement complexes to simultaneously build structural resilience, mobility under load, and hypertrophy without central nervous system burnout.</p>
+    <a href="/docs/tension-spectrum.pdf" class="btn">Download Protocol PDF</a>
 </section>
 
 <hr class="separator" />
 
-## Planul Săptămânal
+## Weekly Schedule
 
 <br/>
 
-### LUNI: FORȚĂ & BALISTICĂ
-**Focus: Sinergie Push-Pull & Putere**
-*   **Bloc Forță (Tensiune Maximă):** Tracțiuni (Tactical Pull-ups / Inele) sau Ramat Greu + Flotări Hardstyle / SFB.
-    *   *Format:* 3-5 serii x 3-5 repetiții (focus pe tensiune, pauze generoase).
-*   **Bloc Balistic (Alactic pur):** Swings Grele sau Snatches.
-    *   *Format:* Serii scurte, explozie maximă, pauze lungi.
-*   **Finalizare:** Loaded Carries (Farmer's Walk sau Suitcase Carry).
+### MONDAY: STRENGTH & BALLISTICS
+**Focus: Push-Pull Synergy & Explosive Power**
+*   **Strength Block (Maximal Tension):** Tactical Pull-ups / Rings or Heavy Rows + Hardstyle / SFB Push-ups.
+    *   *Format:* 3-5 sets x 3-5 reps (maximum tension, full recovery between sets).
+*   **Ballistic Block (Pure Alactic):** Heavy Swings or Snatches.
+    *   *Format:* Short sets, maximal acceleration, long rest periods.
+*   **Finisher:** Loaded Carries (Farmer's Walk or Suitcase Carry).
 
 <hr class="separator" />
 
-### MARȚI: LOADED STRETCHING & ZONE 2
-**Focus: Mobilitate sub Tensiune & Bază Aerobică**
+### TUESDAY: LOADED STRETCHING & ZONE 2
+**Focus: Mobility Under Load & Aerobic Base**
 
 <div class="movement-block">
     <div class="movement-visual">
-        <img src="/images/svg/complex-1.svg" alt="Schiță Complex 1" onerror="this.style.display='none'">
+        <img src="/images/svg/complex-1.svg" alt="Complex 1 Diagram" onerror="this.style.display='none'">
     </div>
     <div class="movement-text">
-        <h4>Complexul 1: Mobilitate Structurală</h4>
-        <p><em>3-5 runde / mână, greutate mică/medie. Un test suprem de mobilitate toracală și stabilitate pe centura scapulară.</em></p>
+        <h4>Complex 1: Structural Mobility</h4>
+        <p><em>3-5 rounds / arm, light to moderate weight. The ultimate test of thoracic mobility and shoulder girdle stability.</em></p>
         <ol>
-            <li><strong>Intrare în Deep Squat</strong> (rămâi jos în poziție controlată)</li>
-            <li><strong>Curl Clean</strong> (adus la umăr direct din poziția de Squat)</li>
-            <li><strong>Sots Press</strong> (presă din Squat &rarr; ajungi în lockout overhead)</li>
-            <li><strong>Ridicare în picioare</strong> (menținând bila perfect deasupra capului)</li>
-            <li><strong>Windmill</strong> (control pe alinierea brațului și deschiderea șoldului)</li>
-            <li><strong>Coborâre în Rack Position</strong></li>
-            <li><strong>Bent Press</strong> (lockout secundar deasupra capului din poziție asimetrică)</li>
-            <li><strong>TGU Down</strong> (coborâre controlată pe spate, brațul rămâne complet blocat)</li>
-            <li><strong>TGU Up</strong> (urcare completă în picioare, brațul blocat; închizi cercul în picioare)</li>
+            <li><strong>Sink into Deep Squat</strong> (remain grounded in controlled bottom position)</li>
+            <li><strong>Curl Clean</strong> (bring to rack position directly from the squat)</li>
+            <li><strong>Sots Press</strong> (overhead press directly out of the deep squat &rarr; reach overhead lockout)</li>
+            <li><strong>Stand Up</strong> (drive to full standing position keeping bell locked overhead)</li>
+            <li><strong>Windmill</strong> (controlled hip hinge, open chest, vertical arm alignment)</li>
+            <li><strong>Lower to Rack Position</strong></li>
+            <li><strong>Bent Press</strong> (secondary overhead lockout from asymmetrical hinge)</li>
+            <li><strong>TGU Down</strong> (controlled descent to floor, arm locked out)</li>
+            <li><strong>TGU Up</strong> (full Turkish Get-Up back to standing, arm locked overhead; close the loop standing)</li>
         </ol>
     </div>
 </div>
 
-*   **Condiționare Aerobică:** Alergare în Zone 2 / Cardio pur pentru protecție mitocondrială.
+*   **Aerobic Conditioning:** Zone 2 Nasal-Breathing Run / steady-state cardio for mitochondrial health.
 
 <hr class="separator" />
 
-### MIERCURI: PAUZĂ ACTIVĂ
-**Focus: Regenerare**
-*   Mișcare ușoară.
-*   Tehnici „Fast & Loose” (scuturarea membrelor pentru eliminarea tensiunii).
-*   Stretching de decompresie.
+### WEDNESDAY: ACTIVE RECOVERY
+**Focus: Neuro-Regeneration**
+*   Easy, unloaded movement.
+*   Fast & Loose drills (shaking limbs to discharge residual muscle tone).
+*   Decompression mobility and gentle stretching.
 
 <hr class="separator" />
 
-### JOI: STRENGTH-ENDURANCE
-**Focus: Capacitate Lactică (Supapa Lactică)**
+### THURSDAY: STRENGTH-ENDURANCE
+**Focus: Glycolytic Safety Valve (Capacity & Grit)**
 
 <div class="movement-block">
     <div class="movement-visual">
-        <img src="/images/svg/complex-2.svg" alt="Schiță Complex 2" onerror="this.style.display='none'">
+        <img src="/images/svg/complex-2.svg" alt="Complex 2 Diagram" onerror="this.style.display='none'">
     </div>
     <div class="movement-text">
-        <h4>Complexul 2: Protocol Scară Descendentă (10 - 8 - 5 - 3 - 2 - 1)</h4>
-        <p><em>Greutate recomandată: ~80% RM (o greutate cu care poți face maxim 12 repetări „all-out”).</em></p>
+        <h4>Complex 2: Descending Ladder Protocol (10 - 8 - 5 - 3 - 2 - 1)</h4>
+        <p><em>Recommended load: ~80% RM (a weight you can press for roughly 10–12 strict repetitions all-out).</em></p>
         <ul>
-            <li><strong>Execuție pe treaptă (Stânga / Dreapta):</strong> [X] Clean & Press + [X] KB Front Squats (în poziție de rack).</li>
-            <li><strong>Regulă absolută:</strong> Bila NU atinge solul pe parcursul întregii trepte! Trecerea de la Press la Squat și schimbul de mâini (Swing switch) se fac fără pauză pe sol. Ultima treaptă (1) se execută în format clasic Iron Cardio (1 Clean + 1 Press + 1 Squat / pe fiecare mână).</li>
-            <li><strong>Pauză (între trepte):</strong> Recuperare activă 2 - 3+ minute în stil <em>Fast & Loose</em>. Nu se începe următoarea treaptă până când ritmul cardiac nu a revenit complet la normal.</li>
+            <li><strong>Rung Execution (Left / Right):</strong> [X] Clean & Press + [X] Kettlebell Front Squats (in rack position).</li>
+            <li><strong>Absolute Rule:</strong> The kettlebell does NOT touch the floor during the entire rung! Transitions from Press to Squat and hand swaps (Swing switch) are seamless. Rung 1 is executed in classic Iron Cardio format (1 Clean + 1 Press + 1 Squat / per side).</li>
+            <li><strong>Rest (Between Rungs):</strong> 2–3+ minutes of active recovery using <em>Fast & Loose</em> drills. Do not begin the next rung until heart rate has stabilized and breathing returns to baseline.</li>
         </ul>
     </div>
 </div>
 
 <hr class="separator" />
 
-### VINERI: NEURO-RECOVERY
-**Focus: Descărcare Structurală**
-*   Antrenament minimalist (stil *Simple & Sinister*) la intensitate medie (70%).
-*   Focus exclusiv pe calitatea mișcării și eliminarea tensiunii reziduale acumulate joi.
-*   Pregătire pentru weekend.
+### FRIDAY: NEURO-RECOVERY
+**Focus: Structural Decompression**
+*   Minimalist session (Simple & Sinister style) at moderate intensity (~70%).
+*   Focus strictly on movement precision and clearing tension accumulated on Thursday.
+*   Preparation for weekend restoration.
 
 <hr class="separator" />
 
-### SÂMBĂTĂ & DUMINICĂ: RECOVERY TOTAL
-**Focus: Supracompensare**
-*   Odihnă, refacere și asimilarea adaptărilor structurale.
+### SATURDAY & SUNDAY: TOTAL RECOVERY
+**Focus: Supercompensation**
+*   Unstructured rest, tissue remodeling, and nervous system adaptation.
