@@ -34,15 +34,12 @@ function applyTheme(theme, save = false) {
 
   // Update all theme toggle buttons across the UI
   document.querySelectorAll('.theme-toggle-btn').forEach((btn) => {
-    btn.setAttribute('aria-label', isDark ? 'Comută la Modul Luminos' : 'Comută la Modul Întunecat');
-    btn.setAttribute('title', isDark ? 'Activează Modul Luminos (Light)' : 'Activează Modul Întunecat (Dark)');
+    btn.setAttribute('aria-label', isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme');
+    btn.setAttribute('title', isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme');
     const icon = btn.querySelector('.theme-toggle-icon');
     if (icon) {
-      if (isDark) {
-        icon.className = 'theme-toggle-icon ph-bold ph-sun text-amber-400 text-base';
-      } else {
-        icon.className = 'theme-toggle-icon ph-bold ph-moon text-indigo-600 text-base';
-      }
+      icon.textContent = isDark ? '☼' : '☾';
+      icon.className = 'theme-toggle-icon font-mono text-sm leading-none';
     }
   });
 
@@ -115,22 +112,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (preBlock.querySelector('.copy-btn')) return;
 
     const btn = document.createElement('button');
-    btn.className = 'copy-btn absolute top-2 right-2 px-2 py-1 rounded bg-slate-800/80 border border-slate-700 text-[10px] font-mono text-slate-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-all opacity-0 group-hover:opacity-100';
-    btn.innerHTML = '<i class="ph-bold ph-copy"></i> COPY';
+    btn.className = 'copy-btn absolute top-2 right-2 px-2 py-0.5 rounded border border-slate-700 bg-slate-900/90 text-[11px] font-mono text-slate-400 hover:text-slate-200 transition-colors opacity-0 group-hover:opacity-100';
+    btn.textContent = 'copy';
 
     preBlock.classList.add('group', 'relative');
     preBlock.appendChild(btn);
 
     btn.addEventListener('click', async () => {
       const code = preBlock.querySelector('code') || preBlock;
-      const text = code.innerText.replace(/COPY$/, '').trim();
+      const text = code.innerText.replace(/copy$/, '').replace(/copied!$/, '').trim();
       try {
         await navigator.clipboard.writeText(text);
-        btn.innerHTML = '<i class="ph-bold ph-check text-emerald-400"></i> COPIED';
-        btn.classList.add('text-emerald-400', 'border-emerald-500/50');
+        btn.textContent = 'copied!';
+        btn.classList.add('text-amber-400');
         setTimeout(() => {
-          btn.innerHTML = '<i class="ph-bold ph-copy"></i> COPY';
-          btn.classList.remove('text-emerald-400', 'border-emerald-500/50');
+          btn.textContent = 'copy';
+          btn.classList.remove('text-amber-400');
         }, 2000);
       } catch (err) {
         console.error('Copy failed:', err);

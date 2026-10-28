@@ -289,16 +289,16 @@ def get_header(active_nav="", depth=0):
     
     def active_cls(nav_name):
         if nav_name == active_nav:
-            return "text-emerald-400 font-semibold"
+            return "text-slate-100 font-semibold"
         return "text-slate-400 hover:text-slate-100 transition-colors"
 
-    now_active = "text-emerald-400 font-semibold" if active_nav == "now" else "text-slate-400 hover:text-slate-100 transition-colors"
+    now_active = "text-slate-100 font-semibold" if active_nav == "now" else "text-slate-400 hover:text-slate-100 transition-colors"
 
-    return f"""  <!-- MINIMAL NAVBAR -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+    return f"""  <!-- CLEAN EDITORIAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <a href="{root_path}" class="flex items-center gap-2 group">
-        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight hover:text-amber-400 transition-colors">
           Dragoș Iorgulescu
         </span>
       </a>
@@ -310,23 +310,23 @@ def get_header(active_nav="", depth=0):
         <a href="{root_path}sounds/" class="{active_cls('sounds')}">Sounds</a>
         <a href="{root_path}howto/" class="{active_cls('howto')}">How-To</a>
         <a href="{root_path}now.html" class="inline-flex items-center gap-1.5 {now_active}">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
           Now
         </a>
 
-        <!-- Theme Toggle Button -->
-        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Toggle Color Theme (Dark/Light)" aria-label="Toggle Theme">
-          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        <!-- Minimal Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded text-slate-400 hover:text-slate-100 transition-colors cursor-pointer" title="Toggle Theme" aria-label="Toggle Theme">
+          <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
         </button>
       </nav>
 
       <!-- Mobile Menu Button & Toggle -->
-      <div class="flex items-center gap-1 md:hidden">
-        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Toggle Theme">
-          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded text-slate-400 hover:text-slate-100 cursor-pointer" aria-label="Toggle Theme">
+          <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
         </button>
-        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Menu">
-          <i class="ph-bold ph-list text-xl"></i>
+        <button id="mobile-menu-btn" class="p-2 rounded text-slate-400 hover:text-white font-mono text-xs" aria-label="Menu">
+          <span>menu</span>
         </button>
       </div>
     </div>
@@ -338,7 +338,7 @@ def get_header(active_nav="", depth=0):
       <a href="{root_path}programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
       <a href="{root_path}sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
       <a href="{root_path}howto/" class="block text-slate-300 hover:text-white">How-To</a>
-      <a href="{root_path}now.html" class="block text-emerald-400 font-semibold">Now</a>
+      <a href="{root_path}now.html" class="block text-amber-400 font-semibold">Now</a>
     </div>
   </header>
 """
@@ -346,29 +346,27 @@ def get_header(active_nav="", depth=0):
 def get_footer(depth=0):
     root_path = "./" if depth == 0 else "../" * depth
     return f"""  <!-- MINIMAL FOOTER -->
-  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
-    <div class="max-w-4xl mx-auto space-y-6">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+  <footer class="mt-20 border-t border-slate-800 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-4 font-mono text-xs text-slate-400">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
-          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+          <span class="font-bold text-slate-200 text-sm">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">&middot; Lift heavy. Be kind. Build robust software.</span>
         </div>
         <div class="flex items-center gap-4 text-slate-400">
-          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
-          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
-          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
-          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+          <a href="mailto:dragos@iorgos.net" class="hover:text-slate-200 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-slate-200 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-slate-200 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-slate-200 transition-colors">YouTube</a>
         </div>
       </div>
 
-      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+      <div class="pt-4 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
         <div>
           &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
         </div>
-        <div class="flex items-center gap-3">
-          <span>Zero engine dependency</span>
-          <span class="text-slate-700">&middot;</span>
-          <span>Host: Namebox.ro</span>
+        <div class="flex items-center gap-2">
+          <span>Zero trackers &middot; Pure HTML &amp; CSS &middot; Host: Namebox.ro</span>
         </div>
       </div>
     </div>
@@ -403,13 +401,12 @@ def generate_single_article(meta, content_html, category, slug):
 
 <main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
   <div class="mb-8">
-    <a href="../../{category}/" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
-      <i class="ph-bold ph-arrow-left"></i>
-      <span>// {cat_label.upper()}</span>
+    <a href="../../{category}/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+      ← {cat_label}
     </a>
   </div>
 
-  <header class="mb-10 pb-6 border-b border-slate-800/60">
+  <header class="mb-10 pb-6 border-b border-slate-800">
     <div class="flex items-center gap-2 font-mono text-xs text-slate-400 mb-3">
       <time datetime="{date_iso}">{date_display}</time>
       <span class="text-slate-600">&middot;</span>
@@ -425,11 +422,11 @@ def generate_single_article(meta, content_html, category, slug):
     {content_clean}
   </article>
 
-  <div class="mt-12 pt-6 border-t border-slate-800/60 flex items-center justify-between font-mono text-xs text-slate-400">
-    <a href="../../{category}/" class="hover:text-emerald-400 transition-colors">
+  <div class="mt-12 pt-6 border-t border-slate-800 flex items-center justify-between font-mono text-xs text-slate-400">
+    <a href="../../{category}/" class="hover:text-amber-400 transition-colors">
       ← Back to {cat_label}
     </a>
-    <a href="#" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}}); return false;" class="hover:text-emerald-400 transition-colors">
+    <a href="#" onclick="window.scrollTo({{top: 0, behavior: 'smooth'}}); return false;" class="hover:text-amber-400 transition-colors">
       Back to top ↑
     </a>
   </div>
@@ -464,13 +461,13 @@ def generate_category_index(category, items):
         excerpt = item.get("excerpt", "")
 
         entries_html += f"""
-      <article class="py-5 border-b border-slate-800/60 group journal-entry">
+      <article class="py-5 border-b border-slate-800 group journal-entry">
         <div class="flex items-center gap-2 font-mono text-xs text-slate-500 mb-1.5">
           <time datetime="{item['date']}">{date_display}</time>
           <span class="text-slate-700">&middot;</span>
           <span>{read_time}</span>
         </div>
-        <h2 class="font-display font-bold text-lg text-slate-100 group-hover:text-emerald-400 transition-colors mb-2">
+        <h2 class="font-display font-bold text-lg text-slate-100 group-hover:text-amber-400 transition-colors mb-2">
           <a href="{item['slug']}/">{title}</a>
         </h2>
         <p class="text-sm text-slate-400 font-sans leading-relaxed">
@@ -486,13 +483,12 @@ def generate_category_index(category, items):
 
 <main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
   <div class="mb-6">
-    <a href="../" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1">
-      <i class="ph-bold ph-arrow-left"></i>
-      <span>// HOME</span>
+    <a href="../" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+      ← Home
     </a>
   </div>
 
-  <header class="mb-10 pb-6 border-b border-slate-800/60">
+  <header class="mb-10 pb-6 border-b border-slate-800">
     <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 mb-3">
       {cat_title}
     </h1>
@@ -501,14 +497,13 @@ def generate_category_index(category, items):
     </p>
 
     <!-- Search / Filter input -->
-    <div class="relative max-w-md">
-      <i class="ph-bold ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+    <div class="max-w-md">
       <input 
         id="hud-filter-input"
         data-target=".journal-entry"
         type="text" 
         placeholder="Filter by keyword..." 
-        class="w-full pl-9 pr-4 py-2 rounded-lg bg-[#0B0F17] border border-slate-800 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500/60 transition-colors"
+        class="w-full px-3 py-2 rounded-lg bg-[#0B0F17] border border-slate-800 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500/60 transition-colors"
       >
     </div>
   </header>
@@ -553,7 +548,7 @@ def generate_home_page(posts, guides):
         posts_list_html += f"""
       <article class="group py-2.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 border-b border-slate-800/40 hover:border-slate-700/60 transition-colors">
         <div class="flex-1">
-          <a href="blog/{item['slug']}/" class="font-display font-medium text-slate-200 group-hover:text-emerald-400 transition-colors text-sm sm:text-base">
+          <a href="blog/{item['slug']}/" class="font-display font-medium text-slate-200 group-hover:text-amber-400 transition-colors text-sm sm:text-base">
             {title}
           </a>
         </div>
@@ -573,7 +568,7 @@ def generate_home_page(posts, guides):
         guides_list_html += f"""
       <article class="group py-2.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 border-b border-slate-800/40 hover:border-slate-700/60 transition-colors">
         <div class="flex-1">
-          <a href="howto/{item['slug']}/" class="font-display font-medium text-slate-200 group-hover:text-sky-400 transition-colors text-sm sm:text-base">
+          <a href="howto/{item['slug']}/" class="font-display font-medium text-slate-200 group-hover:text-amber-400 transition-colors text-sm sm:text-base">
             {title}
           </a>
         </div>
@@ -593,30 +588,30 @@ def generate_home_page(posts, guides):
     <h1 class="font-display font-bold text-3xl sm:text-5xl text-slate-100 tracking-tight leading-tight mb-3">
       Dragoș Iorgulescu
     </h1>
-    <p class="font-mono text-xs uppercase tracking-wider text-emerald-400 mb-5">
+    <p class="font-mono text-xs uppercase tracking-wider text-amber-400 mb-5">
       Test Engineer &middot; Strength Practitioner &middot; Bucharest, RO
     </p>
     <p class="text-base sm:text-lg text-slate-300 font-sans leading-relaxed max-w-2xl mb-3">
       Husband, father of two boys. Software Test Engineer, kettlebell lifter, and audio explorer. Dedicated to minimal tools, robust physical conditioning, and honest engineering across open and proprietary platforms.
     </p>
     <p class="text-sm text-slate-400 font-sans leading-relaxed max-w-2xl mb-6">
-      See what I'm currently focused on right now on my <a href="now.html" class="text-emerald-400 hover:underline font-medium">now page</a>.
+      See what I'm currently focused on right now on my <a href="now.html" class="text-amber-400 hover:underline font-medium">now page</a>.
     </p>
     <div class="flex flex-wrap gap-4 text-xs font-mono text-slate-400">
-      <a href="blog/" class="hover:text-emerald-400 transition-colors">→ Journal ({len(posts):02d})</a>
-      <a href="programe/" class="hover:text-emerald-400 transition-colors">→ Programs (03)</a>
-      <a href="howto/" class="hover:text-emerald-400 transition-colors">→ How-To ({len(guides):02d})</a>
-      <a href="sounds/" class="hover:text-emerald-400 transition-colors">→ Sounds (05)</a>
+      <a href="blog/" class="hover:text-amber-400 transition-colors">→ Journal ({len(posts):02d})</a>
+      <a href="programe/" class="hover:text-amber-400 transition-colors">→ Programs (03)</a>
+      <a href="howto/" class="hover:text-amber-400 transition-colors">→ How-To ({len(guides):02d})</a>
+      <a href="sounds/" class="hover:text-amber-400 transition-colors">→ Sounds (05)</a>
     </div>
   </section>
 
   <!-- JOURNAL SECTION -->
   <section class="mb-14">
-    <div class="flex items-center justify-between pb-2 mb-4 border-b border-slate-800/80">
+    <div class="flex items-center justify-between pb-2 mb-4 border-b border-slate-800">
       <h2 class="font-display font-bold text-xl text-slate-100 tracking-tight">
         Recent Journal Entries
       </h2>
-      <a href="blog/" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors">
+      <a href="blog/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
         All entries ({len(posts)}) →
       </a>
     </div>
@@ -628,42 +623,36 @@ def generate_home_page(posts, guides):
 
   <!-- TRAINING FRAMEWORKS -->
   <section class="mb-14">
-    <div class="flex items-center justify-between pb-2 mb-4 border-b border-slate-800/80">
+    <div class="flex items-center justify-between pb-2 mb-4 border-b border-slate-800">
       <h2 class="font-display font-bold text-xl text-slate-100 tracking-tight">
         Training Frameworks
       </h2>
-      <a href="programe/" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors">
+      <a href="programe/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
         All Programs →
       </a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <a href="programe/tension-spectrum/" class="tactical-card glow-emerald p-5 flex flex-col justify-between transition-all group">
+      <a href="programe/tension-spectrum/" class="tactical-card p-5 flex flex-col justify-between transition-all group">
         <div>
-          <div class="mb-3">
-            <span class="badge-emerald">HYPERTROPHY &bull; TENSION</span>
-          </div>
-          <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-emerald-400 transition-colors mb-2">Tension Spectrum</h3>
+          <div class="font-mono text-[11px] text-slate-500 uppercase tracking-wider mb-2">01 // Hypertrophy &amp; Tension</div>
+          <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-amber-400 transition-colors mb-2">Tension Spectrum</h3>
           <p class="text-xs text-slate-400 leading-relaxed">Functional hypertrophy without CNS exhaustion. 5-day hybrid split.</p>
         </div>
       </a>
 
-      <a href="programe/sfg-prep/" class="tactical-card glow-amber p-5 flex flex-col justify-between transition-all group">
+      <a href="programe/sfg-prep/" class="tactical-card p-5 flex flex-col justify-between transition-all group">
         <div>
-          <div class="mb-3">
-            <span class="badge-amber">CERTIFICATION // 8 MONTHS</span>
-          </div>
-          <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-amber-400 transition-colors mb-2">SFG I & SFB Prep</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">8-month progressive plan for StrongFirst Girya 1 & Bodyweight certifications.</p>
+          <div class="font-mono text-[11px] text-slate-500 uppercase tracking-wider mb-2">02 // 8-Month Certification</div>
+          <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-amber-400 transition-colors mb-2">SFG I &amp; SFB Prep</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">8-month progressive plan for StrongFirst Girya 1 &amp; Bodyweight certifications.</p>
         </div>
       </a>
 
-      <a href="programe/bjj-prep/" class="tactical-card glow-purple p-5 flex flex-col justify-between transition-all group">
+      <a href="programe/bjj-prep/" class="tactical-card p-5 flex flex-col justify-between transition-all group">
         <div>
-          <div class="mb-3">
-            <span class="badge-purple">BJJ PREP &bull; REHABILITATION</span>
-          </div>
-          <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-purple-400 transition-colors mb-2">BJJ Prep &amp; Rehabilitation</h3>
+          <div class="font-mono text-[11px] text-slate-500 uppercase tracking-wider mb-2">03 // Rehab &amp; Aerobic Base</div>
+          <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-amber-400 transition-colors mb-2">BJJ Prep &amp; Rehabilitation</h3>
           <p class="text-xs text-slate-400 leading-relaxed">Elbow tendonitis rehabilitation, daily micro-routine &amp; Zone 2 aerobic base.</p>
         </div>
       </a>
@@ -672,11 +661,11 @@ def generate_home_page(posts, guides):
 
   <!-- HOW-TO GUIDES -->
   <section class="mb-14">
-    <div class="flex items-center justify-between pb-2 mb-4 border-b border-slate-800/80">
+    <div class="flex items-center justify-between pb-2 mb-4 border-b border-slate-800">
       <h2 class="font-display font-bold text-xl text-slate-100 tracking-tight">
-        Technical Guides & How-Tos
+        Technical Guides &amp; How-Tos
       </h2>
-      <a href="howto/" class="font-mono text-xs text-slate-400 hover:text-sky-400 transition-colors">
+      <a href="howto/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
         All guides ({len(guides)}) →
       </a>
     </div>
@@ -689,36 +678,36 @@ def generate_home_page(posts, guides):
   <!-- PROJECTS & AUDIO -->
   <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="tactical-card p-5">
-      <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800/60">
-        <h3 class="font-display font-bold text-base text-slate-100">Open Source & Tools</h3>
-        <a href="https://github.com/diorgulescu" target="_blank" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors">github.com/diorgulescu ↗</a>
+      <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
+        <h3 class="font-display font-bold text-base text-slate-100">Open Source &amp; Tools</h3>
+        <a href="https://github.com/diorgulescu" target="_blank" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">github.com/diorgulescu ↗</a>
       </div>
       <ul class="space-y-3 font-sans text-xs text-slate-300">
         <li>
           <div class="flex items-center gap-2">
-            <a href="https://github.com/diorgulescu/tcpflowy" target="_blank" class="font-mono font-semibold text-emerald-400 hover:underline">tcpflowy →</a>
-            <span class="badge-emerald text-[10px] py-0.5 px-1.5 leading-none">v1.0.0 &bull; PyPI</span>
+            <a href="https://github.com/diorgulescu/tcpflowy" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">tcpflowy →</a>
+            <span class="tag">v1.0.0 &bull; PyPI</span>
           </div>
-          <span class="text-slate-400 block mt-0.5">Terminal network flow analysis & TCP visualization tool, available on <a href="https://pypi.org/project/tcpflowy/" target="_blank" class="text-emerald-400 hover:underline">PyPI</a>.</span>
+          <span class="text-slate-400 block mt-0.5">Terminal network flow analysis &amp; TCP visualization tool, available on <a href="https://pypi.org/project/tcpflowy/" target="_blank" class="text-amber-400 hover:underline">PyPI</a>.</span>
         </li>
         <li>
           <div class="flex items-center gap-2">
-            <a href="https://github.com/diorgulescu/GirevoyPulse" target="_blank" class="font-mono font-semibold text-amber-400 hover:underline">GirevoyPulse →</a>
-            <span class="badge-amber text-[10px] py-0.5 px-1.5 leading-none">Xcode & Android Studio</span>
+            <a href="https://github.com/diorgulescu/GirevoyPulse" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">GirevoyPulse →</a>
+            <span class="tag">Xcode &amp; Android Studio</span>
           </div>
-          <span class="text-slate-400 block mt-0.5">Real-time heart-rate telemetry & pace monitor for kettlebell sport and alactic conditioning.</span>
+          <span class="text-slate-400 block mt-0.5">Real-time heart-rate telemetry &amp; pace monitor for kettlebell sport and alactic conditioning.</span>
         </li>
         <li>
           <div class="flex items-center gap-2">
-            <a href="https://github.com/diorgulescu/DAMF" target="_blank" class="font-mono font-semibold text-sky-400 hover:underline">DAMF →</a>
-            <span class="badge-sky text-[10px] py-0.5 px-1.5 leading-none">Updated</span>
+            <a href="https://github.com/diorgulescu/DAMF" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">DAMF →</a>
+            <span class="tag">Updated</span>
           </div>
           <span class="text-slate-400 block mt-0.5">Device automation framework for embedded hardware testing and lab validation.</span>
         </li>
         <li>
           <div class="flex items-center gap-2">
-            <a href="https://github.com/diorgulescu/suckless-debian" target="_blank" class="font-mono font-semibold text-slate-300 hover:underline">suckless-debian →</a>
-            <span class="badge-slate text-[10px] py-0.5 px-1.5 leading-none">amd64 &bull; ARM &bull; i386</span>
+            <a href="https://github.com/diorgulescu/suckless-debian" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">suckless-debian →</a>
+            <span class="tag">amd64 &bull; ARM &bull; i386</span>
           </div>
           <span class="text-slate-400 block mt-0.5">Minimalist keyboard-driven Debian environment built on dwm, dmenu, and st with multi-arch support.</span>
         </li>
@@ -727,27 +716,27 @@ def generate_home_page(posts, guides):
 
     <div class="tactical-card p-5 flex flex-col justify-between">
       <div>
-        <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800/60">
-          <h3 class="font-display font-bold text-base text-slate-100">Audio Labs & Modular</h3>
-          <a href="sounds/" class="font-mono text-xs text-purple-400 hover:text-purple-300 transition-colors">sounds/ ↗</a>
+        <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
+          <h3 class="font-display font-bold text-base text-slate-100">Audio Labs &amp; Modular</h3>
+          <a href="sounds/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">sounds/ ↗</a>
         </div>
         <div class="space-y-3 font-sans text-xs text-slate-300 mb-4">
           <div>
             <div class="flex items-center gap-2">
-              <a href="https://github.com/voidwave-lab" target="_blank" class="font-mono font-semibold text-purple-400 hover:underline">voidwave-lab →</a>
-              <span class="badge-purple text-[10px] py-0.5 px-1.5 leading-none">4 Open Source Tools</span>
+              <a href="https://github.com/voidwave-lab" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">voidwave-lab →</a>
+              <span class="tag">4 Open Source Tools</span>
             </div>
-            <span class="text-slate-400 block mt-0.5">DSP audio generators for experimental, glitch & ambient music: Modular Synth, MS-20 mini clone, test equipment studio, and Aetherium generative ambient sanctuary.</span>
+            <span class="text-slate-400 block mt-0.5">DSP audio generators for experimental, glitch &amp; ambient music: Modular Synth, MS-20 mini clone, test equipment studio, and Aetherium generative ambient sanctuary.</span>
           </div>
           <div>
-            <span class="font-mono font-semibold text-slate-200">Musical Archives & Releases</span>
+            <span class="font-mono font-semibold text-slate-200">Musical Archives &amp; Releases</span>
             <span class="text-slate-400 block mt-0.5">Over 15 years exploring hardware modular synthesis, drone soundscapes, field recordings, and raw living-room sessions.</span>
           </div>
         </div>
       </div>
-      <div class="pt-3 border-t border-slate-800/60">
-        <a href="sounds/" class="font-mono text-xs text-purple-400 hover:text-purple-300 transition-colors flex items-center justify-between">
-          <span>Explore sound archives & DSP tools (5 monikers)</span>
+      <div class="pt-3 border-t border-slate-800">
+        <a href="sounds/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors flex items-center justify-between">
+          <span>Explore sound archives &amp; DSP tools (5 monikers)</span>
           <span>→</span>
         </a>
       </div>
@@ -782,19 +771,17 @@ def generate_now_page():
     now_html = f"""{get_html_head(f"{title}", depth=0)}
 {get_header(active_nav="now", depth=0)}
 
-<main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
   <div class="mb-8">
-    <a href="./" class="font-mono text-xs text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
-      <i class="ph-bold ph-arrow-left"></i>
-      <span>← Home</span>
+    <a href="./" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+      ← Home
     </a>
   </div>
 
   <!-- PAGE HEADER -->
   <header class="mb-10 pb-6 border-b border-slate-800/60">
-    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-2">
-      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span>{location} &middot; Updated {updated}</span>
+    <div class="font-mono text-xs text-slate-400 mb-2">
+      {location} &middot; Updated {updated}
     </div>
     <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 tracking-tight mb-2">
       {title}
@@ -1079,14 +1066,16 @@ def sync_static_headers():
         for html_file in root_dir.glob("**/*.html"):
             if "_legacy_hugo" in html_file.parts or "_backup_tactical_hud" in html_file.parts or "content" in html_file.parts:
                 continue
+            if root_dir == BASE_DIR and "public" in html_file.parts:
+                continue
             rel_parts = html_file.relative_to(root_dir).parts
             if not rel_parts:
                 continue
             depth = len(rel_parts) - 1
             first_part = rel_parts[0].lower()
 
-            if html_file != (root_dir / "index.html") and html_file != (root_dir / "now.html") and first_part not in ["blog", "howto"]:
-                active_nav = first_part if first_part in ["programe", "sounds", "kettlebell"] else ""
+            if first_part in ["programe", "sounds", "kettlebell"]:
+                active_nav = first_part
                 try:
                     content = html_file.read_text(encoding="utf-8")
                     orig = content
@@ -1117,6 +1106,7 @@ def sync_static_headers():
                     content = re.sub(r'<!-- MINIMAL NAVBAR -->\s*', '', content)
                     content = re.sub(r'<!-- TOP (?:HUD|TELEMETRY HUD) BAR -->[\s\S]*?</div>\s*</div>\s*(?=\s*<!-- [A-Z\s]+NAVBAR -->|<header)', '', content)
                     content = re.sub(r'<!-- (?:TOP|MAIN) TACTICAL NAVBAR -->\s*', '', content)
+                    content = re.sub(r'<!-- CLEAN EDITORIAL NAVBAR -->\s*', '', content)
 
                     # Replace ONLY the first header (the top navbar)
                     minimal_hdr = get_header(active_nav=active_nav, depth=depth).strip()

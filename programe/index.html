@@ -26,11 +26,11 @@
 <body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
 
 
-  <!-- MINIMAL NAVBAR -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+  <!-- CLEAN EDITORIAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <a href="../" class="flex items-center gap-2 group">
-        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight hover:text-amber-400 transition-colors">
           Dragoș Iorgulescu
         </span>
       </a>
@@ -38,27 +38,27 @@
       <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
         <a href="../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
-        <a href="../programe/" class="text-emerald-400 font-semibold">Programs</a>
+        <a href="../programe/" class="text-slate-100 font-semibold">Programs</a>
         <a href="../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
         <a href="../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
         <a href="../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
           Now
         </a>
 
-        <!-- Theme Toggle Button -->
-        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Toggle Color Theme (Dark/Light)" aria-label="Toggle Theme">
-          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        <!-- Minimal Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded text-slate-400 hover:text-slate-100 transition-colors cursor-pointer" title="Toggle Theme" aria-label="Toggle Theme">
+          <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
         </button>
       </nav>
 
       <!-- Mobile Menu Button & Toggle -->
-      <div class="flex items-center gap-1 md:hidden">
-        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Toggle Theme">
-          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded text-slate-400 hover:text-slate-100 cursor-pointer" aria-label="Toggle Theme">
+          <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
         </button>
-        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Menu">
-          <i class="ph-bold ph-list text-xl"></i>
+        <button id="mobile-menu-btn" class="p-2 rounded text-slate-400 hover:text-white font-mono text-xs" aria-label="Menu">
+          <span>menu</span>
         </button>
       </div>
     </div>
@@ -70,160 +70,116 @@
       <a href="../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
       <a href="../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
       <a href="../howto/" class="block text-slate-300 hover:text-white">How-To</a>
-      <a href="../now.html" class="block text-emerald-400 font-semibold">Now</a>
+      <a href="../now.html" class="block text-amber-400 font-semibold">Now</a>
     </div>
   </header>
 
 
-<main class="max-w-7xl mx-auto px-4 sm:px-8 py-10">
-  <!-- PAGE HEADER & STATUS -->
-  <div class="tactical-panel p-6 sm:p-8 mb-10">
-    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-      <div>
-        <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-emerald-400 mb-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          STREAM 02 // GENERAL PHYSICAL PREPARATION & CONDITIONING
-        </div>
-        <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 tracking-tight">
-          Training Frameworks
-        </h1>
-      </div>
-      <div class="recessed-box font-mono text-xs text-slate-400 flex flex-wrap items-center gap-3">
-        <span>ACTIVE SYSTEMS: <strong class="text-emerald-400 font-bold">03</strong></span>
-        <span class="text-slate-700">|</span>
-        <span>TELEMETRY TOOL: <a href="https://github.com/diorgulescu/GirevoyPulse" target="_blank" class="text-amber-400 hover:underline">GIREVOYPULSE (IOS & ANDROID) ↗</a></span>
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+  <!-- PAGE HEADER -->
+  <div class="mb-10 pb-6 border-b border-slate-800/60">
+    <div class="font-mono text-xs text-slate-400 mb-2">
+      STREAM 02 // PHYSICAL PREPARATION & CONDITIONING
+    </div>
+    <div class="flex flex-wrap items-baseline justify-between gap-4">
+      <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 tracking-tight">
+        Training Frameworks
+      </h1>
+      <div class="font-mono text-xs text-slate-400">
+        <a href="https://github.com/diorgulescu/GirevoyPulse" target="_blank" class="hover:text-amber-400 transition-colors">Telemetry: GirevoyPulse ↗</a>
       </div>
     </div>
-    <p class="text-slate-400 text-sm max-w-3xl leading-relaxed">
+    <p class="text-slate-400 text-sm max-w-2xl leading-relaxed mt-3">
       A structured collection of training programs, protocols, and conditioning blueprints conceived or adapted over years of kettlebell lifting, bodyweight mastery, and tendon rehabilitation. Shared freely for serious practitioners.
     </p>
   </div>
 
-  <!-- FRAMEWORKS BENTO GRID -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+  <!-- FRAMEWORKS LIST -->
+  <div class="space-y-4 mb-10">
     <!-- Card 1: Tension Spectrum -->
-    <div class="tactical-card glow-emerald flex flex-col justify-between">
-      <div>
-        <div class="flex items-center justify-between gap-2 mb-4">
-          <span class="badge-emerald">HYPERTROPHY & TENSION</span>
-          <span class="text-xs font-mono text-slate-400">01 // PROTOCOL</span>
-        </div>
-        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
-          <i class="ph-duotone ph-barbell text-2xl"></i>
-        </div>
-        <h2 class="font-display font-bold text-2xl text-slate-100 mb-2">
-          <a href="tension-spectrum/" class="hover:text-emerald-400 transition-colors">Tension Spectrum</a>
-        </h2>
-        <p class="text-sm text-slate-400 font-sans leading-relaxed mb-6">
-          An advanced training framework focused on muscle tension manipulation, specific kettlebell complexes (Complex 1: Structural Mobility, Complex 2: 10-8-5-3-2-1), loaded stretching, and supercompensation without central nervous system burnout.
-        </p>
+    <a href="tension-spectrum/" class="tactical-card p-6 block transition-colors group">
+      <div class="flex items-center justify-between gap-2 mb-2 font-mono text-xs text-slate-400">
+        <span class="tag">HYPERTROPHY & TENSION</span>
+        <span>01 // PROTOCOL</span>
       </div>
-      <div class="pt-4 border-t border-slate-800">
-        <a href="tension-spectrum/" class="tactical-btn-emerald w-full">
-          VIEW TENSION SPECTRUM
-          <i class="ph-bold ph-arrow-right"></i>
-        </a>
-      </div>
-    </div>
+      <h2 class="font-display font-bold text-xl text-slate-100 group-hover:text-amber-400 transition-colors mb-2">
+        Tension Spectrum
+      </h2>
+      <p class="text-sm text-slate-400 leading-relaxed">
+        An advanced training framework focused on muscle tension manipulation, specific kettlebell complexes (Complex 1: Structural Mobility, Complex 2: 10-8-5-3-2-1), loaded stretching, and supercompensation without central nervous system burnout.
+      </p>
+    </a>
 
     <!-- Card 2: SFG 1 & SFB Prep -->
-    <div class="tactical-card glow-amber flex flex-col justify-between">
-      <div>
-        <div class="flex items-center justify-between gap-2 mb-4">
-          <span class="badge-amber">CERTIFICATION // 8 MONTHS</span>
-          <span class="text-xs font-mono text-slate-400">02 // PROTOCOL</span>
-        </div>
-        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
-          <i class="ph-duotone ph-shield-check text-2xl"></i>
-        </div>
-        <h2 class="font-display font-bold text-2xl text-slate-100 mb-2">
-          <a href="sfg-prep/" class="hover:text-amber-400 transition-colors">SFG I & SFB Prep</a>
-        </h2>
-        <p class="text-sm text-slate-400 font-sans leading-relaxed mb-6">
-          A progressive 3-phase blueprint designed for passing StrongFirst Girya Level 1 and StrongFirst Bodyweight certifications. Includes the Rite of Passage, alactic A+A EMOM endurance, Snatch Test conditioning, and weekend heavy double kettlebell simulations.
-        </p>
+    <a href="sfg-prep/" class="tactical-card p-6 block transition-colors group">
+      <div class="flex items-center justify-between gap-2 mb-2 font-mono text-xs text-slate-400">
+        <span class="tag">CERTIFICATION // 8 MONTHS</span>
+        <span>02 // PROTOCOL</span>
       </div>
-      <div class="pt-4 border-t border-slate-800">
-        <a href="sfg-prep/" class="tactical-btn w-full hover:border-amber-500/50 hover:text-amber-400">
-          VIEW SFG BLUEPRINT
-          <i class="ph-bold ph-arrow-right"></i>
-        </a>
-      </div>
-    </div>
+      <h2 class="font-display font-bold text-xl text-slate-100 group-hover:text-amber-400 transition-colors mb-2">
+        SFG I & SFB Prep
+      </h2>
+      <p class="text-sm text-slate-400 leading-relaxed">
+        A progressive 3-phase blueprint designed for passing StrongFirst Girya Level 1 and StrongFirst Bodyweight certifications. Includes the Rite of Passage, alactic A+A EMOM endurance, Snatch Test conditioning, and weekend heavy double kettlebell simulations.
+      </p>
+    </a>
 
     <!-- Card 3: BJJ & Rehab -->
-    <div class="tactical-card glow-purple flex flex-col justify-between">
-      <div>
-        <div class="flex items-center justify-between gap-2 mb-4">
-          <span class="badge-purple">REHABILITATION & JIU-JITSU</span>
-          <span class="text-xs font-mono text-slate-400">03 // PROTOCOL</span>
-        </div>
-        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-4">
-          <i class="ph-duotone ph-heartbeat text-2xl"></i>
-        </div>
-        <h2 class="font-display font-bold text-2xl text-slate-100 mb-2">
-          <a href="bjj-prep/" class="hover:text-purple-400 transition-colors">BJJ & Rehabilitation</a>
-        </h2>
-        <p class="text-sm text-slate-400 font-sans leading-relaxed mb-6">
-          Elbow recovery protocol (epicondylitis/tendonitis rehabilitation) combined with mitochondrial aerobic base building (Zone 2 via stationary bike, rucking, or slow running), ground mobility (Shrimpings, Bridge & Reach), and isometric grip strength.
-        </p>
+    <a href="bjj-prep/" class="tactical-card p-6 block transition-colors group">
+      <div class="flex items-center justify-between gap-2 mb-2 font-mono text-xs text-slate-400">
+        <span class="tag">REHABILITATION & JIU-JITSU</span>
+        <span>03 // PROTOCOL</span>
       </div>
-      <div class="pt-4 border-t border-slate-800">
-        <a href="bjj-prep/" class="tactical-btn w-full hover:border-purple-500/50 hover:text-purple-400">
-          VIEW BJJ PROTOCOL
-          <i class="ph-bold ph-arrow-right"></i>
-        </a>
-      </div>
-    </div>
+      <h2 class="font-display font-bold text-xl text-slate-100 group-hover:text-purple-400 transition-colors mb-2">
+        BJJ & Rehabilitation
+      </h2>
+      <p class="text-sm text-slate-400 leading-relaxed">
+        Elbow recovery protocol (epicondylitis/tendonitis rehabilitation) combined with mitochondrial aerobic base building (Zone 2 via stationary bike, rucking, or slow running), ground mobility (Shrimpings, Bridge & Reach), and isometric grip strength.
+      </p>
+    </a>
   </div>
 
-  <!-- SUPPLEMENTAL HUD BOX -->
-  <div class="tactical-panel p-6 sm:p-8">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-      <div class="md:col-span-8">
-        <span class="badge-sky mb-2">CARDIOVASCULAR CONDITIONING</span>
-        <h3 class="font-display font-bold text-2xl text-slate-100 mb-2">
-          Navy Seal Burpees & Zone 2
-        </h3>
-        <p class="text-sm text-slate-400 max-w-2xl leading-relaxed">
-          Bodyweight conditioning protocols executed at a steady, controlled pace for pure cardiovascular endurance without excessive systemic acidification. Designed for cardiac output and lipid metabolism maintenance.
-        </p>
-      </div>
-      <div class="md:col-span-4 flex justify-start md:justify-end">
-        <a href="../kettlebell/" class="tactical-btn">
-          READ PROTOCOL
-          <i class="ph-bold ph-arrow-right"></i>
-        </a>
-      </div>
+  <!-- SUPPLEMENTAL BOX -->
+  <div class="tactical-card p-6">
+    <div class="flex items-center justify-between gap-2 mb-2 font-mono text-xs text-slate-400">
+      <span class="tag">CARDIOVASCULAR CONDITIONING</span>
+      <span>04 // PROTOCOL</span>
     </div>
+    <h3 class="font-display font-bold text-xl text-slate-100 mb-2">
+      <a href="../kettlebell/" class="hover:text-amber-400 transition-colors">Navy Seal Burpees & Zone 2</a>
+    </h3>
+    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+      Bodyweight conditioning protocols executed at a steady, controlled pace for pure cardiovascular endurance without excessive systemic acidification. Designed for cardiac output and lipid metabolism maintenance.
+    </p>
+    <a href="../kettlebell/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+      Read Protocol →
+    </a>
   </div>
 </main>
 
 
   <!-- MINIMAL FOOTER -->
-  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
-    <div class="max-w-4xl mx-auto space-y-6">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+  <footer class="mt-20 border-t border-slate-800 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-4 font-mono text-xs text-slate-400">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
-          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+          <span class="font-bold text-slate-200 text-sm">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">&middot; Lift heavy. Be kind. Build robust software.</span>
         </div>
         <div class="flex items-center gap-4 text-slate-400">
-          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
-          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
-          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
-          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+          <a href="mailto:dragos@iorgos.net" class="hover:text-slate-200 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-slate-200 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-slate-200 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-slate-200 transition-colors">YouTube</a>
         </div>
       </div>
 
-      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+      <div class="pt-4 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
         <div>
           &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
         </div>
-        <div class="flex items-center gap-3">
-          <span>Zero engine dependency</span>
-          <span class="text-slate-700">&middot;</span>
-          <span>Host: Namebox.ro</span>
+        <div class="flex items-center gap-2">
+          <span>Zero trackers &middot; Pure HTML &amp; CSS &middot; Host: Namebox.ro</span>
         </div>
       </div>
     </div>

@@ -26,11 +26,11 @@
 <body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
 
 
-  <!-- MINIMAL NAVBAR -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+  <!-- CLEAN EDITORIAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <a href="../../" class="flex items-center gap-2 group">
-        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight hover:text-amber-400 transition-colors">
           Dragoș Iorgulescu
         </span>
       </a>
@@ -38,27 +38,27 @@
       <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
         <a href="../../blog/" class="text-slate-400 hover:text-slate-100 transition-colors">Journal</a>
-        <a href="../../programe/" class="text-emerald-400 font-semibold">Programs</a>
+        <a href="../../programe/" class="text-slate-100 font-semibold">Programs</a>
         <a href="../../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
         <a href="../../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
         <a href="../../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
           Now
         </a>
 
-        <!-- Theme Toggle Button -->
-        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Toggle Color Theme (Dark/Light)" aria-label="Toggle Theme">
-          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        <!-- Minimal Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded text-slate-400 hover:text-slate-100 transition-colors cursor-pointer" title="Toggle Theme" aria-label="Toggle Theme">
+          <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
         </button>
       </nav>
 
       <!-- Mobile Menu Button & Toggle -->
-      <div class="flex items-center gap-1 md:hidden">
-        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Toggle Theme">
-          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded text-slate-400 hover:text-slate-100 cursor-pointer" aria-label="Toggle Theme">
+          <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
         </button>
-        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Menu">
-          <i class="ph-bold ph-list text-xl"></i>
+        <button id="mobile-menu-btn" class="p-2 rounded text-slate-400 hover:text-white font-mono text-xs" aria-label="Menu">
+          <span>menu</span>
         </button>
       </div>
     </div>
@@ -70,38 +70,33 @@
       <a href="../../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
       <a href="../../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
       <a href="../../howto/" class="block text-slate-300 hover:text-white">How-To</a>
-      <a href="../../now.html" class="block text-emerald-400 font-semibold">Now</a>
+      <a href="../../now.html" class="block text-amber-400 font-semibold">Now</a>
     </div>
   </header>
 
 
 <main class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
-  <!-- BREADCRUMB / HUD -->
+  <!-- BREADCRUMB -->
   <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
-    <a href="../../programe/" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-purple-400 transition-colors">
-      <i class="ph-bold ph-arrow-left"></i>
-      <span>← Programs</span>
+    <a href="../../programe/" class="text-slate-400 hover:text-amber-400 transition-colors">
+      ← Programs
     </a>
     <div class="flex items-center gap-2">
-      <span class="badge-purple">BJJ PREP & REHABILITATION</span>
-      <span class="status-pill">
-        <span class="status-dot-sky"></span>
-        ACTIVE RECOVERY HUD
-      </span>
+      <span class="tag">BJJ & REHABILITATION</span>
     </div>
   </div>
 
   <!-- HERO CARD -->
-  <div class="tactical-card mb-8">
-    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-400 mb-3">
-      <span class="text-purple-400 font-semibold">FRAMEWORK // 03</span>
+  <div class="tactical-card p-6 sm:p-8 mb-8">
+    <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-400 mb-2">
+      <span>FRAMEWORK // 03</span>
       <span class="text-slate-700">•</span>
-      <span class="text-slate-400">FOCUS // ELBOW REHAB (TENDINITIS) & ZONE 2 BASE</span>
+      <span>FOCUS // ELBOW REHAB & ZONE 2 BASE</span>
       <span class="text-slate-700">•</span>
-      <span class="text-sky-400">DISCIPLINE // BRAZILIAN JIU-JITSU & KETTLEBELL</span>
+      <span class="text-amber-400">DISCIPLINE // BJJ & KETTLEBELL</span>
     </div>
 
-    <h1 class="font-display font-bold text-3xl sm:text-5xl text-slate-100 leading-tight mb-4">
+    <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 tracking-tight mb-4">
       BJJ Prep &amp; Rehabilitation Protocol
     </h1>
 
@@ -109,17 +104,18 @@
       A specialized protocol engineered for elbow tendonitis rehabilitation, building a solid aerobic base in Zone 2 (stationary bike, rucking, or nasal-breathing slow runs), mat-specific ground mobility for Brazilian Jiu-Jitsu, and structural strength via Hardstyle kettlebells.
     </p>
 
-    <div class="recessed-box text-xs font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
+    <div class="font-mono text-xs text-slate-400 flex flex-wrap items-center gap-4 pt-3 border-t border-slate-800">
       <span>PERIOD // JULY – SEPTEMBER</span>
-      <span>MICRO-ROUTINE // DAILY 5–7 MIN ELBOW REHAB</span>
-      <span>CARDIO // ZONE 2 CONSTANT (NO CORTISOL SPIKES)</span>
+      <span class="text-slate-700">•</span>
+      <span>DAILY 5–7 MIN ELBOW REHAB</span>
+      <span class="text-slate-700">•</span>
+      <span>ZONE 2 CONSTANT BASE</span>
     </div>
   </div>
 
   <!-- DAILY MICRO ROUTINE -->
-  <div class="tactical-card mb-8 border-purple-500/30">
-    <div class="flex items-center gap-2 font-mono text-xs text-purple-400 font-semibold uppercase tracking-wider mb-3">
-      <i class="ph-bold ph-wrench text-base"></i>
+  <div class="tactical-card p-6 mb-8">
+    <div class="font-mono text-xs text-slate-300 font-semibold uppercase tracking-wider mb-3">
       Daily Micro-Routine: Elbow & Forearm (5–7 minutes)
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
@@ -247,9 +243,8 @@
   </div>
 
   <!-- GOLDEN RULES -->
-  <div class="tactical-panel p-6 sm:p-8 border-amber-500/30 bg-amber-500/5 mb-8">
-    <div class="font-mono text-xs uppercase tracking-wider text-amber-400 font-bold mb-4 flex items-center gap-2">
-      <i class="ph-bold ph-shield-check text-base"></i>
+  <div class="tactical-panel p-6 sm:p-8 mb-8">
+    <div class="font-mono text-xs uppercase tracking-wider text-slate-300 font-bold mb-4">
       Golden Rules for Structural Integrity & Elbow Health
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
@@ -269,43 +264,39 @@
   </div>
 
   <!-- ACTIONS -->
-  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-slate-800 bg-[#111827]/60">
-    <a href="../../programe/" class="tactical-btn">
-      <i class="ph-bold ph-arrow-left"></i>
-      BACK TO TRAINING DIRECTORY
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 p-4 border border-slate-800 rounded-lg">
+    <a href="../../programe/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+      ← Back to Programs
     </a>
-    <button onclick="window.print()" class="tactical-btn-emerald">
-      <i class="ph-bold ph-printer"></i>
-      PRINT BJJ PROTOCOL
+    <button onclick="window.print()" class="tactical-btn text-xs">
+      Print BJJ Protocol
     </button>
   </div>
 </main>
 
 
   <!-- MINIMAL FOOTER -->
-  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
-    <div class="max-w-4xl mx-auto space-y-6">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+  <footer class="mt-20 border-t border-slate-800 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-4 font-mono text-xs text-slate-400">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
-          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+          <span class="font-bold text-slate-200 text-sm">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">&middot; Lift heavy. Be kind. Build robust software.</span>
         </div>
         <div class="flex items-center gap-4 text-slate-400">
-          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
-          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
-          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
-          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+          <a href="mailto:dragos@iorgos.net" class="hover:text-slate-200 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-slate-200 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-slate-200 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-slate-200 transition-colors">YouTube</a>
         </div>
       </div>
 
-      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+      <div class="pt-4 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
         <div>
           &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
         </div>
-        <div class="flex items-center gap-3">
-          <span>Zero engine dependency</span>
-          <span class="text-slate-700">&middot;</span>
-          <span>Host: Namebox.ro</span>
+        <div class="flex items-center gap-2">
+          <span>Zero trackers &middot; Pure HTML &amp; CSS &middot; Host: Namebox.ro</span>
         </div>
       </div>
     </div>

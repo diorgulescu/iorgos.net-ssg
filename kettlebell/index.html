@@ -26,11 +26,11 @@
 <body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
 
 
-  <!-- MINIMAL NAVBAR -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/60">
+  <!-- CLEAN EDITORIAL NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <a href="../" class="flex items-center gap-2 group">
-        <span class="font-display font-bold text-slate-100 text-base tracking-tight group-hover:text-emerald-400 transition-colors">
+        <span class="font-display font-bold text-slate-100 text-base tracking-tight hover:text-amber-400 transition-colors">
           Dragoș Iorgulescu
         </span>
       </a>
@@ -42,23 +42,23 @@
         <a href="../sounds/" class="text-slate-400 hover:text-slate-100 transition-colors">Sounds</a>
         <a href="../howto/" class="text-slate-400 hover:text-slate-100 transition-colors">How-To</a>
         <a href="../now.html" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-100 transition-colors">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
           Now
         </a>
 
-        <!-- Theme Toggle Button -->
-        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded-lg text-slate-400 hover:text-amber-400 transition-colors cursor-pointer" title="Toggle Color Theme (Dark/Light)" aria-label="Toggle Theme">
-          <i class="theme-toggle-icon ph-bold ph-sun text-base text-amber-400"></i>
+        <!-- Minimal Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded text-slate-400 hover:text-slate-100 transition-colors cursor-pointer" title="Toggle Theme" aria-label="Toggle Theme">
+          <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
         </button>
       </nav>
 
       <!-- Mobile Menu Button & Toggle -->
-      <div class="flex items-center gap-1 md:hidden">
-        <button type="button" class="theme-toggle-btn p-2 rounded-lg text-slate-400 hover:text-amber-400 cursor-pointer" aria-label="Toggle Theme">
-          <i class="theme-toggle-icon ph-bold ph-sun text-lg text-amber-400"></i>
+      <div class="flex items-center gap-2 md:hidden">
+        <button type="button" class="theme-toggle-btn p-2 rounded text-slate-400 hover:text-slate-100 cursor-pointer" aria-label="Toggle Theme">
+          <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
         </button>
-        <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-400 hover:text-white" aria-label="Menu">
-          <i class="ph-bold ph-list text-xl"></i>
+        <button id="mobile-menu-btn" class="p-2 rounded text-slate-400 hover:text-white font-mono text-xs" aria-label="Menu">
+          <span>menu</span>
         </button>
       </div>
     </div>
@@ -70,29 +70,27 @@
       <a href="../programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
       <a href="../sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
       <a href="../howto/" class="block text-slate-300 hover:text-white">How-To</a>
-      <a href="../now.html" class="block text-emerald-400 font-semibold">Now</a>
+      <a href="../now.html" class="block text-amber-400 font-semibold">Now</a>
     </div>
   </header>
 
 
-<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-10">
   <div class="mb-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400">
-    <a href="../" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors">
-      <i class="ph-bold ph-arrow-left"></i>
-      <span>← Home</span>
+    <a href="../" class="text-slate-400 hover:text-amber-400 transition-colors">
+      ← Home
     </a>
-    <span class="badge-emerald">HARDSTYLE CONDITIONING</span>
+    <span class="tag">CONDITIONING</span>
   </div>
 
-  <div class="tactical-card mb-8">
-    <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-2">
-      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+  <div class="tactical-card p-6 sm:p-8 mb-8">
+    <div class="font-mono text-xs text-slate-400 mb-2">
       PHYSICAL READINESS PROTOCOL
     </div>
-    <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 mb-4">
+    <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 mb-4 tracking-tight">
       Kettlebell & Conditioning
     </h1>
-    <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">
+    <p class="text-slate-400 text-sm leading-relaxed">
       Foundational principles of functional strength: full-body tension on presses and squats, pure alactic explosive power on ballistic swings, and instant Fast &amp; Loose relaxation between sets.
     </p>
   </div>
@@ -131,29 +129,27 @@
 </main>
 
   <!-- MINIMAL FOOTER -->
-  <footer class="mt-20 border-t border-slate-800/60 py-12 px-4 sm:px-6">
-    <div class="max-w-4xl mx-auto space-y-6">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+  <footer class="mt-20 border-t border-slate-800 py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto space-y-4 font-mono text-xs text-slate-400">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span class="font-display font-bold text-slate-200 text-sm tracking-wide">Dragoș Iorgulescu</span>
-          <span class="text-slate-500 block sm:inline sm:ml-2">Lift heavy. Be kind. Build robust software.</span>
+          <span class="font-bold text-slate-200 text-sm">Dragoș Iorgulescu</span>
+          <span class="text-slate-500 block sm:inline sm:ml-2">&middot; Lift heavy. Be kind. Build robust software.</span>
         </div>
         <div class="flex items-center gap-4 text-slate-400">
-          <a href="mailto:dragos@iorgos.net" class="hover:text-emerald-400 transition-colors">Email</a>
-          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-purple-400 transition-colors">Mastodon</a>
-          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-sky-400 transition-colors">GitHub</a>
-          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-rose-400 transition-colors">YouTube</a>
+          <a href="mailto:dragos@iorgos.net" class="hover:text-slate-200 transition-colors">Email</a>
+          <a rel="me" href="https://mastodon.social/@diorgulescu" target="_blank" class="hover:text-slate-200 transition-colors">Mastodon</a>
+          <a href="https://github.com/diorgulescu" target="_blank" class="hover:text-slate-200 transition-colors">GitHub</a>
+          <a href="https://www.youtube.com/@iorgosnet" target="_blank" class="hover:text-slate-200 transition-colors">YouTube</a>
         </div>
       </div>
 
-      <div class="pt-6 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
+      <div class="pt-4 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
         <div>
           &copy; <span id="current-year">2026</span> Dragoș Iorgulescu &middot; Bucharest, RO
         </div>
-        <div class="flex items-center gap-3">
-          <span>Zero engine dependency</span>
-          <span class="text-slate-700">&middot;</span>
-          <span>Host: Namebox.ro</span>
+        <div class="flex items-center gap-2">
+          <span>Zero trackers &middot; Pure HTML &amp; CSS &middot; Host: Namebox.ro</span>
         </div>
       </div>
     </div>
