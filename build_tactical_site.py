@@ -167,38 +167,6 @@ def get_html_head(title, depth=0):
     }})();
   </script>
 
-  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Phosphor Icons -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {{
-      darkMode: 'class',
-      theme: {{
-        extend: {{
-          colors: {{
-            canvas: '#0B0F17',
-            panel: 'rgba(17, 24, 39, 0.88)',
-            'panel-solid': '#111827',
-            recessed: '#0B0F17',
-            borderline: '#1E293B',
-          }},
-          fontFamily: {{
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-            display: ['Space Grotesk', 'sans-serif'],
-          }}
-        }}
-      }}
-    }}
-  </script>
-  
   <!-- Tactical Design System -->
   <link rel="stylesheet" href="{root_path}css/tactical.css">
 </head>

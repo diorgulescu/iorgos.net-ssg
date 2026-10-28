@@ -278,39 +278,7 @@ def get_html_head(title, depth=0):
     }})();
   </script>
 
-  <!-- Google Fonts: Space Grotesk, JetBrains Mono, Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Phosphor Icons -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {{
-      darkMode: 'class',
-      theme: {{
-        extend: {{
-          colors: {{
-            canvas: '#0B0F17',
-            panel: 'rgba(17, 24, 39, 0.88)',
-            'panel-solid': '#111827',
-            recessed: '#0B0F17',
-            borderline: '#1E293B',
-          }},
-          fontFamily: {{
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-            display: ['Space Grotesk', 'sans-serif'],
-          }}
-        }}
-      }}
-    }}
-  </script>
-  
-  <!-- Tactical Design System -->
+  <!-- Frugal Tactical Design System (100% Autonomous / Zero External CDNs) -->
   <link rel="stylesheet" href="{root_path}css/tactical.css">
 </head>
 <body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
@@ -1125,6 +1093,15 @@ def sync_static_headers():
 
                     # 1. Update <html lang="ro" class="dark"> to <html lang="ro">
                     content = re.sub(r'<html\s+lang="ro"\s+class="dark">', '<html lang="ro">', content)
+
+                    # 1b. Strip external CDNs for autonomous / frugal offline loading
+                    content = re.sub(r'<!-- Google Fonts:[\s\S]*?rel="stylesheet">\s*', '', content)
+                    content = re.sub(r'<link rel="preconnect"[\s\S]*?rel="stylesheet">\s*', '', content)
+                    content = re.sub(r'<!-- Phosphor Icons -->\s*<script src="https://unpkg.com/@phosphor-icons/web"></script>\s*', '', content)
+                    content = re.sub(r'<script src="https://unpkg.com/@phosphor-icons/web"></script>\s*', '', content)
+                    content = re.sub(r'<!-- Tailwind CSS CDN -->\s*', '', content)
+                    content = re.sub(r'<script src="https://cdn.tailwindcss.com"></script>\s*', '', content)
+                    content = re.sub(r'<script>\s*tailwind\.config\s*=\s*\{[\s\S]*?\}\s*</script>\s*', '', content)
 
                     # 2. Add zero-fouc script if missing
                     if "theme_preference" not in content and "</head>" in content:
