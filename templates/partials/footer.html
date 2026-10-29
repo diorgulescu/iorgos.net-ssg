@@ -1,0 +1,28 @@
+{# MINIMAL FOOTER #}
+<footer class="mt-20 border-t border-slate-800 py-12 px-4 sm:px-6">
+  <div class="max-w-4xl mx-auto space-y-4 font-mono text-xs text-slate-400">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <span class="font-bold text-slate-200 text-sm">{{ site_author }}</span>
+        <span class="text-slate-500 block sm:inline sm:ml-2">&middot; {{ site_tagline }}</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="mailto:{{ site_email }}" class="hover:text-slate-200 transition-colors">Email</a>
+        <a rel="me" href="{{ site_mastodon }}" target="_blank" class="hover:text-slate-200 transition-colors">Mastodon</a>
+        <a href="{{ site_github }}" target="_blank" class="hover:text-slate-200 transition-colors">GitHub</a>
+        <a href="{{ site_youtube }}" target="_blank" class="hover:text-slate-200 transition-colors">YouTube</a>
+      </div>
+    </div>
+
+    <div class="pt-4 border-t border-slate-800/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
+      <div>
+        &copy; <span id="current-year">{{ current_year }}</span> {{ site_author }} &middot; {{ site_location }}
+      </div>
+      <div class="flex items-center gap-2">
+        <span>Zero trackers &middot; Pure HTML &amp; CSS &middot; Host: Namebox.ro</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="{{ root_path }}js/tactical.js"></script>

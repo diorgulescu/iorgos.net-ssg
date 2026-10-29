@@ -20,16 +20,19 @@ description: "A strength training framework centered on functional hypertrophy, 
 <br/>
 
 ### MONDAY: STRENGTH & BALLISTICS
+
 **Focus: Push-Pull Synergy & Explosive Power**
-*   **Strength Block (Maximal Tension):** Tactical Pull-ups / Rings or Heavy Rows + Hardstyle / SFB Push-ups.
-    *   *Format:* 3-5 sets x 3-5 reps (maximum tension, full recovery between sets).
-*   **Ballistic Block (Pure Alactic):** Heavy Swings or Snatches.
-    *   *Format:* Short sets, maximal acceleration, long rest periods.
-*   **Finisher:** Loaded Carries (Farmer's Walk or Suitcase Carry).
+
+- **Strength Block (Maximal Tension):** Tactical Pull-ups / Rings or Heavy Rows + Hardstyle / SFB Push-ups.
+  - *Format:* 3-5 sets x 3-5 reps (maximum tension, full recovery between sets).
+- **Ballistic Block (Pure Alactic):** Heavy Swings or Snatches.
+  - *Format:* Short sets, maximal acceleration, long rest periods.
+- **Finisher:** Loaded Carries (Farmer's Walk or Suitcase Carry).
 
 <hr class="separator" />
 
 ### TUESDAY: LOADED STRETCHING & ZONE 2
+
 **Focus: Mobility Under Load & Aerobic Base**
 
 <div class="movement-block">
@@ -53,15 +56,17 @@ description: "A strength training framework centered on functional hypertrophy, 
     </div>
 </div>
 
-*   **Aerobic Conditioning:** Zone 2 Nasal-Breathing Run / steady-state cardio for mitochondrial health.
+- **Aerobic Conditioning:** Zone 2 Nasal-Breathing Run / steady-state cardio for mitochondrial health.
 
 <hr class="separator" />
 
 ### WEDNESDAY: ACTIVE RECOVERY
+
 **Focus: Neuro-Regeneration**
-*   Easy, unloaded movement.
-*   Fast & Loose drills (shaking limbs to discharge residual muscle tone).
-*   Decompression mobility and gentle stretching.
+
+- Easy, unloaded movement.
+- Fast & Loose drills (shaking limbs to discharge residual muscle tone).
+- Decompression mobility and gentle stretching.
 
 <hr class="separator" />
 
@@ -86,13 +91,17 @@ description: "A strength training framework centered on functional hypertrophy, 
 <hr class="separator" />
 
 ### FRIDAY: NEURO-RECOVERY
+
 **Focus: Structural Decompression**
-*   Minimalist session (Simple & Sinister style) at moderate intensity (~70%).
-*   Focus strictly on movement precision and clearing tension accumulated on Thursday.
-*   Preparation for weekend restoration.
+
+- Minimalist session (Simple & Sinister style) at moderate intensity (~70%).
+- Focus strictly on movement precision and clearing tension accumulated on Thursday.
+- Preparation for weekend restoration.
 
 <hr class="separator" />
 
 ### SATURDAY & SUNDAY: TOTAL RECOVERY
+
 **Focus: Supercompensation**
-*   Unstructured rest, tissue remodeling, and nervous system adaptation.
+
+- Unstructured rest, tissue remodeling, and nervous system adaptation.

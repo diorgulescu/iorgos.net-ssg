@@ -1,0 +1,25 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if page_title %}{{ page_title }}{% if page_title != site_author and '//' not in page_title %} // {{ site_author }}{% endif %}{% else %}{{ site_author }}{% endif %}</title>
+<meta name="description" content="{{ site_description }}">
+
+<link rel="icon" type="image/x-icon" href="{{ root_path }}images/favicon.ico">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="{{ root_path }}sitemap.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ root_path }}feed.xml">
+
+<!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
+<script>
+  (function() {
+    var stored = localStorage.getItem('theme_preference');
+    var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.classList.remove('dark', 'light');
+    document.documentElement.classList.add(theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+<!-- Frugal Tactical Design System (100% Autonomous / Zero External CDNs) -->
+<link rel="stylesheet" href="{{ root_path }}css/tactical.css">
+<!-- Local lunr.js for advanced search (100% Autonomous) -->
+<script src="{{ root_path }}js/lunr.min.js"></script>
+{% block extra_head %}{% endblock %}

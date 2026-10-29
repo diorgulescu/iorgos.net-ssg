@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site_title }}</title>
+    <link>{{ base_url }}</link>
+    <description>{{ site_description }}</description>
+    <language>ro-RO</language>
+    <pubDate>{{ pub_date }}</pubDate>
+    <lastBuildDate>{{ pub_date }}</lastBuildDate>
+    <atom:link href="{{ base_url }}/feed.xml" rel="self" type="application/rss+xml"/>
+    <generator>Tactical Dark Static Site Generator</generator>
+    <docs>http://www.rssboard.org/rss-specification/</docs>
+    {% for item in items %}
+    <item>
+      <title>{{ item.title|e }}</title>
+      <link>{{ base_url }}/blog/{{ item.slug }}/</link>
+      <guid isPermaLink="true">{{ base_url }}/blog/{{ item.slug }}/</guid>
+      <pubDate>{{ item.pub_date_formatted }}</pubDate>
+      <author>{{ author_email }} ({{ author_name }})</author>
+      <category>{{ item.tag|e }}</category>
+      <description><![CDATA[{{ item.excerpt|e }}]]></description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

@@ -1,0 +1,50 @@
+{# BLOG CATEGORY INDEX #}
+{% extends "base.html" %}
+
+{% block content %}
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+  <div class="mb-6">
+    <a href="../" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+      ← Home
+    </a>
+  </div>
+
+  <header class="mb-10 pb-6 border-b border-slate-800">
+    <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 mb-3">
+      {{ category_title }}
+    </h1>
+    <p class="text-sm font-sans text-slate-400 max-w-2xl leading-relaxed mb-6">
+      {{ category_description }}
+    </p>
+
+    {# Search / Filter input #}
+    <div class="max-w-md">
+      <input 
+        id="hud-filter-input"
+        data-target=".journal-entry"
+        type="text" 
+        placeholder="Filter by keyword..." 
+        class="w-full px-3 py-2 rounded-lg bg-[#0B0F17] border border-slate-800 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500/60 transition-colors"
+      >
+    </div>
+  </header>
+
+  <div class="space-y-1">
+    {% for item in entries %}
+    <article class="py-5 border-b border-slate-800 group journal-entry">
+      <div class="flex items-center gap-2 font-mono text-xs text-slate-500 mb-1.5">
+        <time datetime="{{ item.date }}">{{ item.date_display }}</time>
+        <span class="text-slate-700">&middot;</span>
+        <span>{{ item.read_time }}</span>
+      </div>
+      <h2 class="font-display font-bold text-lg text-slate-100 group-hover:text-amber-400 transition-colors mb-2">
+        <a href="{{ item.slug }}/">{{ item.title }}</a>
+      </h2>
+      <p class="text-sm text-slate-400 font-sans leading-relaxed">
+        {{ item.excerpt }}
+      </p>
+    </article>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

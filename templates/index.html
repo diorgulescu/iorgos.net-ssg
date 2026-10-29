@@ -1,0 +1,182 @@
+{# HOME PAGE TEMPLATE #}
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+  {# HERO SECTION #}
+  <section class="mb-14">
+    <h1 class="font-display font-bold text-3xl sm:text-5xl text-slate-100 tracking-tight leading-tight mb-3">
+      {{ site_author }}
+    </h1>
+    <p class="font-mono text-xs uppercase tracking-wider text-amber-400 mb-5">
+      {{ site_subtitle_short }}
+    </p>
+    <p class="text-base sm:text-lg text-slate-300 font-sans leading-relaxed max-w-2xl mb-3">
+      {{ site_bio }}
+    </p>
+    <p class="text-sm text-slate-400 font-sans leading-relaxed max-w-2xl mb-6">
+      See what I'm currently focused on right now on my <a href="now.html" class="text-amber-400 hover:underline font-medium">now page</a>.
+    </p>
+    <div class="flex flex-wrap gap-4 text-xs font-mono text-slate-400">
+      <a href="blog/" class="hover:text-amber-400 transition-colors">→ Journal ({{ "%02d"|format(blog_count) }})</a>
+      <a href="programe/" class="hover:text-amber-400 transition-colors">→ Programs ({{ "%02d"|format(programe_count) }})</a>
+      <a href="howto/" class="hover:text-amber-400 transition-colors">→ How-To ({{ "%02d"|format(howto_count) }})</a>
+      <a href="sounds/" class="hover:text-amber-400 transition-colors">→ Sounds (05)</a>
+    </div>
+  </section>
+
+  {# JOURNAL SECTION #}
+  <section class="mb-14">
+    <div class="flex items-center justify-between pb-2 mb-4 border-b border-slate-800">
+      <h2 class="font-display font-bold text-xl text-slate-100 tracking-tight">
+        Recent Journal Entries
+      </h2>
+      <a href="blog/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+        All entries ({{ blog_count }}) →
+      </a>
+    </div>
+
+    <div class="space-y-1">
+      {% for post in recent_posts %}
+      <article class="group py-2.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 border-b border-slate-800/40 hover:border-slate-700/60 transition-colors">
+        <div class="flex-1">
+          <a href="blog/{{ post.slug }}/" class="font-display font-medium text-slate-200 group-hover:text-amber-400 transition-colors text-sm sm:text-base">
+            {{ post.title }}
+          </a>
+        </div>
+        <div class="flex items-center gap-2 font-mono text-xs text-slate-500 flex-shrink-0">
+          <span>{{ post.read_time }}</span>
+          <span class="text-slate-700">&middot;</span>
+          <time datetime="{{ post.date }}">{{ post.date_display }}</time>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  {# TRAINING FRAMEWORKS #}
+  <section class="mb-14">
+    <div class="flex items-center justify-between pb-2 mb-4 border-b border-slate-800">
+      <h2 class="font-display font-bold text-xl text-slate-100 tracking-tight">
+        Training Frameworks
+      </h2>
+      <a href="programe/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+        All Programs →
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      {% for program in programs %}
+      <a href="programe/{{ program.slug }}/" class="tactical-card p-5 flex flex-col justify-between transition-all group">
+        <div>
+          <div class="font-mono text-[11px] text-slate-500 uppercase tracking-wider mb-2">{{ program.badge }}</div>
+          <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-amber-400 transition-colors mb-2">{{ program.title }}</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">{{ program.description }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  {# HOW-TO GUIDES #}
+  <section class="mb-14">
+    <div class="flex items-center justify-between pb-2 mb-4 border-b border-slate-800">
+      <h2 class="font-display font-bold text-xl text-slate-100 tracking-tight">
+        Technical Guides &amp; How-Tos
+      </h2>
+      <a href="howto/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+        All guides ({{ howto_count }}) →
+      </a>
+    </div>
+
+    <div class="space-y-1">
+      {% for guide in recent_guides %}
+      <article class="group py-2.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 border-b border-slate-800/40 hover:border-slate-700/60 transition-colors">
+        <div class="flex-1">
+          <a href="howto/{{ guide.slug }}/" class="font-display font-medium text-slate-200 group-hover:text-amber-400 transition-colors text-sm sm:text-base">
+            {{ guide.title }}
+          </a>
+        </div>
+        <div class="flex items-center gap-2 font-mono text-xs text-slate-500 flex-shrink-0">
+          <span>{{ guide.read_time }}</span>
+          <span class="text-slate-700">&middot;</span>
+          <time datetime="{{ guide.date }}">{{ guide.date_display }}</time>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  {# PROJECTS & AUDIO #}
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="tactical-card p-5">
+      <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
+        <h3 class="font-display font-bold text-base text-slate-100">Open Source &amp; Tools</h3>
+        <a href="https://github.com/diorgulescu" target="_blank" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">github.com/diorgulescu ↗</a>
+      </div>
+      <ul class="space-y-3 font-sans text-xs text-slate-300">
+        <li>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/diorgulescu/tcpflowy" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">tcpflowy →</a>
+            <span class="tag">v1.0.0 &bull; PyPI</span>
+          </div>
+          <span class="text-slate-400 block mt-0.5">Terminal network flow analysis &amp; TCP visualization tool, available on <a href="https://pypi.org/project/tcpflowy/" target="_blank" class="text-amber-400 hover:underline">PyPI</a>.</span>
+        </li>
+        <li>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/diorgulescu/GirevoyPulse" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">GirevoyPulse →</a>
+            <span class="tag">Xcode &amp; Android Studio</span>
+          </div>
+          <span class="text-slate-400 block mt-0.5">Real-time heart-rate telemetry &amp; pace monitor for kettlebell sport and alactic conditioning.</span>
+        </li>
+        <li>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/diorgulescu/DAMF" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">DAMF →</a>
+            <span class="tag">Updated</span>
+          </div>
+          <span class="text-slate-400 block mt-0.5">Device automation framework for embedded hardware testing and lab validation.</span>
+        </li>
+        <li>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/diorgulescu/suckless-debian" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">suckless-debian →</a>
+            <span class="tag">amd64 &bull; ARM &bull; i386</span>
+          </div>
+          <span class="text-slate-400 block mt-0.5">Minimalist keyboard-driven Debian environment built on dwm, dmenu, and st with multi-arch support.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tactical-card p-5 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
+          <h3 class="font-display font-bold text-base text-slate-100">Audio Labs &amp; Modular</h3>
+          <a href="sounds/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">sounds/ ↗</a>
+        </div>
+        <div class="space-y-3 font-sans text-xs text-slate-300 mb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <a href="https://github.com/voidwave-lab" target="_blank" class="font-mono font-semibold text-slate-100 hover:text-amber-400 hover:underline">voidwave-lab →</a>
+              <span class="tag">4 Open Source Tools</span>
+            </div>
+            <span class="text-slate-400 block mt-0.5">DSP audio generators for experimental, glitch &amp; ambient music: Modular Synth, MS-20 mini clone, test equipment studio, and Aetherium generative ambient sanctuary.</span>
+          </div>
+          <div>
+            <span class="font-mono font-semibold text-slate-200">Musical Archives &amp; Releases</span>
+            <span class="text-slate-400 block mt-0.5">Over 15 years exploring hardware modular synthesis, drone soundscapes, field recordings, and raw living-room sessions.</span>
+          </div>
+        </div>
+      </div>
+      <div class="pt-3 border-t border-slate-800">
+        <a href="sounds/" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors flex items-center justify-between">
+          <span>Explore sound archives &amp; DSP tools (5 monikers)</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

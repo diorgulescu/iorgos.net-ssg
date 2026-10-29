@@ -1,0 +1,55 @@
+{# CLEAN EDITORIAL NAVBAR #}
+<header class="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="{{ root_path }}" class="flex items-center gap-2 group">
+      <span class="font-display font-bold text-slate-100 text-base tracking-tight hover:text-amber-400 transition-colors">
+        {{ site_handle|default(site_title) }}
+      </span>
+    </a>
+
+    {# Desktop Nav #}
+    <nav class="hidden md:flex items-center gap-6 font-mono text-xs">
+      <a href="{{ root_path }}blog/" {% if active_nav == 'blog' %}class="text-slate-100 font-semibold"{% else %}class="text-slate-400 hover:text-slate-100 transition-colors"{% endif %}>Journal</a>
+      <a href="{{ root_path }}programe/" {% if active_nav == 'programe' %}class="text-slate-100 font-semibold"{% else %}class="text-slate-400 hover:text-slate-100 transition-colors"{% endif %}>Programs</a>
+      <a href="{{ root_path }}sounds/" {% if active_nav == 'sounds' %}class="text-slate-100 font-semibold"{% else %}class="text-slate-400 hover:text-slate-100 transition-colors"{% endif %}>Sounds</a>
+      <a href="{{ root_path }}howto/" {% if active_nav == 'howto' %}class="text-slate-100 font-semibold"{% else %}class="text-slate-400 hover:text-slate-100 transition-colors"{% endif %}>How-To</a>
+      <a href="{{ root_path }}now.html" class="inline-flex items-center gap-1.5 {% if active_nav == 'now' %}text-slate-100 font-semibold{% else %}text-slate-400 hover:text-slate-100 transition-colors{% endif %}">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+        Now
+      </a>
+      <a href="{{ root_path }}search.html" class="text-slate-400 hover:text-sky-400 transition-colors" title="Search">
+        <span class="font-mono text-sm">🔍</span>
+      </a>
+      <a href="{{ root_path }}feed.xml" class="text-slate-400 hover:text-orange-400 transition-colors" title="RSS Feed">
+        <span class="font-mono text-sm">📡</span>
+      </a>
+
+      {# Minimal Theme Toggle Button #}
+      <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded text-slate-400 hover:text-slate-100 transition-colors cursor-pointer" title="Toggle Theme" aria-label="Toggle Theme">
+        <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
+      </button>
+    </nav>
+
+    {# Mobile Menu Button & Toggle #}
+    <div class="flex items-center gap-2 md:hidden">
+      <button type="button" class="theme-toggle-btn p-2 rounded text-slate-400 hover:text-slate-100 cursor-pointer" aria-label="Toggle Theme">
+        <span class="theme-toggle-icon font-mono text-sm leading-none">☼</span>
+      </button>
+      <button id="mobile-menu-btn" class="p-2 rounded text-slate-400 hover:text-white font-mono text-xs" aria-label="Menu">
+        <span>menu</span>
+      </button>
+    </div>
+  </div>
+
+  {# Mobile Dropdown #}
+  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0B0F17]/98 px-4 py-4 space-y-3 font-mono text-xs">
+    <a href="{{ root_path }}" class="block text-slate-300 hover:text-white">Home</a>
+    <a href="{{ root_path }}blog/" class="block text-slate-300 hover:text-white">Journal</a>
+    <a href="{{ root_path }}programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
+    <a href="{{ root_path }}sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
+    <a href="{{ root_path }}howto/" class="block text-slate-300 hover:text-white">How-To</a>
+    <a href="{{ root_path }}search.html" class="block text-sky-400 hover:text-sky-300">Search</a>
+    <a href="{{ root_path }}now.html" class="block text-amber-400 font-semibold">Now</a>
+    <a href="{{ root_path }}feed.xml" class="block text-orange-400 hover:text-orange-300">RSS Feed</a>
+  </div>
+</header>

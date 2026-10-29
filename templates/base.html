@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  {% include 'partials/head.html' %}
+</head>
+<body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
+  {% block header %}{% include 'partials/header.html' %}{% endblock %}
+  
+  {% block content %}{% endblock %}
+  
+  {% block footer %}{% include 'partials/footer.html' %}{% endblock %}
+</body>
+</html>

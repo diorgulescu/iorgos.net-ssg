@@ -1,0 +1,45 @@
+{# PROGRAME CATEGORY INDEX #}
+{% extends "base.html" %}
+
+{% block content %}
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+  <!-- PAGE HEADER -->
+  <div class="mb-10 pb-6 border-b border-slate-800/60">
+    <div class="font-mono text-xs text-slate-400 mb-2">
+      STREAM 02 // PHYSICAL PREPARATION & CONDITIONING
+    </div>
+    <div class="flex flex-wrap items-baseline justify-between gap-4">
+      <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 tracking-tight">
+        {{ page_title|default("Training Frameworks") }}
+      </h1>
+      <div class="font-mono text-xs text-slate-400">
+        <a href="https://github.com/diorgulescu/GirevoyPulse" target="_blank" class="hover:text-amber-400 transition-colors">Telemetry: GirevoyPulse &rarr;</a>
+      </div>
+    </div>
+    <p class="text-slate-400 text-sm max-w-2xl leading-relaxed mt-3">
+      {{ description|default("Structured physical preparation frameworks, kettlebell progressions, and conditioning protocols.") }}
+    </p>
+  </div>
+
+  <!-- PROGRAM CARDS GRID -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    {% for program in programs %}
+    <a href="{{ program.slug }}/" class="tactical-card p-5 flex flex-col justify-between transition-all group">
+      <div>
+        <div class="font-mono text-[11px] text-slate-500 uppercase tracking-wider mb-2">{{ program.badge }}</div>
+        <h3 class="font-display font-bold text-base text-slate-100 group-hover:text-amber-400 transition-colors mb-2">{{ program.title }}</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">{{ program.description }}</p>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+  {% if content %}
+  <div class="mt-12 pt-6 border-t border-slate-800/60">
+    <article class="prose-tactical text-slate-300">
+      {{ content|safe }}
+    </article>
+  </div>
+  {% endif %}
+</main>
+{% endblock %}
