@@ -874,3 +874,33 @@ input {
 }
 input:focus { border-color: var(--border-focus); }
 input::placeholder { color: var(--text-muted); }
+
+/* Image styling - centered, responsive, with rounded corners */
+article img,
+.prose-tactical img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+}
+
+/* Images inside paragraphs - make them block and centered */
+article p img,
+.prose-tactical p img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+}
+
+/* Ensure images in lists are also styled */
+article li img,
+.prose-tactical li img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  border-radius: 8px;
+}

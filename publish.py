@@ -484,6 +484,11 @@ def generate_standalone_page(template_name, output_path, meta, content_html):
     """Generate a standalone page from a template."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     
+    # Calculate depth based on how many levels deep the output is
+    # e.g., public/sounds/index.html -> depth 1, public/index.html -> depth 0
+    rel_path = output_path.relative_to(OUTPUT_DIR)
+    depth = len(rel_path.parts) - 1  # Subtract 1 for the filename itself
+    
     title = meta.get('title', output_path.stem.replace('-', ' ').capitalize())
     date_display = format_display_date(meta.get('date', ''))
     
@@ -494,7 +499,7 @@ def generate_standalone_page(template_name, output_path, meta, content_html):
         date_display=date_display,
         tag=meta.get('tag', ''),
         content=content_html,
-        root_path=get_root_path(0)
+        root_path=get_root_path(depth)
     )
 
     with open(output_path, "w", encoding="utf-8") as f:
