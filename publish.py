@@ -238,6 +238,104 @@ def parse_markdown(raw_content):
     rendered_html = '\n\n'.join(out_blocks)
     return meta, rendered_html, body
 
+
+def validate_frontmatter(meta, category, filepath=""):
+    """
+    Validates frontmatter metadata for consistency and completeness.
+    Returns a tuple of (is_valid, errors_list, warnings_list) where:
+    - is_valid: True if no critical errors
+    - errors_list: List of critical error messages
+    - warnings_list: List of non-critical warning messages
+    """
+    errors = []
+    warnings = []
+    
+    # Validate title
+    if not meta.get("title"):
+        if filepath:
+            errors.append(f"[ERR // VALIDATION] Missing 'title' in {filepath}")
+        else:
+            errors.append("[ERR // VALIDATION] Missing 'title' in frontmatter")
+    
+    # Validate date format
+    date_str = meta.get("date")
+    if date_str:
+        try:
+            # Try to parse various date formats
+            for fmt in ["%Y-%m-%d", "%Y-%m-%d %H:%M:%S", "%d %b %Y"]:
+                try:
+                    datetime.strptime(str(date_str).strip().split()[0], fmt)
+                    break
+                except ValueError:
+                    continue
+            else:
+                if filepath:
+                    warnings.append(f"[WARN // VALIDATION] Invalid date format '{date_str}' in {filepath}. Expected YYYY-MM-DD or similar.")
+                else:
+                    warnings.append(f"[WARN // VALIDATION] Invalid date format '{date_str}'. Expected YYYY-MM-DD or similar.")
+        except Exception:
+            if filepath:
+                warnings.append(f"[WARN // VALIDATION] Could not parse date '{date_str}' in {filepath}")
+            else:
+                warnings.append(f"[WARN // VALIDATION] Could not parse date '{date_str}'")
+    else:
+        if category == "blog":
+            if filepath:
+                warnings.append(f"[WARN // VALIDATION] Missing 'date' in {filepath}. Will use current date.")
+            else:
+                warnings.append("[WARN // VALIDATION] Missing 'date' in frontmatter. Will use current date.")
+    
+    # Validate slug
+    slug = meta.get("slug")
+    if slug:
+        if not re.match(r'^[a-z0-9-]+$', slug):
+            if filepath:
+                warnings.append(f"[WARN // VALIDATION] Slug '{slug}' in {filepath} contains invalid characters. Use lowercase letters, numbers, and hyphens only.")
+            else:
+                warnings.append(f"[WARN // VALIDATION] Slug '{slug}' contains invalid characters. Use lowercase letters, numbers, and hyphens only.")
+    
+    # Validate category
+    if category and category not in ["blog", "howto", "programe"]:
+        if filepath:
+            warnings.append(f"[WARN // VALIDATION] Unknown category '{category}' in {filepath}. Expected 'blog', 'howto', or 'programe'.")
+        else:
+            warnings.append(f"[WARN // VALIDATION] Unknown category '{category}'. Expected 'blog', 'howto', or 'programe'.")
+    
+    # Validate tag if present
+    tag = meta.get("tag")
+    if tag and len(tag) > 50:
+        if filepath:
+            warnings.append(f"[WARN // VALIDATION] Tag '{tag}' in {filepath} is too long (max 50 chars).")
+        else:
+            warnings.append(f"[WARN // VALIDATION] Tag '{tag}' is too long (max 50 chars).")
+    
+    # Validate excerpt if present
+    excerpt = meta.get("excerpt")
+    if excerpt and len(excerpt) > 300:
+        if filepath:
+            warnings.append(f"[WARN // VALIDATION] Excerpt in {filepath} is too long (max 300 chars). Got {len(excerpt)} chars.")
+        else:
+            warnings.append(f"[WARN // VALIDATION] Excerpt is too long (max 300 chars). Got {len(excerpt)} chars.")
+    
+    # Validate read_time format
+    read_time = meta.get("read_time")
+    if read_time and not re.match(r'^[0-9]+ MIN READ$', read_time):
+        if filepath:
+            warnings.append(f"[WARN // VALIDATION] read_time '{read_time}' in {filepath} has unexpected format. Expected '5 MIN READ' format.")
+        else:
+            warnings.append(f"[WARN // VALIDATION] read_time '{read_time}' has unexpected format. Expected '5 MIN READ' format.")
+    
+    # Validate draft flag
+    draft = meta.get("draft")
+    if draft and str(draft).lower() not in ["true", "false", "1", "0", "yes", "no"]:
+        if filepath:
+            warnings.append(f"[WARN // VALIDATION] draft value '{draft}' in {filepath} is not a valid boolean. Use true/false, yes/no, or 1/0.")
+        else:
+            warnings.append(f"[WARN // VALIDATION] draft value '{draft}' is not a valid boolean. Use true/false, yes/no, or 1/0.")
+    
+    return len(errors) == 0, errors, warnings
+
+
 def clean_content_paths(content_html, depth=0):
     root_path = "./" if depth == 0 else "../" * depth
     # rewrite root /images/ to relative {root_path}images/
@@ -281,6 +379,8 @@ def get_html_head(title, depth=0):
 
   <!-- Frugal Tactical Design System (100% Autonomous / Zero External CDNs) -->
   <link rel="stylesheet" href="{root_path}css/tactical.css">
+  <!-- Local lunr.js for advanced search (100% Autonomous) -->
+  <script src="{root_path}js/lunr.min.js"></script>
 </head>
 <body class="bg-[#0B0F17] text-slate-300 font-sans antialiased selection:bg-emerald-500/30 selection:text-white">
 """
@@ -314,6 +414,9 @@ def get_header(active_nav="", depth=0):
           <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
           Now
         </a>
+        <a href="{root_path}search.html" class="text-slate-400 hover:text-sky-400 transition-colors" title="Search">
+          <span class="font-mono text-sm">🔍</span>
+        </a>
         <a href="{root_path}feed.xml" class="text-slate-400 hover:text-orange-400 transition-colors" title="RSS Feed">
           <span class="font-mono text-sm">📡</span>
         </a>
@@ -342,6 +445,7 @@ def get_header(active_nav="", depth=0):
       <a href="{root_path}programe/" class="block text-slate-300 hover:text-white">Training Programs</a>
       <a href="{root_path}sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
       <a href="{root_path}howto/" class="block text-slate-300 hover:text-white">How-To</a>
+      <a href="{root_path}search.html" class="block text-sky-400 hover:text-sky-300">Search</a>
       <a href="{root_path}now.html" class="block text-amber-400 font-semibold">Now</a>
       <a href="{root_path}feed.xml" class="block text-orange-400 hover:text-orange-300">RSS Feed</a>
     </div>
@@ -902,6 +1006,139 @@ Sitemap: {base_url}/sitemap.xml
     print("[SYS // ROBOTS] Generated public/robots.txt")
 
 
+def generate_search_index(blog_items, howto_items):
+    """
+    Generates a JSON search index for client-side search using lunr.js.
+    The index includes blog posts and how-to guides for full-site search.
+    """
+    index_data = []
+    
+    # Add blog posts
+    for item in blog_items:
+        index_data.append({
+            "id": f"blog/{item['slug']}/",
+            "title": item.get("title", item["slug"]),
+            "url": f"/blog/{item['slug']}/",
+            "excerpt": item.get("excerpt", ""),
+            "content": item.get("content_html", ""),
+            "category": "blog",
+            "category_name": "Journal",
+            "date": item.get("date", ""),
+            "tag": item.get("tag", ""),
+            "read_time": item.get("read_time", "")
+        })
+    
+    # Add how-to guides
+    for item in howto_items:
+        index_data.append({
+            "id": f"howto/{item['slug']}/",
+            "title": item.get("title", item["slug"]),
+            "url": f"/howto/{item['slug']}/",
+            "excerpt": item.get("excerpt", ""),
+            "content": item.get("content_html", ""),
+            "category": "howto",
+            "category_name": "How-To",
+            "date": item.get("date", ""),
+            "tag": item.get("tag", ""),
+            "read_time": item.get("read_time", "")
+        })
+    
+    # Sort by date descending
+    index_data.sort(key=lambda x: x.get("date", ""), reverse=True)
+    
+    # Write index file
+    index_file = OUTPUT_DIR / "js" / "search-index.json"
+    index_file.parent.mkdir(parents=True, exist_ok=True)
+    
+        # Strip HTML tags from content for better search quality
+    import re
+    html_tag_pattern = re.compile(r'<[^>]+>')
+    
+    for doc in index_data:
+        doc['content_clean'] = html_tag_pattern.sub(' ', doc.get('content', '')).strip()
+        doc['content_clean'] = ' '.join(doc['content_clean'].split())  # Normalize whitespace
+    
+    import json
+    with open(index_file, "w", encoding="utf-8") as fp:
+        json.dump(index_data, fp, ensure_ascii=False, indent=2)
+    
+    print(f"[SYS // SEARCH] Generated public/js/search-index.json with {len(index_data)} entries ({len(blog_items)} blog + {len(howto_items)} howto)")
+
+
+def generate_search_page():
+    """
+    Generates a dedicated search page at public/search.html
+    """
+    search_html = f"""{get_html_head("Search // Site-Wide", depth=0)}
+{get_header(depth=0)}
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+  <!-- BREADCRUMB -->
+  <div class="mb-8">
+    <a href="./" class="font-mono text-xs text-slate-400 hover:text-amber-400 transition-colors">
+      ← Home
+    </a>
+  </div>
+
+  <!-- SEARCH HEADER -->
+  <header class="mb-10 pb-6 border-b border-slate-800">
+    <div class="inline-flex items-center gap-2 font-mono text-xs text-slate-400 mb-3">
+      <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+      STREAM // SEARCH
+    </div>
+    <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 tracking-tight mb-2">
+      Search
+    </h1>
+    <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">
+      Search across all journal entries and technical guides. Results appear instantly as you type.
+    </p>
+  </header>
+
+  <!-- SEARCH FORM -->
+  <form 
+    id="site-search-form" 
+    class="max-w-2xl mx-auto mb-8"
+    role="search"
+    aria-label="Site search form"
+  >
+    <div class="relative">
+      <i class="ph-bold ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+      <input 
+        id="site-search-input"
+        type="search"
+        placeholder="Search journal entries and guides..."
+        class="w-full pl-9 pr-4 py-3 rounded-xl bg-[#0B0F17] border border-slate-800 text-sm font-sans text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500/60 transition-colors"
+        autocomplete="off"
+        aria-label="Search"
+      >
+    </div>
+  </form>
+
+  <!-- SEARCH RESULTS CONTAINER -->
+  <div id="search-results" class="tactical-panel hidden" style="display: none;"></div>
+
+  <!-- SEARCH TIPS -->
+  <div class="max-w-2xl mx-auto tactical-panel p-6 sm:p-8">
+    <div class="font-mono text-xs uppercase tracking-wider text-slate-400 mb-4">SEARCH TIPS</div>
+    <ul class="space-y-3 text-sm text-slate-400 font-sans">
+      <li><strong class="text-slate-200">Type at least 2 characters</strong> to start searching.</li>
+      <li><strong class="text-slate-200">Results update in real-time</strong> as you type.</li>
+      <li><strong class="text-slate-200">Searches through:</strong> titles, content, excerpts, tags, and categories.</li>
+      <li><strong class="text-slate-200">Use quotes</strong> for exact phrase matching (e.g., <code>"kettlebell training"</code>).</li>
+      <li><strong class="text-slate-200">Use AND/OR</strong> for boolean logic (e.g., <code>kettlebell AND programming</code>).</li>
+      <li>Try searching for: <code>kettlebell</code>, <code>StrongFirst</code>, <code>Python</code>, <code>homelab</code></li>
+    </ul>
+  </div>
+</main>
+
+{get_footer(depth=0)}"""
+
+    search_file = OUTPUT_DIR / "search.html"
+    with open(search_file, "w", encoding="utf-8") as fp:
+        fp.write(search_html)
+    print("[SYS // SEARCH] Generated public/search.html")
+
+
 def generate_rss_feed(blog_items):
     """
     Generates RSS 2.0 feed for the blog section at public/feed.xml
@@ -1010,6 +1247,16 @@ def load_and_compile_all():
                 raw = fp.read()
             meta, content_html, body = parse_markdown(raw)
 
+            # Validate frontmatter
+            is_valid, errors, warnings = validate_frontmatter(meta, "blog", str(md_file))
+            for error in errors:
+                print(error)
+            for warning in warnings:
+                print(warning)
+            if not is_valid:
+                print(f"[ERR // VALIDATION] Skipping {md_file} due to validation errors")
+                continue
+
             slug = meta.get("slug") or md_file.stem
 
             # Check draft status
@@ -1071,6 +1318,16 @@ def load_and_compile_all():
             with open(md_file, "r", encoding="utf-8") as fp:
                 raw = fp.read()
             meta, content_html, body = parse_markdown(raw)
+
+            # Validate frontmatter
+            is_valid, errors, warnings = validate_frontmatter(meta, "howto", str(md_file))
+            for error in errors:
+                print(error)
+            for warning in warnings:
+                print(warning)
+            if not is_valid:
+                print(f"[ERR // VALIDATION] Skipping {md_file} due to validation errors")
+                continue
 
             slug = meta.get("slug") or md_file.stem
 
@@ -1135,6 +1392,12 @@ def load_and_compile_all():
 
     # 8. Generate RSS Feed for Blog
     generate_rss_feed(blog_items)
+
+    # 9. Generate Search Index
+    generate_search_index(blog_items, howto_items)
+
+    # 10. Generate Search Page
+    generate_search_page()
 
     return blog_items, howto_items
 
@@ -1249,6 +1512,17 @@ def publish_markdown_file(filepath, forced_category=None):
     if category not in ["blog", "howto", "programe"]:
         print(f"[WARN // CATEGORY] Unrecognized category '{category}', defaulting to 'blog'")
         category = "blog"
+
+    # Validate frontmatter
+    is_valid, errors, warnings = validate_frontmatter(meta, category, str(p))
+    for error in errors:
+        print(error)
+    for warning in warnings:
+        print(warning)
+    
+    if not is_valid:
+        print(f"[ERR // VALIDATION] Frontmatter validation failed for {p}. Fix errors above.")
+        sys.exit(1)
 
     # Title & slug
     title = meta.get("title")

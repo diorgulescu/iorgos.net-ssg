@@ -151,4 +151,100 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // 7. Advanced Site-Wide Search with lunr.js
+  // Check if lunr.js is loaded and search index exists
+  if (typeof lunr !== 'undefined') {
+    let searchIndex = null;
+    let searchData = [];
+    
+    // Load search index
+    fetch('/js/search-index.json')
+      .then((response) => {
+        if (!response.ok) throw new Error('Search index not found');
+        return response.json();
+      })
+      .then((data) => {
+        searchData = data;
+        
+        // Build lunr index
+        searchIndex = lunr(function () {
+          this.ref('id');
+          this.field('title', { boost: 10 });
+          this.field('content_clean');
+          this.field('excerpt', { boost: 5 });
+          this.field('tag', { boost: 3 });
+          this.field('category_name', { boost: 2 });
+          this.metadataWhitelist = ['position'];
+          
+          data.forEach((doc) => {
+            this.add(doc);
+          });
+        });
+        
+        // Set up search form if it exists
+        const searchForm = document.getElementById('site-search-form');
+        const searchField = document.getElementById('site-search-input');
+        const searchResults = document.getElementById('search-results');
+        
+        if (searchForm && searchField) {
+          searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            performSearch(searchField.value);
+          });
+          
+          searchField.addEventListener('input', (e) => {
+            if (e.target.value.length >= 2) {
+              performSearch(e.target.value);
+            } else if (searchResults) {
+              searchResults.innerHTML = '';
+              searchResults.style.display = 'none';
+            }
+          });
+        }
+        
+        function performSearch(query) {
+          if (!query || query.length < 2) {
+            if (searchResults) {
+              searchResults.innerHTML = '';
+              searchResults.style.display = 'none';
+            }
+            return;
+          }
+          
+          const results = searchIndex.search(query);
+          
+          if (searchResults) {
+            if (results.length === 0) {
+              searchResults.innerHTML = '<p class="p-4 text-slate-400 text-sm">No results found.</p>';
+              searchResults.style.display = 'block';
+            } else {
+              const html = results
+                .map((result) => {
+                  const doc = searchData.find((d) => d.id === result.ref);
+                  if (!doc) return '';
+                  
+                  return `
+                    <a href="${doc.url}" class="block p-3 border-b border-slate-800 hover:bg-slate-900/50 transition-colors">
+                      <div class="font-display font-semibold text-slate-200 text-sm mb-1">${doc.title}</div>
+                      <div class="text-xs text-slate-400 font-mono mb-1">${doc.category_name} &bull; ${doc.date || ''}</div>
+                      <p class="text-sm text-slate-400 line-clamp-2">${doc.excerpt || ''}</p>
+                    </a>
+                  `;
+                })
+                .join('');
+              
+              searchResults.innerHTML = html;
+              searchResults.style.display = 'block';
+            }
+          }
+        }
+        
+        // Global search function for programmatic access
+        window.performSiteSearch = performSearch;
+      })
+      .catch((err) => {
+        console.warn('[SEARCH] Could not load search index:', err.message);
+      });
+  }
 });
