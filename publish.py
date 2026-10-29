@@ -266,6 +266,7 @@ def get_html_head(title, depth=0):
   
   <link rel="icon" type="image/x-icon" href="{root_path}images/favicon.ico">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="{root_path}sitemap.xml">
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{root_path}feed.xml">
   
   <!-- Zero-FOUC Theme Initializer: detects saved preference or OS system theme -->
   <script>
@@ -313,6 +314,9 @@ def get_header(active_nav="", depth=0):
           <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
           Now
         </a>
+        <a href="{root_path}feed.xml" class="text-slate-400 hover:text-orange-400 transition-colors" title="RSS Feed">
+          <span class="font-mono text-sm">📡</span>
+        </a>
 
         <!-- Minimal Theme Toggle Button -->
         <button type="button" class="theme-toggle-btn ml-2 p-1.5 rounded text-slate-400 hover:text-slate-100 transition-colors cursor-pointer" title="Toggle Theme" aria-label="Toggle Theme">
@@ -339,6 +343,7 @@ def get_header(active_nav="", depth=0):
       <a href="{root_path}sounds/" class="block text-slate-300 hover:text-white">Sounds</a>
       <a href="{root_path}howto/" class="block text-slate-300 hover:text-white">How-To</a>
       <a href="{root_path}now.html" class="block text-amber-400 font-semibold">Now</a>
+      <a href="{root_path}feed.xml" class="block text-orange-400 hover:text-orange-300">RSS Feed</a>
     </div>
   </header>
 """
@@ -896,6 +901,92 @@ Sitemap: {base_url}/sitemap.xml
         fp.write(robots_content)
     print("[SYS // ROBOTS] Generated public/robots.txt")
 
+
+def generate_rss_feed(blog_items):
+    """
+    Generates RSS 2.0 feed for the blog section at public/feed.xml
+    and public/blog/feed.xml for better compatibility.
+    """
+    if not blog_items:
+        print("[WARN // RSS] No blog items found, skipping RSS feed generation")
+        return
+
+    base_url = SITE_CONFIG.get("site_url", "https://iorgos.net").rstrip("/")
+    site_title = SITE_CONFIG.get("author", "Dragoș Iorgulescu")
+    site_description = "Personal website, training frameworks, technical how-tos, and audio archives by Dragoș Iorgulescu."
+    from datetime import timezone
+    now = datetime.now(timezone.utc)
+    pub_date = now.strftime("%a, %d %b %Y %H:%M:%S +0000")
+
+    # Sort blog items by date descending (newest first)
+    sorted_items = sorted(blog_items, key=lambda x: str(x["date"]), reverse=True)
+
+    rss_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+        f'  <channel>',
+        f'    <title>{html.escape(site_title)}</title>',
+        f'    <link>{base_url}</link>',
+        f'    <description>{html.escape(site_description)}</description>',
+        f'    <language>ro-RO</language>',
+        f'    <pubDate>{pub_date}</pubDate>',
+        f'    <lastBuildDate>{pub_date}</lastBuildDate>',
+        f'    <atom:link href="{base_url}/feed.xml" rel="self" type="application/rss+xml"/>',
+        f'    <generator>Tactical Dark Static Site Generator</generator>',
+        f'    <docs>http://www.rssboard.org/rss-specification/</docs>',
+    ]
+
+    author_name = SITE_CONFIG.get("author", "Dragoș Iorgulescu")
+    author_email = SITE_CONFIG.get("email", "dragos@iorgos.net")
+    
+    for item in sorted_items:
+        slug = item["slug"]
+        title = item.get("title", slug.capitalize())
+        link = f"{base_url}/blog/{slug}/"
+        pub_date_item = item.get("date", "2021-01-01")
+        
+        try:
+            dt = datetime.strptime(str(pub_date_item).strip().split()[0], "%Y-%m-%d")
+            rfc_date = dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
+        except (ValueError, TypeError):
+            rfc_date = pub_date
+        
+        description = item.get("excerpt", "")
+        if not description:
+            description = f"Journal dispatch: {title}"
+        
+        # Clean description for RSS - ensure it's valid CDATA
+        description_clean = description.strip()
+        
+        tag = item.get("tag", "Journal")
+        
+        rss_lines.append(f'    <item>')
+        rss_lines.append(f'      <title>{html.escape(title)}</title>')
+        rss_lines.append(f'      <link>{link}</link>')
+        rss_lines.append(f'      <guid isPermaLink="true">{link}</guid>')
+        rss_lines.append(f'      <pubDate>{rfc_date}</pubDate>')
+        rss_lines.append(f'      <author>{html.escape(author_email)} ({html.escape(author_name)})</author>')
+        rss_lines.append(f'      <category>{html.escape(tag)}</category>')
+        rss_lines.append(f'      <description><![CDATA[{description_clean}]]></description>')
+        rss_lines.append(f'    </item>')
+
+    rss_lines.append(f'  </channel>')
+    rss_lines.append(f'</rss>')
+    rss_content = "\n".join(rss_lines) + "\n"
+
+    # Write main feed at root
+    feed_file = OUTPUT_DIR / "feed.xml"
+    with open(feed_file, "w", encoding="utf-8") as fp:
+        fp.write(rss_content)
+    print(f"[SYS // RSS] Generated public/feed.xml with {len(sorted_items)} blog entries")
+
+    # Also write to blog/feed.xml for compatibility
+    blog_feed_file = OUTPUT_DIR / "blog" / "feed.xml"
+    with open(blog_feed_file, "w", encoding="utf-8") as fp:
+        fp.write(rss_content)
+    print(f"[SYS // RSS] Generated public/blog/feed.xml")
+
+
 # --- Core Scanner & Rebuilder ---
 def load_and_compile_all():
     content_dir = BASE_DIR / "content"
@@ -1041,6 +1132,9 @@ def load_and_compile_all():
 
     # 7. Generate Sitemap & Robots.txt
     generate_sitemap(blog_items, howto_items)
+
+    # 8. Generate RSS Feed for Blog
+    generate_rss_feed(blog_items)
 
     return blog_items, howto_items
 
