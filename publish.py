@@ -492,13 +492,15 @@ def generate_standalone_page(template_name, output_path, meta, content_html):
     title = meta.get('title', output_path.stem.replace('-', ' ').capitalize())
     date_display = format_display_date(meta.get('date', ''))
     
+    content_clean = clean_content_paths(content_html, depth=depth)
+    
     page_html = render_page(
         template_name,
         page_title=title,
         title=title,
         date_display=date_display,
         tag=meta.get('tag', ''),
-        content=content_html,
+        content=content_clean,
         root_path=get_root_path(depth)
     )
 

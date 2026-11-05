@@ -10,7 +10,7 @@ description: "A strength training framework centered on functional hypertrophy, 
         <img src="/images/svg/tension-spectrum.svg" alt="Tension Spectrum Blueprint">
     </div>
     <p class="lead"><strong>Tension Spectrum</strong> is a strength training framework built around the manipulation of muscular tension. Rooted in StrongFirst functional strength principles, it leverages movement complexes to simultaneously build structural resilience, mobility under load, and hypertrophy without central nervous system burnout.</p>
-    <a href="/docs/tension-spectrum.pdf" class="btn">Download Protocol PDF</a>
+    <a href="javascript:window.print()" class="tactical-btn">Print / Save PDF</a>
 </section>
 
 <hr class="separator" />
